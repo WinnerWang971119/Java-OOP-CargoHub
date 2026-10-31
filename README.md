@@ -80,6 +80,8 @@ Write `RecoveryPlanner.plan(Scenario)`. Read [OPERATION-RECOVERY.md](OPERATION-R
 | 3 | 3 seconds | up to 15 shipments, `truckCapacity` up to 1000, up to 30 conflicts |
 | 4 | 5 seconds | up to 12 cargo, 4 trucks, 3 days, capacity up to 1000 |
 
+The whole check stops after about 4 minutes, so keep every call fast, not just under the limit.
+
 ## How to run
 Press ▶ on `StarterTests.java` (or `Main.java`). Or, in a terminal in this folder:
 ```

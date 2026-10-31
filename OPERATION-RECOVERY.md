@@ -36,7 +36,7 @@ You may add your own classes next to `RecoveryPlanner` in `org.amped.service`.
 1. Most priority delivered on time (the score).
 2. On a tie, the fewest trips. One trip is one truck on one evening.
 
-`plan.getScore()` and `plan.getTripCount()` work both out for you.
+`Plan` works both out for you: `getScore()` and `getTripCount()`.
 
 ## The constraints
 - Each cargo ships at most once, in one piece.
