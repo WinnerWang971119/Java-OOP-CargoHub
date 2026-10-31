@@ -1,0 +1,1313 @@
+case hand-basic-storm
+horizon 3
+capacity 100
+stock A 5 4
+truck T1 30 0 1,2,3
+truck T2 20 0 2,3
+cargo C1 10 5 1 2 NONE
+cargo C2 15 8 1 1 NONE
+cargo C3 20 6 2 3 NONE
+cargo C4 10 3 3 3 NONE
+cargo C5 12 4 2 2 NONE
+best 26 3
+end
+
+case hand-empty-cargo
+horizon 2
+capacity 50
+stock A 10 3
+truck T1 20 0 1,2
+best 0 0
+end
+
+case hand-no-trucks
+horizon 2
+capacity 60
+stock A 10 2
+cargo X 10 5 1 2 NONE
+cargo Y 10 4 2 2 NONE
+best 0 0
+end
+
+case hand-exact-capacity
+horizon 1
+capacity 30
+stock A 5 2
+truck T1 20 0 1
+cargo X 20 9 1 1 NONE
+best 9 1
+end
+
+case hand-impossible-over-by-one
+horizon 1
+capacity 30
+stock A 5 2
+truck T1 50 0 1
+cargo X 21 9 1 1 NONE
+best -1
+end
+
+case hand-impossible-truck-down
+horizon 2
+capacity 50
+truck T1 40 0 2
+cargo X 30 5 1 2 NONE
+cargo Y 30 5 2 2 NONE
+best -1
+end
+
+case hand-impossible-hazmat-stuck
+horizon 2
+capacity 25
+truck T1 40 0 1,2
+cargo G 15 9 1 2 FLAMMABLE
+cargo N 15 3 2 2 NONE
+best -1
+end
+
+case hand-impossible-stock-over
+horizon 1
+capacity 20
+stock A 5 5
+truck T1 20 0 1
+best -1
+end
+
+case hand-hazmat-needs-certified
+horizon 2
+capacity 25
+truck T1 40 0 1,2
+truck T2 15 1 2
+cargo H1 10 9 1 2 FLAMMABLE
+cargo N1 10 4 1 1 NONE
+cargo N2 10 4 2 2 NONE
+best 17 3
+end
+
+case hand-conflict-splits-trip
+horizon 1
+capacity 100
+truck T1 100 1 1
+truck T2 100 1 1
+cargo F 10 5 1 1 FLAMMABLE
+cargo O 10 5 1 1 OXIDIZER
+cargo N 10 3 1 1 NONE
+conflict OXIDIZER FLAMMABLE
+best 13 2
+end
+
+case hand-conflict-chain
+horizon 1
+capacity 100
+truck T1 100 1 1
+truck T2 100 1 1
+cargo F 10 5 1 1 FLAMMABLE
+cargo O 10 5 1 1 OXIDIZER
+cargo C 10 5 1 1 CORROSIVE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+best 15 2
+end
+
+case hand-same-class-shares-trip
+horizon 1
+capacity 100
+truck T1 100 1 1
+cargo F1 10 5 1 1 FLAMMABLE
+cargo F2 10 5 1 1 FLAMMABLE
+conflict FLAMMABLE OXIDIZER
+best 10 1
+end
+
+case hand-ship-late-to-free-space
+horizon 3
+capacity 30
+truck T1 40 0 2,3
+cargo X 25 6 1 1 NONE
+cargo Y 20 8 3 3 NONE
+best 8 2
+end
+
+case hand-tie-fewer-trips
+horizon 2
+capacity 100
+truck T1 30 0 1,2
+truck T2 30 0 1,2
+cargo A 10 5 1 2 NONE
+cargo B 10 5 1 2 NONE
+cargo C 10 5 2 2 NONE
+best 15 1
+end
+
+case hand-pack-into-one-trip
+horizon 1
+capacity 100
+truck T1 30 0 1
+truck T2 30 0 1
+truck T3 30 0 1
+cargo A 10 5 1 1 NONE
+cargo B 10 5 1 1 NONE
+cargo C 10 5 1 1 NONE
+best 15 1
+end
+
+case hand-score-beats-trips
+horizon 1
+capacity 100
+truck T1 10 0 1
+truck T2 10 0 1
+cargo A 10 5 1 1 NONE
+cargo B 10 1 1 1 NONE
+best 6 2
+end
+
+case hand-truck-unavailable-day
+horizon 3
+capacity 40
+truck T1 20 0 1,3
+truck T2 20 0 2
+cargo P 15 6 2 2 NONE
+cargo Q 15 5 1 3 NONE
+cargo R 15 4 3 3 NONE
+best 15 3
+end
+
+case hand-missed-deadline-shipped-for-space
+horizon 3
+capacity 45
+truck T1 30 0 1,2,3
+cargo X 20 9 1 1 NONE
+cargo Z 20 2 1 1 NONE
+cargo W 30 7 3 3 NONE
+best 16 3
+end
+
+case hand-stock-binds
+horizon 2
+capacity 60
+stock A 10 3
+truck T1 40 0 1,2
+cargo X 20 5 1 2 NONE
+cargo Y 20 5 2 2 NONE
+best 10 2
+end
+
+case hand-cargo-too-heavy
+horizon 2
+capacity 80
+truck T1 30 0 1,2
+cargo Big 50 9 1 2 NONE
+cargo A 10 3 1 1 NONE
+cargo B 10 2 2 2 NONE
+best 5 2
+end
+
+case hand-greedy-trap-knapsack
+horizon 1
+capacity 100
+truck T1 10 0 1
+cargo A 6 6 1 1 NONE
+cargo B 5 5 1 1 NONE
+cargo C 5 5 1 1 NONE
+best 10 1
+end
+
+case hand-replan-truck-before
+horizon 2
+capacity 60
+truck T1 25 0 1,2
+truck T2 25 0 1,2
+cargo A 20 8 1 1 NONE
+cargo B 20 6 1 1 NONE
+cargo C 20 5 2 2 NONE
+best 19 3
+end
+
+case hand-replan-truck-after
+horizon 2
+capacity 60
+truck T1 25 0 1,2
+truck T2 25 0 -
+cargo A 20 8 1 1 NONE
+cargo B 20 6 1 1 NONE
+cargo C 20 5 2 2 NONE
+best 13 2
+end
+
+case hand-replan-days-before
+horizon 3
+capacity 80
+truck T1 30 0 1,2,3
+truck T2 30 0 1,2,3
+cargo P 25 6 1 1 NONE
+cargo Q 25 6 1 1 NONE
+cargo R 25 5 2 2 NONE
+cargo S 25 5 2 2 NONE
+best 22 4
+end
+
+case hand-replan-days-after
+horizon 3
+capacity 80
+truck T1 30 0 1,2,3
+truck T2 30 0 1,3
+cargo P 25 6 1 1 NONE
+cargo Q 25 6 1 1 NONE
+cargo R 25 5 2 2 NONE
+cargo S 25 5 2 2 NONE
+best 17 3
+end
+
+case hand-replan-rule-before
+horizon 1
+capacity 100
+truck T1 100 1 1
+cargo RF 12 5 1 1 FLAMMABLE
+cargo RO 14 5 1 1 OXIDIZER
+cargo RN 9 3 1 1 NONE
+best 13 1
+end
+
+case hand-replan-rule-after
+horizon 1
+capacity 100
+truck T1 100 1 1
+cargo RF 12 5 1 1 FLAMMABLE
+cargo RO 14 5 1 1 OXIDIZER
+cargo RN 9 3 1 1 NONE
+conflict FLAMMABLE OXIDIZER
+best 8 1
+end
+
+case hand-storm-12
+horizon 3
+capacity 180
+stock A 4 5
+stock B 3 4
+truck T1 60 0 1,2,3
+truck T2 40 1 1,3
+truck T3 30 0 2,3
+truck T4 50 1 3
+cargo K01 18 7 1 2 NONE
+cargo K02 25 9 1 1 FLAMMABLE
+cargo K03 12 4 1 3 NONE
+cargo K04 30 8 1 2 OXIDIZER
+cargo K05 10 3 2 2 NONE
+cargo K06 22 6 2 3 CORROSIVE
+cargo K07 15 5 2 3 NONE
+cargo K08 28 9 2 2 FLAMMABLE
+cargo K09 9 2 2 3 NONE
+cargo K10 20 7 3 3 OXIDIZER
+cargo K11 14 4 3 3 NONE
+cargo K12 35 8 3 3 NONE
+conflict FLAMMABLE OXIDIZER
+best 54 5
+end
+
+case hand-hazmat-mix-12
+horizon 3
+capacity 110
+truck T1 45 1 1,2,3
+truck T2 45 1 1,2,3
+truck T3 60 0 1,2,3
+truck T4 30 0 2,3
+cargo M01 12 6 1 2 FLAMMABLE
+cargo M02 18 5 1 3 FLAMMABLE
+cargo M03 10 8 1 1 OXIDIZER
+cargo M04 20 4 1 3 OXIDIZER
+cargo M05 15 7 1 2 CORROSIVE
+cargo M06 8 3 2 3 NONE
+cargo M07 25 9 2 2 NONE
+cargo M08 14 6 2 3 FLAMMABLE
+cargo M09 9 5 2 3 CORROSIVE
+cargo M10 22 7 3 3 OXIDIZER
+cargo M11 16 4 3 3 NONE
+cargo M12 11 6 3 3 FLAMMABLE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+conflict FLAMMABLE CORROSIVE
+best 70 5
+end
+
+case hand-tight-warehouse-12
+horizon 3
+capacity 150
+stock A 6 5
+stock B 4 5
+truck T1 40 0 1,2,3
+truck T2 35 1 1,2,3
+truck T3 25 0 1,3
+cargo W01 20 6 1 1 NONE
+cargo W02 15 4 1 2 NONE
+cargo W03 12 7 1 3 CORROSIVE
+cargo W04 22 9 1 2 NONE
+cargo W05 8 2 2 3 NONE
+cargo W06 18 5 2 2 NONE
+cargo W07 14 6 2 3 NONE
+cargo W08 10 8 2 3 FLAMMABLE
+cargo W09 16 3 3 3 NONE
+cargo W10 21 7 3 3 NONE
+cargo W11 7 4 3 3 NONE
+cargo W12 13 5 3 3 NONE
+best 66 5
+end
+
+case hand-speed-max
+horizon 3
+capacity 1000
+truck T1 40 0 1,2,3
+truck T2 40 1 1,2,3
+truck T3 25 0 1,2,3
+truck T4 25 1 1,2,3
+cargo S01 5 3 1 1 NONE
+cargo S02 9 6 1 2 NONE
+cargo S03 14 4 1 3 NONE
+cargo S04 7 8 1 2 FLAMMABLE
+cargo S05 22 5 1 3 NONE
+cargo S06 11 7 1 1 OXIDIZER
+cargo S07 17 2 1 3 NONE
+cargo S08 6 9 1 2 NONE
+cargo S09 13 4 1 3 CORROSIVE
+cargo S10 19 6 1 3 NONE
+cargo S11 8 5 1 1 NONE
+cargo S12 16 3 1 3 NONE
+conflict FLAMMABLE OXIDIZER
+best 62 4
+end
+
+case rand-001
+horizon 3
+capacity 70
+stock S1 5 5
+truck T1 38 0 2,3
+truck T2 52 1 2,3
+truck T3 24 1 1,2,3
+truck T4 53 0 1,2,3
+cargo C1 22 14 3 3 OXIDIZER
+cargo C2 13 3 3 3 OXIDIZER
+cargo C3 21 19 2 2 NONE
+cargo C4 7 18 3 3 CORROSIVE
+cargo C5 13 5 1 2 NONE
+cargo C6 15 12 1 3 NONE
+cargo C7 16 17 2 3 NONE
+conflict CORROSIVE FLAMMABLE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+best 88 4
+end
+
+case rand-002
+horizon 3
+capacity 63
+truck T1 17 1 1,3
+truck T2 43 1 2,3
+cargo C1 1 4 3 3 NONE
+cargo C2 24 10 2 2 OXIDIZER
+cargo C3 9 13 3 3 NONE
+cargo C4 20 17 3 3 NONE
+cargo C5 2 10 2 3 NONE
+best 54 2
+end
+
+case rand-003
+horizon 3
+capacity 46
+truck T1 17 1 1,2,3
+truck T2 37 1 1,3
+cargo C1 11 20 1 3 NONE
+cargo C2 16 16 3 3 NONE
+cargo C3 11 6 3 3 NONE
+cargo C4 12 15 3 3 NONE
+cargo C5 1 15 3 3 NONE
+cargo C6 21 8 1 3 NONE
+cargo C7 7 8 1 3 CORROSIVE
+conflict FLAMMABLE OXIDIZER
+best 88 4
+end
+
+case rand-004
+horizon 3
+capacity 69
+truck T1 53 0 1,2,3
+truck T2 48 1 1,2,3
+cargo C1 10 15 1 1 FLAMMABLE
+cargo C2 15 14 3 3 FLAMMABLE
+cargo C3 13 10 2 2 NONE
+cargo C4 12 17 2 2 OXIDIZER
+cargo C5 18 7 3 3 NONE
+cargo C6 25 6 1 3 OXIDIZER
+cargo C7 23 3 2 2 NONE
+cargo C8 7 3 3 3 NONE
+cargo C9 2 20 1 3 CORROSIVE
+conflict FLAMMABLE CORROSIVE
+conflict OXIDIZER FLAMMABLE
+conflict CORROSIVE OXIDIZER
+best 66 3
+end
+
+case rand-005
+horizon 3
+capacity 142
+truck T1 44 1 1,2,3
+truck T2 27 1 1,2,3
+truck T3 42 0 1,2,3
+truck T4 41 1 1,2
+cargo C1 15 20 1 3 FLAMMABLE
+cargo C2 25 14 3 3 NONE
+cargo C3 12 8 1 1 OXIDIZER
+cargo C4 5 6 2 2 NONE
+cargo C5 19 12 1 1 NONE
+cargo C6 24 10 3 3 NONE
+cargo C7 2 18 1 3 NONE
+cargo C8 7 19 2 2 NONE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+best 107 4
+end
+
+case rand-006
+horizon 3
+capacity 69
+stock S1 4 4
+stock S2 2 3
+truck T1 31 1 3
+truck T2 14 1 1,2,3
+truck T3 49 1 1,3
+truck T4 44 0 1,2,3
+cargo C1 9 1 3 3 OXIDIZER
+cargo C2 13 16 2 3 NONE
+cargo C3 4 19 3 3 CORROSIVE
+cargo C4 24 18 1 3 NONE
+cargo C5 22 2 2 2 FLAMMABLE
+cargo C6 2 15 1 3 FLAMMABLE
+conflict CORROSIVE FLAMMABLE
+conflict OXIDIZER CORROSIVE
+best 69 4
+end
+
+case rand-007
+horizon 3
+capacity 86
+stock S1 5 6
+stock S2 2 1
+truck T1 34 0 1,2
+truck T2 47 1 1,2,3
+cargo C1 23 14 3 3 CORROSIVE
+cargo C2 15 4 1 3 NONE
+cargo C3 7 6 1 3 FLAMMABLE
+cargo C4 5 14 1 2 CORROSIVE
+cargo C5 15 2 1 2 NONE
+cargo C6 6 20 2 3 NONE
+cargo C7 4 20 2 2 NONE
+cargo C8 10 9 1 3 NONE
+conflict CORROSIVE OXIDIZER
+best 89 3
+end
+
+case rand-008
+horizon 2
+capacity 94
+stock S1 2 5
+stock S2 4 7
+truck T1 20 0 1,2
+cargo C1 11 10 1 1 NONE
+cargo C2 12 20 2 2 NONE
+cargo C3 12 2 2 2 NONE
+cargo C4 16 19 2 2 FLAMMABLE
+cargo C5 1 4 2 2 CORROSIVE
+conflict OXIDIZER FLAMMABLE
+conflict CORROSIVE OXIDIZER
+best 30 2
+end
+
+case rand-009
+horizon 3
+capacity 161
+stock S1 4 8
+truck T1 22 1 1,2,3
+truck T2 52 0 1,2,3
+truck T3 24 1 1,3
+truck T4 43 1 2,3
+cargo C1 26 18 2 2 CORROSIVE
+cargo C2 9 6 2 3 CORROSIVE
+cargo C3 8 16 1 2 NONE
+cargo C4 6 16 2 2 NONE
+cargo C5 22 9 1 3 FLAMMABLE
+cargo C6 21 8 3 3 OXIDIZER
+cargo C7 22 9 2 2 NONE
+cargo C8 13 4 3 3 NONE
+cargo C9 2 17 2 2 NONE
+cargo C10 19 17 1 3 NONE
+cargo C11 20 10 3 3 NONE
+cargo C12 17 4 1 2 CORROSIVE
+conflict OXIDIZER CORROSIVE
+best 134 5
+end
+
+case rand-010
+horizon 2
+capacity 103
+stock S1 2 8
+stock S2 2 3
+stock S3 4 5
+truck T1 32 0 2
+truck T2 43 1 1
+cargo C1 20 1 2 2 OXIDIZER
+cargo C2 17 2 2 2 NONE
+cargo C3 22 17 1 1 NONE
+conflict FLAMMABLE CORROSIVE
+conflict FLAMMABLE OXIDIZER
+conflict CORROSIVE OXIDIZER
+best 19 2
+end
+
+case rand-011
+horizon 3
+capacity 123
+stock S1 4 1
+stock S2 2 3
+stock S3 1 1
+truck T1 38 0 3
+truck T2 46 0 1,2,3
+truck T3 14 1 1,2,3
+cargo C1 16 10 3 3 NONE
+cargo C2 13 4 1 3 NONE
+cargo C3 3 18 2 2 NONE
+cargo C4 21 7 2 2 OXIDIZER
+cargo C5 24 1 3 3 NONE
+cargo C6 6 14 3 3 NONE
+cargo C7 9 13 1 3 NONE
+cargo C8 6 9 1 1 NONE
+cargo C9 9 2 2 3 CORROSIVE
+cargo C10 9 20 2 3 FLAMMABLE
+conflict CORROSIVE FLAMMABLE
+conflict OXIDIZER FLAMMABLE
+conflict CORROSIVE OXIDIZER
+best 91 4
+end
+
+case rand-012
+horizon 3
+capacity 98
+stock S1 1 7
+stock S2 1 1
+stock S3 4 3
+truck T1 38 0 1,2,3
+truck T2 50 0 1,2
+truck T3 34 1 2
+cargo C1 26 5 3 3 CORROSIVE
+cargo C2 14 16 1 2 NONE
+cargo C3 11 17 1 1 NONE
+cargo C4 8 3 1 1 FLAMMABLE
+cargo C5 23 13 2 3 NONE
+cargo C6 13 5 2 2 NONE
+cargo C7 9 18 2 3 NONE
+cargo C8 16 1 1 1 NONE
+cargo C9 12 8 3 3 FLAMMABLE
+conflict FLAMMABLE CORROSIVE
+conflict CORROSIVE OXIDIZER
+best 70 2
+end
+
+case rand-013
+horizon 3
+capacity 144
+stock S1 3 1
+stock S2 5 4
+truck T1 17 0 1,2,3
+truck T2 24 1 1,2,3
+truck T3 28 0 2,3
+cargo C1 4 3 2 2 NONE
+cargo C2 2 17 1 3 OXIDIZER
+cargo C3 26 17 1 2 NONE
+cargo C4 14 10 2 3 NONE
+cargo C5 14 14 3 3 OXIDIZER
+cargo C6 10 6 2 2 NONE
+cargo C7 22 6 3 3 NONE
+cargo C8 24 5 2 2 OXIDIZER
+cargo C9 12 8 1 1 CORROSIVE
+cargo C10 25 5 1 1 NONE
+cargo C11 22 8 1 3 CORROSIVE
+conflict OXIDIZER CORROSIVE
+best 86 7
+end
+
+case rand-014
+horizon 2
+capacity 78
+stock S1 4 2
+truck T1 33 1 1,2
+truck T2 27 1 1
+truck T3 18 0 1,2
+cargo C1 13 12 1 1 NONE
+cargo C2 26 2 2 2 FLAMMABLE
+cargo C3 21 9 2 2 CORROSIVE
+cargo C4 16 15 1 2 OXIDIZER
+cargo C5 18 19 2 2 NONE
+cargo C6 5 8 1 2 NONE
+cargo C7 2 8 2 2 OXIDIZER
+conflict CORROSIVE FLAMMABLE
+conflict OXIDIZER FLAMMABLE
+conflict OXIDIZER CORROSIVE
+best 63 4
+end
+
+case rand-015
+horizon 1
+capacity 151
+stock S1 4 5
+stock S2 3 3
+stock S3 3 4
+truck T1 36 1 1
+truck T2 53 1 1
+truck T3 35 1 1
+cargo C1 14 6 1 1 NONE
+cargo C2 13 5 1 1 FLAMMABLE
+cargo C3 19 4 1 1 NONE
+cargo C4 7 9 1 1 CORROSIVE
+cargo C5 11 20 1 1 CORROSIVE
+cargo C6 20 8 1 1 NONE
+conflict FLAMMABLE CORROSIVE
+conflict CORROSIVE OXIDIZER
+conflict FLAMMABLE OXIDIZER
+best 52 2
+end
+
+case rand-016
+horizon 3
+capacity 169
+stock S1 5 7
+truck T1 42 1 2,3
+truck T2 42 1 2
+cargo C1 19 4 3 3 NONE
+cargo C2 16 7 3 3 NONE
+cargo C3 20 5 2 3 NONE
+cargo C4 18 7 3 3 OXIDIZER
+cargo C5 17 8 3 3 NONE
+cargo C6 24 2 3 3 OXIDIZER
+cargo C7 4 3 2 3 CORROSIVE
+cargo C8 22 9 3 3 NONE
+cargo C9 13 12 2 2 NONE
+cargo C10 14 18 1 3 NONE
+cargo C11 22 5 2 3 OXIDIZER
+cargo C12 24 10 1 2 OXIDIZER
+conflict OXIDIZER CORROSIVE
+conflict OXIDIZER FLAMMABLE
+best 62 3
+end
+
+case rand-017
+horizon 2
+capacity 157
+stock S1 1 5
+stock S2 3 8
+truck T1 46 0 1,2
+truck T2 55 0 2
+cargo C1 2 10 1 1 NONE
+cargo C2 7 19 2 2 OXIDIZER
+cargo C3 6 19 1 1 NONE
+cargo C4 3 10 2 2 FLAMMABLE
+cargo C5 18 14 2 2 FLAMMABLE
+cargo C6 15 14 2 2 OXIDIZER
+cargo C7 26 3 1 2 NONE
+cargo C8 24 15 2 2 OXIDIZER
+cargo C9 23 16 2 2 NONE
+cargo C10 3 7 1 1 CORROSIVE
+cargo C11 2 16 2 2 NONE
+cargo C12 14 15 2 2 CORROSIVE
+conflict CORROSIVE FLAMMABLE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+best 64 2
+end
+
+case rand-018
+horizon 2
+capacity 91
+stock S1 4 3
+stock S2 4 8
+stock S3 3 8
+truck T1 50 1 1,2
+truck T2 37 0 1
+truck T3 55 0 2
+truck T4 17 0 2
+cargo C1 16 13 2 2 NONE
+cargo C2 5 15 1 2 NONE
+conflict CORROSIVE OXIDIZER
+best 28 1
+end
+
+case rand-019
+horizon 3
+capacity 50
+stock S1 3 7
+truck T1 18 1 2,3
+truck T2 31 0 1,2,3
+truck T3 35 1 1,2
+truck T4 40 1 1,2,3
+cargo C1 22 13 2 3 NONE
+conflict FLAMMABLE OXIDIZER
+conflict CORROSIVE FLAMMABLE
+best 13 1
+end
+
+case rand-020
+horizon 2
+capacity 70
+stock S1 5 6
+stock S2 2 5
+stock S3 4 2
+truck T1 52 0 2
+truck T2 43 1 1
+truck T3 35 0 1,2
+truck T4 39 0 1,2
+cargo C1 2 9 2 2 FLAMMABLE
+cargo C2 5 15 2 2 NONE
+cargo C3 5 17 2 2 CORROSIVE
+cargo C4 7 4 2 2 NONE
+cargo C5 19 17 1 2 NONE
+conflict OXIDIZER FLAMMABLE
+conflict CORROSIVE OXIDIZER
+best 36 2
+end
+
+case rand-021
+horizon 3
+capacity 35
+truck T1 20 1 3
+truck T2 28 0 2,3
+truck T3 48 1 3
+truck T4 29 0 1,2,3
+cargo C1 3 19 3 3 NONE
+cargo C2 21 10 2 3 FLAMMABLE
+cargo C3 16 2 2 2 NONE
+cargo C4 1 10 1 1 NONE
+cargo C5 20 18 1 2 FLAMMABLE
+cargo C6 3 12 3 3 NONE
+cargo C7 23 2 2 3 OXIDIZER
+best -1
+end
+
+case rand-022
+horizon 2
+capacity 72
+truck T1 54 1 1,2
+truck T2 48 0 2
+truck T3 14 0 1,2
+truck T4 27 1 1
+cargo C1 17 11 2 2 CORROSIVE
+cargo C2 18 10 2 2 FLAMMABLE
+cargo C3 19 6 2 2 NONE
+cargo C4 13 16 1 2 NONE
+cargo C5 6 3 1 2 NONE
+cargo C6 10 8 2 2 OXIDIZER
+cargo C7 24 8 1 2 CORROSIVE
+conflict FLAMMABLE OXIDIZER
+conflict CORROSIVE FLAMMABLE
+best 52 2
+end
+
+case rand-023
+horizon 2
+capacity 103
+stock S1 5 3
+stock S2 5 2
+truck T1 49 1 1,2
+truck T2 28 0 1,2
+cargo C1 10 2 2 2 NONE
+cargo C2 11 14 1 2 OXIDIZER
+cargo C3 14 6 2 2 FLAMMABLE
+cargo C4 17 13 2 2 FLAMMABLE
+cargo C5 23 16 1 1 NONE
+cargo C6 9 16 1 1 OXIDIZER
+cargo C7 20 6 2 2 FLAMMABLE
+cargo C8 3 19 1 1 NONE
+conflict OXIDIZER FLAMMABLE
+conflict CORROSIVE FLAMMABLE
+best 86 2
+end
+
+case rand-024
+horizon 2
+capacity 105
+truck T1 52 0 1,2
+truck T2 34 1 1,2
+truck T3 49 0 1,2
+cargo C1 21 17 1 1 NONE
+cargo C2 10 15 2 2 NONE
+cargo C3 17 8 2 2 OXIDIZER
+cargo C4 24 19 1 2 CORROSIVE
+cargo C5 3 15 1 2 NONE
+cargo C6 10 11 2 2 OXIDIZER
+cargo C7 13 4 1 2 NONE
+cargo C8 10 8 2 2 NONE
+cargo C9 20 16 1 2 NONE
+cargo C10 2 12 2 2 CORROSIVE
+cargo C11 19 7 2 2 NONE
+cargo C12 25 19 2 2 NONE
+conflict CORROSIVE FLAMMABLE
+conflict OXIDIZER CORROSIVE
+best 139 6
+end
+
+case rand-025
+horizon 3
+capacity 57
+truck T1 17 0 1,2
+truck T2 26 0 1,2,3
+truck T3 51 0 2,3
+cargo C1 17 1 3 3 FLAMMABLE
+cargo C2 9 13 2 3 NONE
+cargo C3 5 2 3 3 OXIDIZER
+cargo C4 14 17 3 3 NONE
+cargo C5 18 4 3 3 OXIDIZER
+conflict OXIDIZER CORROSIVE
+conflict OXIDIZER FLAMMABLE
+conflict FLAMMABLE CORROSIVE
+best 30 2
+end
+
+case rand-026
+horizon 2
+capacity 154
+stock S1 3 6
+stock S2 1 5
+truck T1 34 0 1,2
+truck T2 39 1 1,2
+cargo C1 8 7 1 2 OXIDIZER
+cargo C2 10 12 2 2 NONE
+cargo C3 26 4 2 2 NONE
+cargo C4 19 20 1 2 NONE
+cargo C5 22 20 1 1 FLAMMABLE
+cargo C6 13 14 2 2 CORROSIVE
+cargo C7 23 18 1 2 CORROSIVE
+cargo C8 12 6 1 2 NONE
+cargo C9 5 20 1 2 FLAMMABLE
+cargo C10 8 16 1 2 NONE
+best 133 4
+end
+
+case rand-027
+horizon 3
+capacity 194
+stock S1 1 8
+stock S2 1 1
+stock S3 5 3
+truck T1 13 1 1,2
+truck T2 33 0 1,2,3
+truck T3 37 1 1,2,3
+cargo C1 14 17 2 3 NONE
+cargo C2 22 11 1 2 NONE
+cargo C3 2 15 1 1 NONE
+cargo C4 23 1 1 1 NONE
+cargo C5 14 20 3 3 NONE
+cargo C6 3 14 2 3 NONE
+cargo C7 1 2 1 3 NONE
+cargo C8 5 19 3 3 NONE
+cargo C9 22 6 3 3 NONE
+cargo C10 18 15 2 3 NONE
+cargo C11 4 9 3 3 NONE
+cargo C12 25 3 1 3 FLAMMABLE
+best 132 5
+end
+
+case rand-028
+horizon 2
+capacity 125
+stock S1 3 5
+truck T1 15 0 1,2
+truck T2 25 0 1,2
+cargo C1 11 10 2 2 OXIDIZER
+cargo C2 7 14 1 1 NONE
+cargo C3 6 18 1 2 NONE
+cargo C4 14 7 1 1 NONE
+cargo C5 21 1 1 2 NONE
+cargo C6 8 14 2 2 NONE
+cargo C7 22 3 2 2 NONE
+cargo C8 6 6 2 2 CORROSIVE
+cargo C9 25 5 2 2 NONE
+conflict FLAMMABLE OXIDIZER
+conflict CORROSIVE FLAMMABLE
+best 58 3
+end
+
+case rand-029
+horizon 3
+capacity 19
+truck T1 41 1 1,2,3
+truck T2 13 0 1
+cargo C1 17 10 3 3 NONE
+cargo C2 13 5 2 2 NONE
+cargo C3 2 1 1 2 NONE
+conflict CORROSIVE FLAMMABLE
+conflict CORROSIVE OXIDIZER
+conflict FLAMMABLE OXIDIZER
+best 16 2
+end
+
+case rand-030
+horizon 2
+capacity 142
+stock S1 3 2
+truck T1 42 0 1,2
+truck T2 44 0 1,2
+truck T3 30 0 1,2
+cargo C1 21 13 1 2 NONE
+cargo C2 4 15 2 2 NONE
+cargo C3 21 4 1 1 FLAMMABLE
+cargo C4 9 6 2 2 NONE
+cargo C5 17 20 1 1 NONE
+cargo C6 26 14 2 2 NONE
+cargo C7 16 1 2 2 NONE
+cargo C8 8 8 1 1 NONE
+cargo C9 16 12 2 2 CORROSIVE
+cargo C10 10 2 1 2 FLAMMABLE
+cargo C11 13 2 1 1 OXIDIZER
+cargo C12 14 6 2 2 CORROSIVE
+conflict FLAMMABLE CORROSIVE
+best 77 4
+end
+
+case rand-031
+horizon 2
+capacity 96
+stock S1 4 1
+truck T1 30 1 2
+truck T2 16 1 1,2
+truck T3 16 0 1,2
+cargo C1 5 20 1 1 CORROSIVE
+cargo C2 1 14 1 2 NONE
+cargo C3 15 18 2 2 OXIDIZER
+cargo C4 24 15 2 2 NONE
+cargo C5 23 6 1 1 NONE
+cargo C6 16 15 1 1 NONE
+cargo C7 12 15 1 2 NONE
+cargo C8 24 16 1 2 FLAMMABLE
+conflict FLAMMABLE CORROSIVE
+conflict OXIDIZER FLAMMABLE
+conflict OXIDIZER CORROSIVE
+best 78 4
+end
+
+case rand-032
+horizon 3
+capacity 110
+truck T1 47 0 1,2
+truck T2 13 1 1,2,3
+truck T3 55 0 1
+cargo C1 5 17 2 3 FLAMMABLE
+cargo C2 26 10 3 3 NONE
+cargo C3 23 17 3 3 NONE
+cargo C4 1 8 3 3 NONE
+cargo C5 16 14 2 2 OXIDIZER
+cargo C6 1 17 3 3 NONE
+cargo C7 21 20 1 1 NONE
+cargo C8 25 8 2 3 NONE
+cargo C9 14 16 3 3 NONE
+cargo C10 23 11 2 3 NONE
+conflict OXIDIZER CORROSIVE
+conflict CORROSIVE FLAMMABLE
+best 73 4
+end
+
+case rand-033
+horizon 2
+capacity 165
+stock S1 1 5
+stock S2 5 4
+truck T1 25 0 1,2
+truck T2 14 0 1
+truck T3 37 1 1,2
+truck T4 47 0 1,2
+cargo C1 5 19 2 2 NONE
+cargo C2 2 14 2 2 NONE
+cargo C3 11 1 2 2 NONE
+cargo C4 15 13 2 2 OXIDIZER
+cargo C5 15 15 1 2 NONE
+cargo C6 20 14 1 1 NONE
+cargo C7 14 19 1 1 OXIDIZER
+cargo C8 25 19 1 1 FLAMMABLE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+best 95 3
+end
+
+case rand-034
+horizon 3
+capacity 144
+stock S1 5 6
+stock S2 5 2
+stock S3 3 6
+truck T1 39 0 1,2,3
+truck T2 41 1 2
+cargo C1 11 7 2 2 NONE
+cargo C2 18 17 1 2 NONE
+cargo C3 23 1 2 3 FLAMMABLE
+cargo C4 21 12 1 2 NONE
+cargo C5 5 14 1 1 NONE
+cargo C6 3 13 3 3 NONE
+cargo C7 4 4 1 1 NONE
+cargo C8 16 1 2 3 NONE
+cargo C9 6 10 2 3 FLAMMABLE
+cargo C10 17 6 2 2 FLAMMABLE
+cargo C11 11 1 2 3 NONE
+cargo C12 22 4 3 3 NONE
+conflict FLAMMABLE CORROSIVE
+conflict OXIDIZER FLAMMABLE
+best -1
+end
+
+case rand-035
+horizon 3
+capacity 122
+truck T1 38 0 1,2,3
+truck T2 26 1 1,3
+cargo C1 14 20 2 3 NONE
+cargo C2 9 17 1 1 FLAMMABLE
+cargo C3 26 8 2 2 NONE
+cargo C4 21 11 2 2 NONE
+cargo C5 3 2 1 2 NONE
+cargo C6 3 2 3 3 FLAMMABLE
+cargo C7 10 13 1 3 CORROSIVE
+cargo C8 19 3 3 3 CORROSIVE
+cargo C9 15 17 1 3 NONE
+cargo C10 9 11 3 3 NONE
+conflict CORROSIVE OXIDIZER
+conflict CORROSIVE FLAMMABLE
+conflict OXIDIZER FLAMMABLE
+best 91 3
+end
+
+case rand-036
+horizon 3
+capacity 129
+stock S1 5 3
+truck T1 55 1 1
+truck T2 21 1 1,2,3
+truck T3 26 0 1,2
+cargo C1 12 18 1 2 NONE
+cargo C2 15 3 1 2 NONE
+cargo C3 26 12 3 3 NONE
+cargo C4 17 4 1 2 NONE
+cargo C5 13 2 3 3 CORROSIVE
+cargo C6 16 8 3 3 NONE
+best 33 2
+end
+
+case rand-037
+horizon 3
+capacity 161
+stock S1 4 6
+truck T1 39 1 1,2,3
+truck T2 26 1 1,2
+cargo C1 16 9 3 3 NONE
+cargo C2 26 1 3 3 OXIDIZER
+cargo C3 26 4 2 3 NONE
+cargo C4 9 17 3 3 CORROSIVE
+cargo C5 10 8 3 3 FLAMMABLE
+cargo C6 14 8 2 2 FLAMMABLE
+cargo C7 19 1 2 3 OXIDIZER
+cargo C8 19 15 3 3 FLAMMABLE
+cargo C9 12 19 2 3 NONE
+cargo C10 17 8 3 3 FLAMMABLE
+cargo C11 22 6 2 2 NONE
+cargo C12 5 6 1 1 NONE
+conflict OXIDIZER CORROSIVE
+conflict FLAMMABLE OXIDIZER
+best 75 4
+end
+
+case rand-038
+horizon 2
+capacity 84
+truck T1 45 1 1,2
+truck T2 45 0 1,2
+cargo C1 22 8 1 2 NONE
+cargo C2 24 2 2 2 CORROSIVE
+cargo C3 8 10 2 2 FLAMMABLE
+cargo C4 26 17 2 2 FLAMMABLE
+cargo C5 1 14 1 1 NONE
+cargo C6 25 7 1 2 CORROSIVE
+conflict FLAMMABLE OXIDIZER
+conflict FLAMMABLE CORROSIVE
+best 56 3
+end
+
+case rand-039
+horizon 3
+capacity 163
+stock S1 3 8
+stock S2 3 7
+stock S3 4 2
+truck T1 25 0 1,2,3
+truck T2 13 1 2,3
+truck T3 37 1 1,2,3
+truck T4 52 0 1,2,3
+cargo C1 16 10 3 3 FLAMMABLE
+cargo C2 15 18 3 3 NONE
+cargo C3 8 15 3 3 NONE
+cargo C4 7 11 1 2 FLAMMABLE
+cargo C5 3 4 2 2 NONE
+cargo C6 16 11 2 3 NONE
+cargo C7 19 16 3 3 CORROSIVE
+best 85 3
+end
+
+case rand-040
+horizon 3
+capacity 12
+truck T1 34 1 1,2,3
+cargo C1 4 17 2 2 NONE
+cargo C2 7 18 2 2 NONE
+cargo C3 2 7 1 3 NONE
+cargo C4 1 18 1 3 NONE
+cargo C5 8 5 3 3 OXIDIZER
+cargo C6 9 2 1 2 OXIDIZER
+conflict CORROSIVE OXIDIZER
+conflict FLAMMABLE CORROSIVE
+best 67 3
+end
+
+case rand-041
+horizon 3
+capacity 76
+truck T1 26 0 1,3
+truck T2 18 0 3
+cargo C1 10 14 1 1 NONE
+cargo C2 3 14 2 3 NONE
+cargo C3 18 1 3 3 NONE
+cargo C4 20 2 3 3 NONE
+cargo C5 7 18 1 1 CORROSIVE
+best 31 3
+end
+
+case rand-042
+horizon 3
+capacity 133
+stock S1 5 4
+stock S2 1 3
+stock S3 3 7
+truck T1 13 0 1,2,3
+truck T2 26 1 1,2,3
+truck T3 47 1 1,2,3
+cargo C1 9 11 2 3 NONE
+cargo C2 3 11 1 2 NONE
+cargo C3 24 11 3 3 CORROSIVE
+cargo C4 2 1 2 2 CORROSIVE
+cargo C5 24 2 1 1 CORROSIVE
+cargo C6 8 4 3 3 FLAMMABLE
+cargo C7 8 18 3 3 NONE
+cargo C8 7 4 2 2 OXIDIZER
+cargo C9 20 10 2 2 OXIDIZER
+cargo C10 3 3 2 3 NONE
+cargo C11 1 2 1 3 NONE
+cargo C12 23 2 3 3 OXIDIZER
+conflict OXIDIZER CORROSIVE
+conflict FLAMMABLE OXIDIZER
+conflict CORROSIVE FLAMMABLE
+best 77 5
+end
+
+case rand-043
+horizon 3
+capacity 12
+truck T1 17 1 2,3
+truck T2 15 1 2,3
+cargo C1 5 16 1 2 NONE
+cargo C2 7 11 2 3 CORROSIVE
+conflict OXIDIZER CORROSIVE
+best 27 1
+end
+
+case rand-044
+horizon 2
+capacity 178
+stock S1 2 3
+stock S2 3 8
+stock S3 5 8
+truck T1 49 0 1,2
+truck T2 13 0 1,2
+cargo C1 11 6 2 2 NONE
+cargo C2 6 3 2 2 NONE
+cargo C3 14 9 2 2 CORROSIVE
+cargo C4 22 6 1 2 CORROSIVE
+cargo C5 25 17 1 1 CORROSIVE
+cargo C6 16 10 2 2 NONE
+conflict FLAMMABLE OXIDIZER
+best 19 1
+end
+
+case rand-045
+horizon 1
+capacity 110
+stock S1 4 2
+stock S2 2 2
+truck T1 44 0 1
+truck T2 23 1 1
+truck T3 55 1 1
+truck T4 41 0 1
+cargo C1 25 12 1 1 NONE
+cargo C2 25 4 1 1 NONE
+cargo C3 13 2 1 1 NONE
+cargo C4 26 2 1 1 NONE
+conflict CORROSIVE FLAMMABLE
+conflict FLAMMABLE OXIDIZER
+conflict OXIDIZER CORROSIVE
+best 20 2
+end
+
+case rand-046
+horizon 2
+capacity 84
+stock S1 1 4
+truck T1 31 0 1,2
+truck T2 43 0 1,2
+cargo C1 2 3 1 2 NONE
+cargo C2 21 13 2 2 NONE
+cargo C3 9 20 1 1 FLAMMABLE
+cargo C4 16 15 2 2 NONE
+cargo C5 20 9 2 2 NONE
+cargo C6 19 18 1 1 NONE
+cargo C7 18 5 1 2 NONE
+cargo C8 4 19 2 2 NONE
+cargo C9 22 18 1 1 NONE
+conflict OXIDIZER CORROSIVE
+conflict OXIDIZER FLAMMABLE
+best 100 4
+end
+
+case rand-047
+horizon 1
+capacity 49
+stock S1 2 2
+stock S2 4 7
+stock S3 2 5
+truck T1 49 1 1
+truck T2 50 0 1
+truck T3 28 0 1
+truck T4 34 0 1
+cargo C1 5 15 1 1 NONE
+best 15 1
+end
+
+case rand-048
+horizon 2
+capacity 168
+truck T1 43 0 1
+truck T2 33 0 1,2
+truck T3 52 1 1
+cargo C1 7 15 2 2 NONE
+cargo C2 15 15 2 2 NONE
+cargo C3 20 20 2 2 NONE
+cargo C4 16 17 2 2 NONE
+cargo C5 13 9 2 2 NONE
+cargo C6 25 13 1 1 FLAMMABLE
+cargo C7 18 10 2 2 NONE
+cargo C8 20 9 2 2 NONE
+cargo C9 7 4 2 2 NONE
+cargo C10 23 11 1 1 NONE
+cargo C11 24 5 1 1 NONE
+cargo C12 9 18 1 2 OXIDIZER
+best 83 4
+end
+
