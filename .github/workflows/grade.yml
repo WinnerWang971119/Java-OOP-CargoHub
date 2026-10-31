@@ -1,0 +1,66 @@
+name: CargoHub grader
+
+# pull_request_target runs this file, the grader, the data and the provided classes as they
+# are on main. Only the student's src/ comes from the pull request, and it is compiled and run
+# with a read-only token and no secrets.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: grade-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  grade:
+    name: CargoHub grader
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out main
+        uses: actions/checkout@v7
+        with:
+          path: base
+          persist-credentials: false
+
+      - name: Check out the submission
+        uses: actions/checkout@v7
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: submission
+          persist-credentials: false
+
+      - name: Set up Java
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+
+      - name: Assemble
+        run: bash base/.github/grader/run.sh assemble
+
+      - name: Copy test data
+        run: bash base/.github/grader/run.sh data
+
+      - name: Remove other copies of the test data
+        run: rm -f base/.github/grader/*.txt && rm -rf submission/.github
+
+      - name: Compile
+        id: compile
+        run: bash base/.github/grader/run.sh compile
+
+      - name: Grade
+        id: grade
+        if: steps.compile.outcome == 'success'
+        run: bash base/.github/grader/run.sh grade
+
+      - name: Report
+        if: always()
+        env:
+          COMPILE_OUTCOME: ${{ steps.compile.outcome }}
+        run: bash base/.github/grader/run.sh report

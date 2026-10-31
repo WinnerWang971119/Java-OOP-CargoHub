@@ -1,0 +1,1494 @@
+case hand-empty
+truck 10
+best 0
+end
+
+case hand-single
+truck 10
+ship A 1 4
+best 1
+end
+
+case hand-too-heavy
+truck 10
+ship A 1 11
+best -1
+end
+
+case hand-too-heavy-among-many
+truck 10
+ship A 1 3
+ship B 1 4
+ship C 1 11
+ship D 1 2
+best -1
+end
+
+case hand-all-in-one-truck
+truck 20
+ship A 1 5
+ship B 1 5
+ship C 1 4
+ship D 1 3
+best 1
+end
+
+case hand-exact-capacity
+truck 10
+ship A 1 6
+ship B 1 4
+best 1
+end
+
+case hand-over-by-one
+truck 10
+ship A 1 6
+ship B 1 5
+best 2
+end
+
+case hand-ten-identical
+truck 10
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+ship A 1 5
+best 5
+end
+
+case hand-conflict-forces-extra-truck
+truck 100
+ship FUEL 1 10
+ship OXI 1 10
+conflict FUEL OXI
+best 2
+end
+
+case hand-conflict-triangle
+truck 100
+ship A 1 10
+ship B 1 10
+ship C 1 10
+conflict A B
+conflict B C
+conflict A C
+best 3
+end
+
+case hand-conflict-chain-two-colours
+truck 100
+ship A 1 10
+ship B 1 10
+ship C 1 10
+ship D 1 10
+conflict A B
+conflict B C
+conflict C D
+best 2
+end
+
+case hand-same-sku-no-self-conflict
+truck 20
+ship A 1 3
+ship A 1 3
+ship A 1 3
+ship B 1 2
+conflict A B
+best 2
+end
+
+case hand-conflict-pair-reversed-and-repeated
+truck 100
+ship A 1 5
+ship B 1 5
+conflict A B
+conflict B A
+conflict A B
+best 2
+end
+
+case hand-conflict-sku-not-present
+truck 100
+ship A 1 5
+ship B 1 5
+conflict X Y
+best 1
+end
+
+case hand-conflict-splits-groups
+truck 10
+ship A 1 4
+ship A 1 4
+ship A 1 4
+ship B 1 3
+ship B 1 3
+conflict A B
+best 3
+end
+
+case hand-ffd-trap-01
+truck 10
+ship A 1 4
+ship B 1 4
+ship C 1 3
+ship D 1 3
+ship E 1 3
+ship F 1 3
+best 2
+end
+
+case hand-ffd-trap-02
+truck 58
+ship MILK 1 21
+ship MILK 1 12
+ship WIRE 1 26
+ship MILK 1 18
+ship WIRE 1 16
+ship WIRE 1 17
+best 2
+end
+
+case hand-ffd-trap-03
+truck 12
+ship GAS 1 2
+ship CRATE 1 6
+ship MILK 1 6
+ship PIPE 1 4
+ship CRATE 1 6
+ship PIPE 1 3
+ship MILK 1 2
+conflict CRATE C
+conflict PIPE WIRE
+conflict PIPE MILK
+conflict GAS PIPE
+conflict PIPE WIRE
+best 3
+end
+
+case hand-ffd-trap-04
+truck 56
+ship WIRE 1 27
+ship WIRE 1 13
+ship WIRE 1 17
+ship WIRE 1 19
+ship WIRE 1 27
+ship WIRE 1 21
+ship WIRE 1 26
+ship WIRE 1 11
+best 3
+end
+
+case hand-ffd-trap-05
+truck 38
+ship MILK 1 12
+ship F 1 8
+ship CRATE 1 16
+ship MILK 1 7
+ship CRATE 1 9
+ship CRATE 1 16
+ship CRATE 1 13
+ship NUT 1 13
+ship F 1 18
+conflict MILK NUT
+conflict NUT MILK
+conflict F NUT
+best 3
+end
+
+case hand-ffd-trap-06
+truck 49
+ship G 1 19
+ship ACID 1 9
+ship E 1 12
+ship G 1 21
+ship NUT 1 18
+ship G 1 9
+ship ACID 1 10
+ship E 1 19
+ship E 1 9
+ship E 1 21
+best 3
+end
+
+case hand-ffd-trap-07
+truck 12
+ship TNT 1 5
+ship MILK 1 3
+ship BOLT 1 2
+ship MILK 1 4
+ship TNT 1 4
+ship F 1 5
+ship TNT 1 2
+ship F 1 2
+ship F 1 6
+ship BOLT 1 3
+ship F 1 4
+conflict TNT F
+conflict TNT MILK
+conflict BOLT F
+conflict TNT MILK
+best 4
+end
+
+case hand-ffd-trap-08
+truck 58
+ship WIRE 1 20
+ship WIRE 1 14
+ship FUEL 1 20
+ship A 1 13
+ship A 1 29
+ship WIRE 1 26
+ship WIRE 1 16
+ship FUEL 1 13
+ship G 1 19
+ship A 1 15
+ship FUEL 1 29
+ship WIRE 1 17
+best 4
+end
+
+case hand-ffd-trap-09
+truck 36
+ship ACID 1 16
+ship ACID 1 16
+ship GAS 1 11
+ship GAS 1 15
+ship GAS 1 12
+ship ACID 1 11
+ship TNT 1 11
+ship GAS 1 16
+ship TNT 1 11
+ship TNT 1 8
+ship GAS 1 10
+ship ACID 1 12
+ship TNT 1 11
+conflict ACID GAS
+conflict ACID TNT
+conflict GAS ACID
+conflict ACID GAS
+best 5
+end
+
+case hand-ffd-trap-10
+truck 23
+ship NUT 1 4
+ship TNT 1 11
+ship PIPE 1 7
+ship PIPE 1 5
+ship PIPE 1 8
+ship E 1 11
+ship TNT 1 4
+ship TNT 1 7
+ship TNT 1 9
+ship PIPE 1 7
+ship NUT 1 5
+ship TNT 1 4
+ship PIPE 1 5
+ship E 1 5
+best 4
+end
+
+case hand-ffd-trap-11
+truck 11
+ship OXI 1 2
+ship D 1 5
+ship H 1 3
+ship F 1 3
+ship FUEL 1 3
+ship G 1 2
+ship D 1 4
+ship F 1 2
+ship H 1 4
+ship G 1 3
+ship D 1 4
+ship OXI 1 4
+ship H 1 5
+ship H 1 4
+ship FUEL 1 5
+conflict H FUEL
+conflict FUEL OXI
+conflict G D
+conflict FUEL G
+best 5
+end
+
+case hand-ffd-trap-12
+truck 21
+ship WIRE 1 7
+ship WIRE 1 8
+ship GAS 1 7
+ship WIRE 1 5
+ship ACID 1 6
+ship ACID 1 9
+ship WIRE 1 7
+ship WIRE 1 6
+ship FUEL 1 8
+ship ACID 1 9
+ship ACID 1 5
+ship FUEL 1 4
+ship GAS 1 6
+ship GAS 1 8
+ship GAS 1 9
+best 5
+end
+
+case hand-n15-01
+truck 4
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+ship A 1 1
+best 4
+end
+
+case hand-n15-02
+truck 20
+ship A 1 1
+ship B 1 8
+ship C 1 1
+ship D 1 5
+ship E 1 1
+ship F 1 3
+ship G 1 2
+ship H 1 1
+ship I 1 11
+ship J 1 1
+ship K 1 1
+ship L 1 17
+ship M 1 16
+ship N 1 14
+ship O 1 18
+best 5
+end
+
+case hand-n15-03
+truck 30
+ship A 1 11
+ship B 1 1
+ship C 1 14
+ship D 1 1
+ship E 1 6
+ship F 1 6
+ship G 1 21
+ship H 1 14
+ship I 1 1
+ship J 1 10
+ship K 1 1
+ship L 1 12
+ship M 1 3
+ship N 1 18
+ship O 1 1
+best 4
+end
+
+case hand-n15-04
+truck 10
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+ship A 1 6
+best 15
+end
+
+case hand-n15-05
+truck 10
+ship A 1 10
+ship B 1 10
+ship C 1 10
+ship D 1 10
+ship E 1 10
+ship F 1 10
+ship G 1 10
+ship H 1 10
+ship I 1 10
+ship J 1 10
+ship K 1 10
+ship L 1 10
+ship M 1 10
+ship N 1 10
+ship O 1 10
+best 15
+end
+
+case hand-n15-06
+truck 20
+ship A 1 9
+ship B 1 10
+ship C 1 11
+ship D 1 9
+ship E 1 10
+ship F 1 11
+ship G 1 9
+ship H 1 10
+ship I 1 11
+ship J 1 9
+ship K 1 10
+ship L 1 11
+ship M 1 9
+ship N 1 10
+ship O 1 11
+best 8
+end
+
+case hand-n15-07
+truck 100
+ship FUEL 1 10
+ship ACID 1 14
+ship FUEL 1 7
+ship ACID 1 8
+ship OXI 1 14
+ship GAS 1 3
+ship ACID 1 5
+ship OXI 1 10
+ship GAS 1 5
+ship TNT 1 4
+ship OXI 1 6
+ship TNT 1 8
+ship GAS 1 3
+ship FUEL 1 6
+ship TNT 1 15
+conflict FUEL OXI
+conflict FUEL ACID
+conflict FUEL GAS
+conflict FUEL TNT
+conflict OXI ACID
+conflict OXI GAS
+conflict OXI TNT
+conflict ACID GAS
+conflict ACID TNT
+conflict GAS TNT
+best 5
+end
+
+case hand-n15-08
+truck 50
+ship P2 1 20
+ship P3 1 23
+ship P5 1 19
+ship P6 1 8
+ship P6 1 23
+ship P2 1 23
+ship P5 1 5
+ship P1 1 24
+ship P6 1 12
+ship P2 1 16
+ship P4 1 14
+ship P6 1 25
+ship P5 1 19
+ship P2 1 7
+ship P4 1 20
+conflict P1 P2
+conflict P2 P3
+conflict P3 P4
+conflict P4 P5
+conflict P5 P6
+best 6
+end
+
+case hand-n15-09
+truck 50
+ship GAS 1 20
+ship ACID 1 14
+ship GAS 1 17
+ship GAS 1 11
+ship CHEM 1 24
+ship ACID 1 15
+ship CHEM 1 19
+ship CHEM 1 21
+ship CHEM 1 14
+ship B 1 15
+ship GAS 1 24
+ship CHEM 1 14
+ship D 1 23
+ship B 1 24
+ship D 1 25
+best 6
+end
+
+case hand-n15-10
+truck 60
+ship OXI 1 23
+ship TNT 1 18
+ship NUT 1 23
+ship G 1 17
+ship CRATE 1 14
+ship CRATE 1 16
+ship A 1 12
+ship CRATE 1 20
+ship G 1 11
+ship G 1 15
+ship NUT 1 21
+ship A 1 22
+ship A 1 29
+ship G 1 11
+ship CRATE 1 30
+conflict NUT A
+conflict TNT G
+conflict A TNT
+conflict CRATE TNT
+conflict OXI NUT
+conflict A CRATE
+conflict CRATE OXI
+conflict CRATE G
+conflict A G
+conflict TNT CRATE
+conflict G CRATE
+conflict A G
+best 6
+end
+
+case hand-n15-11
+truck 40
+ship GAS 1 5
+ship GAS 1 3
+ship FUEL 1 16
+ship GAS 1 32
+ship OXI 1 24
+ship ACID 1 3
+ship FUEL 1 7
+ship OXI 1 4
+ship OXI 1 12
+ship TNT 1 16
+ship TNT 1 19
+ship ACID 1 22
+ship ACID 1 15
+ship FUEL 1 17
+ship TNT 1 5
+conflict FUEL OXI
+conflict OXI ACID
+conflict ACID GAS
+conflict GAS TNT
+conflict TNT FUEL
+conflict FUEL ACID
+best 5
+end
+
+case hand-n15-12
+truck 25
+ship A 1 7
+ship A 1 8
+ship A 1 9
+ship A 1 10
+ship A 1 11
+ship A 1 12
+ship A 1 13
+ship A 1 14
+ship A 1 15
+ship A 1 7
+ship A 1 8
+ship A 1 9
+ship A 1 10
+ship A 1 11
+ship A 1 12
+conflict A B
+conflict B C
+best 7
+end
+
+case rand-001
+truck 44
+ship G 3 8
+ship BOLT 1 11
+ship BOLT 1 42
+ship E 2 4
+ship OXI 2 11
+ship A 1 13
+ship G 3 3
+ship A 1 37
+ship A 1 14
+ship OXI 2 9
+ship G 3 11
+ship G 3 1
+ship E 2 10
+ship A 1 13
+conflict BOLT OXI
+conflict G OXI
+conflict G E
+conflict A G
+best 7
+end
+
+case rand-002
+truck 41
+ship MILK 1 15
+ship G 1 38
+ship FUEL 2 4
+ship BOLT 2 5
+ship TNT 1 20
+ship NUT 1 18
+ship NUT 1 11
+ship NUT 1 20
+ship FUEL 2 19
+ship TNT 1 8
+ship BOLT 2 6
+ship FUEL 2 20
+ship NUT 1 21
+conflict G BOLT
+best 7
+end
+
+case rand-003
+truck 14
+ship BOLT 1 4
+ship B 3 1
+ship G 2 6
+ship BOLT 1 3
+ship D 1 6
+ship B 3 2
+ship CRATE 3 1
+ship B 3 1
+ship B 3 2
+ship CRATE 3 2
+ship CHEM 1 6
+conflict BOLT CHEM
+conflict CRATE BOLT
+best 5
+end
+
+case rand-004
+truck 53
+ship NUT 1 25
+ship MILK 2 12
+ship H 3 3
+ship H 3 12
+ship OXI 1 22
+conflict D MILK
+conflict OXI MILK
+best 3
+end
+
+case rand-005
+truck 80
+ship OXI 3 13
+conflict X3 OXI
+best 1
+end
+
+case rand-006
+truck 18
+ship TNT 2 3
+ship CRATE 1 10
+ship TNT 2 1
+ship TNT 2 3
+ship TNT 2 4
+ship PIPE 1 7
+ship G 1 6
+ship PIPE 1 9
+ship PIPE 1 6
+ship OXI 2 1
+ship PIPE 1 3
+ship C 2 3
+ship C 2 1
+ship TNT 2 4
+conflict PIPE C
+conflict G OXI
+conflict G TNT
+conflict CRATE PIPE
+best 5
+end
+
+case rand-007
+truck 90
+ship B 2 19
+ship D 3 10
+ship BOLT 1 20
+ship BOLT 1 33
+ship D 3 6
+ship B 2 39
+ship B 2 14
+ship BOLT 1 32
+ship B 2 10
+ship B 2 15
+ship B 2 20
+ship D 3 20
+ship BOLT 1 2
+ship BOLT 1 29
+conflict BOLT B
+conflict D BOLT
+conflict BOLT D
+best 6
+end
+
+case rand-008
+truck 11
+ship ACID 1 3
+ship GAS 2 2
+ship BOLT 2 6
+ship ACID 1 1
+ship ACID 1 2
+ship WIRE 3 1
+ship H 2 1
+conflict ACID H
+conflict FUEL GAS
+best -1
+end
+
+case rand-009
+truck 14
+ship FUEL 1 7
+ship BOLT 2 3
+ship BOLT 2 2
+ship FUEL 1 2
+ship FUEL 1 11
+ship BOLT 2 1
+ship BOLT 2 3
+ship FUEL 1 5
+ship A 2 2
+ship OXI 1 2
+ship FUEL 1 6
+ship FUEL 1 6
+ship FUEL 1 6
+ship A 2 1
+ship FUEL 1 7
+conflict BOLT FUEL
+best 6
+end
+
+case rand-010
+truck 57
+ship ACID 2 13
+ship FUEL 1 25
+ship ACID 2 25
+ship FUEL 1 16
+ship FUEL 1 14
+ship FUEL 1 14
+ship ACID 2 10
+ship FUEL 1 11
+ship ACID 2 13
+ship FUEL 1 15
+ship TNT 2 20
+best 5
+end
+
+case rand-011
+truck 21
+ship CHEM 2 4
+ship WIRE 3 1
+ship CHEM 2 2
+ship WIRE 3 2
+ship WIRE 3 1
+ship BOLT 3 1
+ship WIRE 3 4
+ship WIRE 3 1
+ship BOLT 3 3
+ship BOLT 3 2
+ship WIRE 3 2
+ship BOLT 3 3
+ship CHEM 2 4
+conflict CHEM BOLT
+conflict WIRE BOLT
+conflict WIRE CHEM
+best 5
+end
+
+case rand-012
+truck 34
+ship MILK 2 5
+ship G 1 14
+ship G 1 12
+conflict G MILK
+conflict B MILK
+conflict B MILK
+conflict B MILK
+best 2
+end
+
+case rand-013
+truck 58
+ship H 1 12
+ship H 1 25
+ship NUT 2 11
+ship OXI 1 18
+ship H 1 18
+ship WIRE 2 7
+ship BOLT 1 14
+ship OXI 1 24
+ship OXI 1 28
+ship BOLT 1 14
+ship WIRE 2 21
+conflict NUT WIRE
+conflict BOLT WIRE
+conflict NUT H
+best 5
+end
+
+case rand-014
+truck 41
+ship NUT 3 2
+ship NUT 3 4
+ship H 1 11
+ship H 1 41
+ship NUT 3 2
+ship NUT 3 3
+ship NUT 3 4
+ship NUT 3 5
+ship H 1 19
+ship H 1 9
+ship NUT 3 3
+ship H 1 16
+ship H 1 20
+conflict H NUT
+conflict H NUT
+conflict H NUT
+best 5
+end
+
+case rand-015
+truck 22
+ship H 3 3
+ship H 3 3
+ship H 3 3
+ship H 3 2
+ship C 1 7
+ship H 3 3
+ship C 1 11
+ship C 1 4
+ship H 3 2
+ship H 3 1
+ship H 3 2
+ship H 3 3
+ship C 1 11
+conflict C H
+conflict C H
+conflict H C
+conflict C H
+best 6
+end
+
+case rand-016
+truck 92
+ship A 2 19
+best 1
+end
+
+case rand-017
+truck 46
+ship GAS 3 4
+ship C 2 7
+ship PIPE 3 2
+ship C 2 5
+ship FUEL 3 5
+ship C 2 4
+ship C 2 10
+ship MILK 3 5
+ship C 2 6
+ship C 2 6
+ship GAS 3 13
+ship FUEL 3 7
+ship A 1 12
+conflict C FUEL
+conflict FUEL MILK
+conflict FUEL A
+best 5
+end
+
+case rand-018
+truck 29
+ship FUEL 3 4
+ship D 3 1
+ship D 3 6
+ship D 3 1
+ship D 3 2
+ship D 3 4
+ship FUEL 3 3
+ship D 3 4
+ship FUEL 3 2
+ship FUEL 3 3
+ship FUEL 3 6
+ship FUEL 3 2
+conflict D FUEL
+conflict D FUEL
+best 5
+end
+
+case rand-019
+truck 82
+ship GAS 1 18
+ship F 1 39
+ship GAS 1 16
+ship GAS 1 70
+ship F 1 10
+ship F 1 34
+ship GAS 1 36
+ship F 1 37
+ship F 1 17
+best 4
+end
+
+case rand-020
+truck 15
+ship H 1 5
+ship TNT 2 1
+ship H 1 3
+ship TNT 2 6
+ship TNT 2 2
+ship TNT 2 2
+ship TNT 2 2
+conflict H TNT
+conflict TNT H
+conflict H TNT
+best 3
+end
+
+case rand-021
+truck 94
+ship GAS 3 11
+ship B 2 4
+ship E 3 9
+ship CRATE 3 11
+ship E 3 9
+ship GAS 3 21
+ship B 2 19
+ship CRATE 3 1
+conflict CRATE B
+conflict CHEM GAS
+conflict CHEM E
+conflict GAS B
+best 3
+end
+
+case rand-022
+truck 84
+ship A 3 1
+ship FUEL 2 20
+ship A 3 11
+ship OXI 3 11
+ship G 3 8
+ship FUEL 2 19
+ship OXI 3 12
+conflict G OXI
+conflict FUEL G
+conflict OXI G
+conflict OXI G
+best 3
+end
+
+case rand-023
+truck 98
+ship GAS 3 1
+ship CHEM 3 12
+ship CHEM 3 5
+ship MILK 1 31
+ship BOLT 2 16
+conflict CHEM MILK
+conflict BOLT MILK
+conflict GAS MILK
+best 2
+end
+
+case rand-024
+truck 84
+ship PIPE 2 19
+ship PIPE 2 12
+conflict BOLT PIPE
+best 1
+end
+
+case rand-025
+truck 96
+ship C 3 15
+ship PIPE 2 11
+ship PIPE 2 16
+ship PIPE 2 12
+ship PIPE 2 11
+ship PIPE 2 21
+ship D 3 11
+ship C 3 12
+ship C 3 12
+ship PIPE 2 24
+ship C 3 6
+ship D 3 7
+ship D 3 15
+ship PIPE 2 23
+ship C 3 15
+best 6
+end
+
+case rand-026
+truck 94
+ship TNT 2 21
+ship ACID 3 14
+ship TNT 2 20
+ship TNT 2 48
+ship TNT 2 12
+ship ACID 3 10
+ship ACID 3 13
+ship ACID 3 15
+ship ACID 3 13
+ship ACID 3 1
+ship TNT 2 18
+ship TNT 2 19
+ship TNT 2 47
+best -1
+end
+
+case rand-027
+truck 10
+ship TNT 2 2
+ship PIPE 1 3
+ship TNT 2 2
+ship TNT 2 2
+ship PIPE 1 5
+ship PIPE 1 2
+ship PIPE 1 4
+ship PIPE 1 3
+ship PIPE 1 3
+conflict TNT PIPE
+conflict PIPE TNT
+best 4
+end
+
+case rand-028
+truck 56
+ship GAS 1 43
+ship GAS 1 26
+conflict G GAS
+best 2
+end
+
+case rand-029
+truck 80
+ship GAS 2 15
+conflict X3 GAS
+best 1
+end
+
+case rand-030
+truck 28
+ship D 1 8
+ship PIPE 3 4
+ship PIPE 3 4
+ship PIPE 3 2
+ship D 1 14
+ship PIPE 3 2
+ship PIPE 3 5
+best 3
+end
+
+case rand-031
+truck 60
+ship D 3 5
+ship GAS 3 16
+ship OXI 2 10
+ship MILK 3 9
+ship OXI 2 14
+ship GAS 3 9
+ship MILK 3 7
+conflict GAS D
+conflict GAS OXI
+conflict GAS D
+best 4
+end
+
+case rand-032
+truck 71
+ship WIRE 2 1
+ship C 1 28
+ship BOLT 3 8
+best 1
+end
+
+case rand-033
+truck 46
+ship E 2 7
+ship CHEM 1 17
+ship F 1 38
+ship F 1 14
+ship F 1 45
+ship CHEM 1 11
+ship F 1 14
+ship F 1 13
+ship E 2 6
+ship F 1 19
+ship F 1 3
+ship F 1 16
+ship E 2 18
+ship CHEM 1 19
+conflict B E
+best 7
+end
+
+case rand-034
+truck 92
+ship NUT 3 15
+ship PIPE 1 91
+ship OXI 1 30
+ship NUT 3 9
+ship GAS 1 34
+ship OXI 1 21
+ship F 3 9
+conflict F PIPE
+conflict PIPE F
+conflict F NUT
+conflict GAS BOLT
+best 4
+end
+
+case rand-035
+truck 84
+ship FUEL 3 2
+ship TNT 3 22
+ship TNT 3 9
+ship TNT 3 12
+ship TNT 3 6
+ship FUEL 3 16
+ship TNT 3 10
+conflict TNT FUEL
+conflict FUEL TNT
+conflict FUEL TNT
+best 4
+end
+
+case rand-036
+truck 70
+ship B 1 33
+ship F 1 12
+ship F 1 34
+ship MILK 2 11
+ship MILK 2 10
+ship MILK 2 28
+ship B 1 24
+best 3
+end
+
+case rand-037
+truck 99
+ship FUEL 3 11
+ship NUT 3 8
+ship NUT 3 11
+ship BOLT 1 19
+ship NUT 3 8
+ship BOLT 1 65
+ship FUEL 3 13
+ship BOLT 1 47
+ship FUEL 3 14
+ship BOLT 1 45
+ship BOLT 1 24
+ship NUT 3 15
+ship E 2 40
+best 6
+end
+
+case rand-038
+truck 75
+ship D 1 28
+ship C 1 54
+ship MILK 3 12
+ship NUT 2 8
+ship D 1 21
+ship D 1 19
+ship MILK 3 10
+ship FUEL 3 18
+conflict D NUT
+conflict NUT FUEL
+conflict NUT C
+best 4
+end
+
+case rand-039
+truck 13
+ship WIRE 1 5
+ship A 2 2
+ship TNT 2 2
+ship WIRE 1 3
+ship ACID 2 3
+ship TNT 2 1
+ship ACID 2 3
+ship WIRE 1 5
+ship WIRE 1 3
+ship C 1 4
+conflict C WIRE
+conflict WIRE A
+conflict B ACID
+best 4
+end
+
+case rand-040
+truck 98
+ship H 1 28
+ship CHEM 3 9
+conflict CHEM H
+conflict CHEM H
+conflict CHEM H
+best 2
+end
+
+case rand-041
+truck 22
+ship OXI 3 6
+ship OXI 3 2
+ship BOLT 1 11
+ship BOLT 1 5
+ship BOLT 1 6
+ship BOLT 1 4
+ship BOLT 1 5
+ship OXI 3 4
+ship BOLT 1 6
+ship OXI 3 1
+conflict OXI BOLT
+conflict BOLT OXI
+best 4
+end
+
+case rand-042
+truck 88
+ship TNT 2 19
+ship TNT 2 14
+ship WIRE 2 1
+ship WIRE 2 13
+ship WIRE 2 19
+ship TNT 2 16
+ship WIRE 2 10
+ship WIRE 2 30
+conflict WIRE TNT
+best 4
+end
+
+case rand-043
+truck 53
+ship MILK 1 35
+ship CHEM 2 7
+ship BOLT 3 6
+ship NUT 2 10
+ship NUT 2 13
+ship NUT 2 16
+ship BOLT 3 12
+ship MILK 1 15
+ship A 3 13
+ship NUT 2 5
+conflict A NUT
+conflict BOLT MILK
+best 5
+end
+
+case rand-044
+truck 47
+ship F 3 6
+ship MILK 2 13
+ship H 3 1
+ship F 3 3
+ship H 3 8
+ship H 3 12
+ship ACID 3 6
+ship MILK 2 8
+ship H 3 6
+ship H 3 2
+ship MILK 2 9
+ship F 3 3
+ship MILK 2 11
+ship F 3 7
+conflict MILK F
+conflict F ACID
+conflict MILK F
+conflict MILK H
+best 6
+end
+
+case rand-045
+truck 63
+ship ACID 1 24
+ship ACID 1 18
+ship G 2 7
+ship B 2 1
+ship ACID 1 15
+ship ACID 1 12
+ship G 2 18
+ship H 2 6
+ship G 2 13
+conflict B H
+conflict ACID G
+conflict E ACID
+best 4
+end
+
+case rand-046
+truck 29
+ship FUEL 2 2
+ship PIPE 2 6
+ship PIPE 2 4
+ship FUEL 2 2
+ship WIRE 1 9
+conflict C WIRE
+best 2
+end
+
+case rand-047
+truck 10
+ship PIPE 3 1
+ship BOLT 1 5
+ship TNT 3 1
+ship TNT 3 1
+ship PIPE 3 1
+ship PIPE 3 1
+ship MILK 1 5
+ship BOLT 1 3
+ship PIPE 3 1
+ship MILK 1 10
+ship PIPE 3 1
+ship PIPE 3 1
+ship G 2 1
+ship G 2 2
+ship BOLT 1 3
+conflict G PIPE
+conflict MILK BOLT
+best 6
+end
+
+case rand-048
+truck 84
+ship E 1 81
+ship BOLT 2 12
+ship E 1 16
+ship E 1 23
+ship E 1 81
+ship BOLT 2 11
+ship BOLT 2 16
+ship BOLT 2 17
+ship BOLT 2 26
+ship BOLT 2 13
+ship E 1 21
+ship BOLT 2 15
+ship E 1 18
+ship E 1 30
+conflict E BOLT
+conflict BOLT E
+conflict BOLT E
+conflict BOLT E
+best 7
+end
+
+case rand-049
+truck 98
+ship FUEL 3 7
+ship FUEL 3 12
+ship TNT 2 16
+ship TNT 2 12
+ship WIRE 2 43
+ship FUEL 3 22
+ship WIRE 2 28
+ship WIRE 2 16
+ship FUEL 3 15
+ship WIRE 2 9
+ship WIRE 2 24
+ship FUEL 3 15
+ship FUEL 3 10
+best 6
+end
+
+case rand-050
+truck 84
+ship H 1 29
+ship H 1 20
+ship GAS 3 12
+ship GAS 3 6
+ship H 1 31
+ship GAS 3 8
+ship GAS 3 9
+conflict GAS H
+conflict H GAS
+conflict GAS H
+best 3
+end
+
+case rand-051
+truck 30
+ship MILK 3 3
+best 1
+end
+
+case rand-052
+truck 43
+ship D 3 6
+ship GAS 1 10
+ship D 3 2
+ship D 3 4
+ship GAS 1 9
+ship D 3 4
+ship D 3 4
+ship D 3 6
+conflict D X2
+conflict X2 D
+best 3
+end
+
+case rand-053
+truck 25
+ship CRATE 1 12
+ship G 1 19
+ship TNT 3 1
+ship TNT 3 1
+ship CRATE 1 9
+ship G 1 12
+ship F 2 5
+conflict CRATE WIRE
+conflict F CRATE
+best 3
+end
+
+case rand-054
+truck 36
+ship MILK 1 17
+ship MILK 1 10
+ship MILK 1 9
+ship MILK 1 2
+ship NUT 3 1
+conflict MILK D
+conflict MILK NUT
+best 3
+end
+
+case rand-055
+truck 50
+ship F 2 5
+ship H 1 15
+ship H 1 14
+ship F 2 18
+ship OXI 3 16
+ship C 3 5
+conflict A OXI
+conflict C A
+conflict MILK OXI
+best 3
+end
+
+case rand-056
+truck 73
+ship BOLT 3 5
+ship OXI 3 15
+ship OXI 3 9
+ship BOLT 3 8
+ship BOLT 3 1
+ship BOLT 3 7
+ship BOLT 3 7
+conflict OXI BOLT
+best 3
+end
+
