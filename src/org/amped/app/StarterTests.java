@@ -5,10 +5,16 @@ import java.util.List;
 import org.amped.model.Cargo;
 import org.amped.model.Shipment;
 import org.amped.model.Warehouse;
+import org.amped.model.recovery.Plan;
+import org.amped.model.recovery.RecoveryCargo;
+import org.amped.model.recovery.Scenario;
+import org.amped.model.recovery.Truck;
 import org.amped.service.CargoManager;
+import org.amped.service.RecoveryPlanner;
 
 /**
- * Visible tests for CargoManager. Run this file to see PASS or FAIL for each test.
+ * Visible tests for CargoManager (and one for the optional RecoveryPlanner).
+ * Run this file to see PASS or FAIL for each test.
  * These are only a few examples. The real check on your pull request has many more.
  * Your own tests are welcome: add them here or in a new file.
  */
@@ -122,6 +128,28 @@ public class StarterTests {
         }
         total++;
         passed += report("Part 3 (bonus): limit 10, 6 shipments -> 2 trucks", ok);
+
+        // Part 4 (optional final boss): 2 days, one truck of capacity 10 that can leave
+        // on day 1 and day 2. A (weight 6, priority 5) must ship by day 1.
+        // B (weight 6, priority 3) must ship by day 2. They cannot share a trip
+        // (6 + 6 > 10), so: A on day 1, B on day 2 = score 8 with 2 trips.
+        // (B on day 1 and A on day 2 would make A late: only 3 points.)
+        Warehouse recoveryWarehouse = new Warehouse(100);
+        ArrayList<Integer> truckDays = new ArrayList<>();
+        truckDays.add(1);
+        truckDays.add(2);
+        ArrayList<Truck> recoveryTrucks = new ArrayList<>();
+        recoveryTrucks.add(new Truck("T1", 10, false, truckDays));
+        ArrayList<RecoveryCargo> recoveryCargo = new ArrayList<>();
+        recoveryCargo.add(new RecoveryCargo("A", 6, 5, 1, 1, "NONE"));
+        recoveryCargo.add(new RecoveryCargo("B", 6, 3, 1, 2, "NONE"));
+        Scenario scenario = new Scenario(recoveryWarehouse, 2, recoveryCargo,
+                recoveryTrucks, new ArrayList<String[]>());
+        RecoveryPlanner planner = new RecoveryPlanner();
+        Plan plan = planner.plan(scenario);
+        ok = plan != null && plan.getScore() == 8 && plan.getTripCount() == 2;
+        total++;
+        passed += report("Part 4 (final boss): 2 days, 1 truck -> score 8, 2 trips", ok);
 
         System.out.println();
         System.out.println(passed + "/" + total + " passed");
