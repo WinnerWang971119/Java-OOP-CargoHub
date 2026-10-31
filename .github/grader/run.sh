@@ -66,6 +66,12 @@ assemble() {
   rm -rf "$WORK/src/org/amped/model"
   mkdir -p "$WORK/src/org/amped"
   cp -RP "$BASE/src/org/amped/model" "$WORK/src/org/amped/model"
+  # Part 4 is a bonus, so a submission without RecoveryPlanner.java must still be graded on Parts 1 to 3.
+  # The provided stub takes its place (it returns null, so Part 4 shows "not passed yet").
+  if [ ! -f "$WORK/src/org/amped/service/RecoveryPlanner.java" ]; then
+    mkdir -p "$WORK/src/org/amped/service"
+    cp "$BASE/src/org/amped/service/RecoveryPlanner.java" "$WORK/src/org/amped/service/RecoveryPlanner.java"
+  fi
 }
 
 data() {
@@ -92,6 +98,8 @@ grade() {
   unset CLASSPATH
   rm -f "$RESULT"
   # The student code runs inside this JVM. Keep the runner's file-command variables away from it.
+  # The Grader stops starting new cases after its TOTAL_BUDGET_MS (240 s), and one last call can take
+  # up to 5 s more, so it ends on its own well before this limit. Keep that margin if either changes.
   run_with_timeout 300 env -u GITHUB_ENV -u GITHUB_PATH -u GITHUB_OUTPUT -u GITHUB_STATE -u GITHUB_STEP_SUMMARY \
     java -cp "$BUILD" Grader "$DATA" "$RESULT" </dev/null
 }
@@ -118,17 +126,18 @@ report() {
     summary='❌ Failed: your code does not compile. Open the "Compile" step to see why.'
   elif [ "$outcome" = "success" ] && [ -f "$RESULT" ]; then
     local headline='❌ Failed'
-    # Parts 1 and 2 decide the check. Part 3 is a bonus and never changes the colour.
+    # Parts 1 and 2 decide the check. Parts 3 and 4 are bonuses and never change the colour.
     if part_passed PART1 && part_passed PART2; then
       passed=1
       headline='✅ Passed'
     fi
     # One line per part, in the result file's order. Add a part_line call for every new part.
     # Blank lines between them: the job summary is markdown.
-    summary=$(printf '%s\n\n%s\n\n%s\n\n%s' "$headline" \
+    summary=$(printf '%s\n\n%s\n\n%s\n\n%s\n\n%s' "$headline" \
       "$(part_line PART1 'Part 1 · processBatch: ✅ Passed' 'Part 1 · processBatch: ❌ Failed')" \
       "$(part_line PART2 'Part 2 · optimizeInbound: ✅ Passed' 'Part 2 · optimizeInbound: ❌ Failed')" \
-      "$(part_line PART3 '⭐ Bonus Part 3 · planTrucks: Passed' 'Bonus Part 3 · planTrucks: not passed yet')")
+      "$(part_line PART3 '⭐ Bonus Part 3 · planTrucks: Passed' 'Bonus Part 3 · planTrucks: not passed yet')" \
+      "$(part_line PART4 '⭐ Bonus Part 4 · Operation Recovery: Passed' 'Bonus Part 4 · Operation Recovery: not passed yet')")
   else
     summary='❌ Failed'
   fi

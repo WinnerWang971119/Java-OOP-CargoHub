@@ -10,6 +10,8 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -22,22 +24,28 @@ import java.util.function.Function;
 import org.amped.model.Cargo;
 import org.amped.model.Shipment;
 import org.amped.model.Warehouse;
+import org.amped.model.recovery.Assignment;
+import org.amped.model.recovery.Plan;
+import org.amped.model.recovery.RecoveryCargo;
+import org.amped.model.recovery.Scenario;
+import org.amped.model.recovery.Truck;
 import org.amped.service.CargoManager;
+import org.amped.service.RecoveryPlanner;
 
 /**
- * Grades a student's CargoManager against the test data.
+ * Grades a student's CargoManager and RecoveryPlanner against the test data.
  *
  * Usage: java -cp BUILD Grader DATA_DIR RESULT_FILE
  *
  * What it does, in order:
- *   1. Reads the three data files strictly into memory.
+ *   1. Reads the four data files strictly into memory.
  *   2. Deletes DATA_DIR (a working copy made by the caller).
- *   3. Grades every part on its own: batch (PART1), optimize (PART2), trucks (PART3).
- *      A part stops at its first wrong or slow case; the next part still runs.
+ *   3. Grades every part on its own: batch (PART1), optimize (PART2), trucks (PART3),
+ *      recovery (PART4). A part stops at its first wrong or slow case; the next part still runs.
  *   4. Writes RESULT_FILE, prints the same lines to the real stdout and halts.
  *
  * The result file has one line per part, in order:
- *   PART1 PASSED or PART1 FAILED, then PART2 ..., then PART3 ...
+ *   PART1 PASSED or PART1 FAILED, then PART2 ..., PART3 ... and PART4 ...
  * Which parts are required is decided by the caller (run.sh), not here.
  *
  * The exit status is always 0. The caller reads the result file. A missing file
@@ -49,9 +57,13 @@ public class Grader {
     private static final long BATCH_LIMIT_MS = 2_000;
     private static final long OPTIMIZE_LIMIT_MS = 2_000;
     private static final long TRUCKS_LIMIT_MS = 3_000;
+    private static final long RECOVERY_LIMIT_MS = 5_000;
     /**
      * Stop grading after this long, so the result file always gets written before the caller's
-     * timeout. Part k of n has to be done by k/n of it, so a slow part cannot starve the next ones.
+     * timeout. Each part gets a share in proportion to (number of cases * its per-call limit), and
+     * has to be done by the end of its share plus the shares before it, so a slow part cannot starve
+     * the next ones. The last case to start can still use up its full per-call limit (5 s at most),
+     * so this plus 5 s must stay well under the 300 s that run.sh allows.
      */
     private static final long TOTAL_BUDGET_MS = 240_000;
 
@@ -82,8 +94,11 @@ public class Grader {
         boolean passes(long deadlineNanos);
     }
 
-    /** A part and the label that starts its line in the result file. */
-    private record GradedPart(String label, Part part) {}
+    /**
+     * A part, the label that starts its line in the result file, and its weight: the most time its
+     * cases can take in total (number of cases * per-call limit). The weights split the time budget.
+     */
+    private record GradedPart(String label, long weightMs, Part part) {}
 
     private void run(Path dataDir, Path resultFile) {
         List<String> verdict = null;
@@ -108,17 +123,27 @@ public class Grader {
         // method, then add one line here. All data is read before the first student call and the
         // files are deleted right after.
         List<GradedPart> parts = new ArrayList<>();
-        parts.add(new GradedPart("PART1", part(loadBatch(dataDir.resolve("batch.txt")), this::checkBatch)));
-        parts.add(new GradedPart("PART2", part(loadOptimize(dataDir.resolve("optimize.txt")), this::checkOptimize)));
-        parts.add(new GradedPart("PART3", part(loadTrucks(dataDir.resolve("trucks.txt")), this::checkTrucks)));
+        parts.add(part("PART1", loadBatch(dataDir.resolve("batch.txt")), BATCH_LIMIT_MS, this::checkBatch));
+        parts.add(part("PART2", loadOptimize(dataDir.resolve("optimize.txt")), OPTIMIZE_LIMIT_MS,
+                this::checkOptimize));
+        parts.add(part("PART3", loadTrucks(dataDir.resolve("trucks.txt")), TRUCKS_LIMIT_MS, this::checkTrucks));
+        parts.add(part("PART4", loadRecovery(dataDir.resolve("recovery.txt")), RECOVERY_LIMIT_MS,
+                this::checkRecovery));
         deleteTree(dataDir);
 
+        long totalWeight = 0;
+        for (GradedPart graded : parts) {
+            totalWeight += graded.weightMs();
+        }
+        totalWeight = Math.max(1, totalWeight);
+
         long start = System.nanoTime();
-        long budgetNanos = TOTAL_BUDGET_MS * 1_000_000L;
+        double budgetNanos = TOTAL_BUDGET_MS * 1_000_000.0;
+        long weightSoFar = 0;
         List<String> verdict = new ArrayList<>();
-        for (int i = 0; i < parts.size(); i++) {
-            GradedPart graded = parts.get(i);
-            long deadline = start + budgetNanos * (i + 1) / parts.size();
+        for (GradedPart graded : parts) {
+            weightSoFar += graded.weightMs();
+            long deadline = start + (long) (budgetNanos * weightSoFar / totalWeight);
             boolean passed;
             try {
                 passed = graded.part().passes(deadline);
@@ -154,8 +179,8 @@ public class Grader {
         Runtime.getRuntime().halt(0);
     }
 
-    private <T> Part part(List<T> cases, Function<T, String> check) {
-        return deadline -> runCases(cases, check, deadline);
+    private <T> GradedPart part(String label, List<T> cases, long callLimitMs, Function<T, String> check) {
+        return new GradedPart(label, cases.size() * callLimitMs, deadline -> runCases(cases, check, deadline));
     }
 
     private <T> boolean runCases(List<T> cases, Function<T, String> check, long deadlineNanos) {
@@ -248,6 +273,7 @@ public class Grader {
             }
         }
 
+        WarehouseSnapshot before = WarehouseSnapshot.of(warehouse, expectedStock.keySet());
         Outcome<Boolean> outcome = callStudent(() -> new CargoManager(warehouse).processBatch(batch), BATCH_LIMIT_MS);
         if (!outcome.completed()) {
             return "timeout or exception";
@@ -259,6 +285,10 @@ public class Grader {
             if (warehouse.getStock(e.getKey()) != e.getValue()) {
                 return "wrong final stock";
             }
+        }
+        // A rejected batch must leave no trace at all: not even a newly registered SKU.
+        if (!c.expect() && !before.matches(warehouse)) {
+            return "warehouse changed";
         }
         return null;
     }
@@ -285,10 +315,7 @@ public class Grader {
             skus.add(cand.sku());
         }
         int freeCapacity = warehouse.getFreeCapacity();
-        Map<String, Integer> stockBefore = new HashMap<>();
-        for (String sku : skus) {
-            stockBefore.put(sku, warehouse.getStock(sku));
-        }
+        WarehouseSnapshot before = WarehouseSnapshot.of(warehouse, skus);
 
         // The student gets its own copy of the list; the answer is copied inside the guarded thread.
         List<Shipment> given = new ArrayList<>(candidates);
@@ -324,10 +351,8 @@ public class Grader {
         if (totalPriority != c.best()) {
             return "not the best total priority";
         }
-        for (Map.Entry<String, Integer> e : stockBefore.entrySet()) {
-            if (warehouse.getStock(e.getKey()) != e.getValue()) {
-                return "warehouse changed";
-            }
+        if (!before.matches(warehouse)) {
+            return "warehouse changed";
         }
         return null;
     }
@@ -355,6 +380,11 @@ public class Grader {
 
         List<Shipment> givenShips = new ArrayList<>(ships);
         Warehouse warehouse = new Warehouse(0);
+        Set<String> shipSkus = new HashSet<>();
+        for (Ship s : c.ships()) {
+            shipSkus.add(s.sku());
+        }
+        WarehouseSnapshot before = WarehouseSnapshot.of(warehouse, shipSkus);
         Outcome<List<List<?>>> outcome = callStudent(() -> {
             List<List<Shipment>> answer = new CargoManager(warehouse)
                     .planTrucks(givenShips, c.truckCapacity(), givenConflicts);
@@ -369,6 +399,9 @@ public class Grader {
         }, TRUCKS_LIMIT_MS);
         if (!outcome.completed()) {
             return "timeout or exception";
+        }
+        if (!before.matches(warehouse)) {
+            return "warehouse changed";
         }
         List<List<?>> trucks = outcome.value;
 
@@ -417,6 +450,183 @@ public class Grader {
     }
 
     // ---------------------------------------------------------------------------------------------
+    // Part 4 (bonus): Operation Recovery
+    // ---------------------------------------------------------------------------------------------
+
+    /** The one RecoveryPlanner for the whole part, created on the first guarded call (not on the grader thread). */
+    private volatile RecoveryPlanner planner;
+
+    /** The hazmat class of cargo that is not hazardous (the same word as in RecoveryCargo). */
+    private static final String NOT_HAZMAT = "NONE";
+
+    /** One assignment of the student's plan, copied once on the guarded thread. */
+    private record Move(RecoveryCargo cargo, Truck truck, int day) {}
+
+    private String checkRecovery(RecoveryCase c) {
+        // Fresh objects for every case. The scenario gets its own copies of the lists; the grader keeps
+        // the originals to compare after the call, and its own rows to judge the answer.
+        Map<String, Cargo> cargoBySku = new HashMap<>();
+        Warehouse warehouse = new Warehouse(c.capacity());
+        for (Stock s : c.stock()) {
+            warehouse.addStock(cargoFor(cargoBySku, s.sku(), s.unitWeight()), s.qty());
+        }
+        List<RecoveryCargo> cargoList = new ArrayList<>();
+        IdentityHashMap<RecoveryCargo, Integer> cargoIndex = new IdentityHashMap<>();
+        for (int i = 0; i < c.cargo().size(); i++) {
+            CargoRow row = c.cargo().get(i);
+            RecoveryCargo piece = new RecoveryCargo(row.id(), row.weight(), row.priority(), row.inbound(),
+                    row.deadline(), row.hazmatClass());
+            cargoList.add(piece);
+            cargoIndex.put(piece, i);
+        }
+        List<Truck> truckList = new ArrayList<>();
+        IdentityHashMap<Truck, Integer> truckIndex = new IdentityHashMap<>();
+        for (int i = 0; i < c.trucks().size(); i++) {
+            TruckRow row = c.trucks().get(i);
+            Truck truck = new Truck(row.id(), row.capacity(), row.certified(), new ArrayList<>(row.days()));
+            truckList.add(truck);
+            truckIndex.put(truck, i);
+        }
+        List<String[]> conflictList = new ArrayList<>();
+        Set<List<String>> conflictPairs = new HashSet<>();
+        for (String[] pair : c.conflicts()) {
+            conflictList.add(new String[] {pair[0], pair[1]});
+            conflictPairs.add(pairOf(pair[0], pair[1]));
+        }
+        Scenario scenario = new Scenario(warehouse, c.horizon(), new ArrayList<>(cargoList),
+                new ArrayList<>(truckList), new ArrayList<>(conflictList));
+
+        // Taken before the call, so a planner that changes the warehouse cannot move the goalposts.
+        WarehouseSnapshot before = WarehouseSnapshot.of(warehouse, List.of());
+        long baseWeight = warehouse.getCurrentWeight();
+
+        Outcome<List<Move>> outcome = callStudent(() -> {
+            if (planner == null) {
+                planner = new RecoveryPlanner();
+            }
+            Plan plan = planner.plan(scenario);
+            if (plan == null) {
+                return null;
+            }
+            List<Move> moves = new ArrayList<>();
+            for (Assignment assignment : plan.getAssignments()) {
+                moves.add(assignment == null
+                        ? new Move(null, null, 0)
+                        : new Move(assignment.getCargo(), assignment.getTruck(), assignment.getDay()));
+            }
+            return moves;
+        }, RECOVERY_LIMIT_MS);
+        if (!outcome.completed()) {
+            return "timeout or exception";
+        }
+
+        // Nothing the student was given may have changed, whatever the answer is.
+        if (!before.matches(warehouse)) {
+            return "warehouse changed";
+        }
+        if (!sameObjects(scenario.getCargo(), cargoList) || !sameObjects(scenario.getTrucks(), truckList)
+                || !sameObjects(scenario.getHazmatConflicts(), conflictList)) {
+            return "scenario changed";
+        }
+        for (int i = 0; i < conflictList.size(); i++) {
+            if (!Arrays.equals(conflictList.get(i), c.conflicts().get(i))) {
+                return "scenario changed";
+            }
+        }
+
+        List<Move> moves = outcome.value;
+        if (!c.feasible()) {
+            return moves == null ? null : "should have returned null";
+        }
+        if (moves == null) {
+            return "returned null";
+        }
+        return judgePlan(c, moves, cargoIndex, truckIndex, conflictPairs, baseWeight);
+    }
+
+    /** Checks every rule of a plan and its score and trip count, using only the grader's own rows. */
+    private static String judgePlan(RecoveryCase c, List<Move> moves, IdentityHashMap<RecoveryCargo, Integer> cargoIndex,
+            IdentityHashMap<Truck, Integer> truckIndex, Set<List<String>> conflictPairs, long baseWeight) {
+        int cargoCount = c.cargo().size();
+        int daySlots = c.horizon() + 1;
+        int[] shippedOn = new int[cargoCount]; // 0 = never shipped; real days start at 1
+        // A trip is one truck on one day. Key = truck index * daySlots + day; value = the cargo on it.
+        Map<Integer, List<Integer>> trips = new LinkedHashMap<>();
+        long score = 0;
+
+        for (Move move : moves) {
+            Integer cargoAt = move.cargo() == null ? null : cargoIndex.get(move.cargo());
+            Integer truckAt = move.truck() == null ? null : truckIndex.get(move.truck());
+            if (cargoAt == null || truckAt == null) {
+                return "not an object of this scenario";
+            }
+            if (shippedOn[cargoAt] != 0) {
+                return "cargo shipped twice";
+            }
+            CargoRow piece = c.cargo().get(cargoAt);
+            int day = move.day();
+            if (day < piece.inbound() || day > c.horizon()) {
+                return "day out of range";
+            }
+            if (!c.trucks().get(truckAt).days().contains(day)) {
+                return "truck not available that day";
+            }
+            shippedOn[cargoAt] = day;
+            trips.computeIfAbsent(truckAt * daySlots + day, key -> new ArrayList<>()).add(cargoAt);
+            if (day <= piece.deadline()) {
+                score += piece.priority();
+            }
+        }
+
+        for (Map.Entry<Integer, List<Integer>> trip : trips.entrySet()) {
+            TruckRow truck = c.trucks().get(trip.getKey() / daySlots);
+            List<Integer> onTrip = trip.getValue();
+            long load = 0;
+            for (int i = 0; i < onTrip.size(); i++) {
+                CargoRow piece = c.cargo().get(onTrip.get(i));
+                load += piece.weight();
+                if (!piece.hazmatClass().equals(NOT_HAZMAT) && !truck.certified()) {
+                    return "hazmat on a truck that is not certified";
+                }
+                for (int j = 0; j < i; j++) {
+                    String a = piece.hazmatClass();
+                    String b = c.cargo().get(onTrip.get(j)).hazmatClass();
+                    if (!a.equals(b) && conflictPairs.contains(pairOf(a, b))) {
+                        return "conflicting hazmat classes share a trip";
+                    }
+                }
+            }
+            if (load > truck.capacity()) {
+                return "truck over capacity";
+            }
+        }
+
+        // Every morning, after the arrivals and before any truck leaves.
+        for (int day = 1; day <= c.horizon(); day++) {
+            long inWarehouse = baseWeight;
+            for (int i = 0; i < cargoCount; i++) {
+                CargoRow piece = c.cargo().get(i);
+                boolean arrived = piece.inbound() <= day;
+                boolean stillThere = shippedOn[i] == 0 || shippedOn[i] >= day;
+                if (arrived && stillThere) {
+                    inWarehouse += piece.weight();
+                }
+            }
+            if (inWarehouse > c.capacity()) {
+                return "warehouse over capacity in the morning";
+            }
+        }
+
+        if (score != c.bestScore()) {
+            return "not the best score";
+        }
+        if (trips.size() != c.bestTrips()) {
+            return "not the fewest trips";
+        }
+        return null;
+    }
+
+    // ---------------------------------------------------------------------------------------------
     // Small helpers
     // ---------------------------------------------------------------------------------------------
 
@@ -428,6 +638,57 @@ public class Grader {
     /** An unordered pair of SKUs as a map key. */
     private static List<String> pairOf(String a, String b) {
         return a.compareTo(b) <= 0 ? List.of(a, b) : List.of(b, a);
+    }
+
+    /** True if both lists hold the very same objects in the same order. */
+    private static boolean sameObjects(List<?> now, List<?> before) {
+        if (now.size() != before.size()) {
+            return false;
+        }
+        for (int i = 0; i < now.size(); i++) {
+            if (now.get(i) != before.get(i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * What a warehouse looked like before a student call: its current weight, its registered SKUs in
+     * order, and the stock of those SKUs plus any extra SKUs the case talks about. A student who
+     * registers a new SKU, or adds or removes any stock, no longer matches.
+     */
+    private static final class WarehouseSnapshot {
+        private final int currentWeight;
+        private final List<String> skus;
+        private final Map<String, Integer> stock = new LinkedHashMap<>();
+
+        private WarehouseSnapshot(Warehouse warehouse, Collection<String> extraSkus) {
+            this.currentWeight = warehouse.getCurrentWeight();
+            this.skus = new ArrayList<>(warehouse.getSkus());
+            for (String sku : skus) {
+                stock.put(sku, warehouse.getStock(sku));
+            }
+            for (String sku : extraSkus) {
+                stock.putIfAbsent(sku, warehouse.getStock(sku));
+            }
+        }
+
+        static WarehouseSnapshot of(Warehouse warehouse, Collection<String> extraSkus) {
+            return new WarehouseSnapshot(warehouse, extraSkus);
+        }
+
+        boolean matches(Warehouse warehouse) {
+            if (warehouse.getCurrentWeight() != currentWeight || !skus.equals(warehouse.getSkus())) {
+                return false;
+            }
+            for (Map.Entry<String, Integer> entry : stock.entrySet()) {
+                if (warehouse.getStock(entry.getKey()) != entry.getValue()) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 
     /** Deletes the directory and everything in it. Links are removed, never followed. */
@@ -467,6 +728,14 @@ public class Grader {
     private record OptimizeCase(int capacity, List<Stock> stock, List<Candidate> candidates, int best) {}
 
     private record TruckCase(int truckCapacity, List<Ship> ships, List<String[]> conflicts, int best) {}
+
+    private record TruckRow(String id, int capacity, boolean certified, List<Integer> days) {}
+
+    private record CargoRow(String id, int weight, int priority, int inbound, int deadline, String hazmatClass) {}
+
+    /** feasible is false for "best -1" (the right answer is null); then bestScore and bestTrips are unused. */
+    private record RecoveryCase(int horizon, int capacity, List<Stock> stock, List<TruckRow> trucks,
+            List<CargoRow> cargo, List<String[]> conflicts, boolean feasible, int bestScore, int bestTrips) {}
 
     // ---------------------------------------------------------------------------------------------
     // Strict data parsing. Error messages name the file and line, never the data on it.
@@ -664,5 +933,106 @@ public class Grader {
             cases.add(new TruckCase(truckCapacity, ships, conflicts, best));
         }
         return cases;
+    }
+
+    /** Limits of Part 4, as the README promises them; the data must keep to them. */
+    private static final int RECOVERY_MAX_CARGO = 12;
+    private static final int RECOVERY_MAX_TRUCKS = 4;
+    private static final int RECOVERY_MAX_HORIZON = 3;
+
+    private static List<RecoveryCase> loadRecovery(Path file) throws IOException, DataException {
+        List<RecoveryCase> cases = new ArrayList<>();
+        for (Block b : readBlocks(file)) {
+            b.need(b.rows.size() >= 3, -1, "case is too short");
+            int last = b.rows.size() - 1;
+            String[] horizonRow = b.rows.get(0);
+            b.need(horizonRow[0].equals("horizon") && horizonRow.length == 2, 0, "first row must be 'horizon'");
+            int horizon = b.atLeast(0, 1, 1);
+            b.need(horizon <= RECOVERY_MAX_HORIZON, 0, "number out of range");
+            String[] capacityRow = b.rows.get(1);
+            b.need(capacityRow[0].equals("capacity") && capacityRow.length == 2, 1, "second row must be 'capacity'");
+            int capacity = b.atLeast(1, 1, 0);
+
+            String[] foot = b.rows.get(last);
+            b.need(foot[0].equals("best") && (foot.length == 2 || foot.length == 3), last,
+                    "last row must be 'best'");
+            boolean feasible = foot.length == 3;
+            int bestScore = 0;
+            int bestTrips = 0;
+            if (feasible) {
+                bestScore = b.atLeast(last, 1, 0);
+                bestTrips = b.atLeast(last, 2, 0);
+            } else {
+                b.need(b.number(last, 1) == -1, last, "'best' needs -1, or a score and a trip count");
+            }
+
+            List<Stock> stock = new ArrayList<>();
+            List<TruckRow> trucks = new ArrayList<>();
+            List<CargoRow> cargo = new ArrayList<>();
+            List<String[]> conflicts = new ArrayList<>();
+            Set<String> truckIds = new HashSet<>();
+            Set<String> cargoIds = new HashSet<>();
+            int section = 0; // stock 1, truck 2, cargo 3, conflict 4: the rows come in this order
+            for (int r = 2; r < last; r++) {
+                String[] t = b.rows.get(r);
+                int kind;
+                switch (t[0]) {
+                    case "stock" -> {
+                        kind = 1;
+                        b.need(t.length == 4, r, "bad 'stock' row");
+                        stock.add(new Stock(t[1], b.unitWeight(r), b.atLeast(r, 3, 0)));
+                    }
+                    case "truck" -> {
+                        kind = 2;
+                        b.need(t.length == 5 && truckIds.add(t[1]), r, "bad 'truck' row");
+                        b.need(t[3].equals("0") || t[3].equals("1"), r, "certified must be 0 or 1");
+                        trucks.add(new TruckRow(t[1], b.atLeast(r, 2, 1), t[3].equals("1"),
+                                parseDays(b, r, t[4], horizon)));
+                    }
+                    case "cargo" -> {
+                        kind = 3;
+                        b.need(t.length == 7 && cargoIds.add(t[1]), r, "bad 'cargo' row");
+                        int inbound = b.number(r, 4);
+                        b.need(inbound >= 1 && inbound <= horizon, r, "number out of range");
+                        int deadline = b.number(r, 5);
+                        b.need(deadline >= inbound && deadline <= horizon, r, "number out of range");
+                        cargo.add(new CargoRow(t[1], b.atLeast(r, 2, 1), b.atLeast(r, 3, 1), inbound, deadline, t[6]));
+                    }
+                    case "conflict" -> {
+                        kind = 4;
+                        b.need(t.length == 3 && !t[1].equals(t[2]) && !t[1].equals(NOT_HAZMAT)
+                                && !t[2].equals(NOT_HAZMAT), r, "bad 'conflict' row");
+                        conflicts.add(new String[] {t[1], t[2]});
+                    }
+                    default -> throw b.error(r, "unknown row");
+                }
+                b.need(kind >= section, r, "rows out of order");
+                section = kind;
+            }
+            b.need(trucks.size() <= RECOVERY_MAX_TRUCKS && cargo.size() <= RECOVERY_MAX_CARGO, -1,
+                    "too many trucks or cargo");
+            cases.add(new RecoveryCase(horizon, capacity, stock, trucks, cargo, conflicts, feasible, bestScore,
+                    bestTrips));
+        }
+        return cases;
+    }
+
+    /** The days of a truck: "-" is none, otherwise a comma list of different days from 1 to the horizon. */
+    private static List<Integer> parseDays(Block b, int row, String token, int horizon) throws DataException {
+        List<Integer> days = new ArrayList<>();
+        if (token.equals("-")) {
+            return days;
+        }
+        for (String part : token.split(",", -1)) {
+            int day;
+            try {
+                day = Integer.parseInt(part);
+            } catch (NumberFormatException e) {
+                throw b.error(row, "not a whole number");
+            }
+            b.need(day >= 1 && day <= horizon && !days.contains(day), row, "bad day");
+            days.add(day);
+        }
+        return days;
     }
 }
