@@ -1,0 +1,2596 @@
+case hand-deck-example
+capacity 100
+stock A 2 5
+out A 2 7
+in A 2 4
+expect true
+end
+
+case hand-empty-batch
+capacity 100
+stock A 2 5
+expect true
+end
+
+case hand-empty-batch-empty-warehouse
+capacity 10
+expect true
+end
+
+case hand-exact-capacity
+capacity 50
+stock A 5 4
+in B 1 30
+expect true
+end
+
+case hand-over-by-one
+capacity 50
+stock A 5 4
+in B 1 31
+expect false
+end
+
+case hand-unknown-sku-outbound
+capacity 100
+stock A 2 5
+out Z 3 1
+expect false
+end
+
+case hand-unknown-sku-in-out-net-zero
+capacity 100
+stock A 2 5
+out Z 3 4
+in Z 3 4
+expect true
+end
+
+case hand-unknown-sku-in-out-net-positive
+capacity 100
+stock A 2 5
+out Z 3 2
+in Z 3 5
+expect true
+end
+
+case hand-unknown-sku-in-out-net-negative
+capacity 100
+stock A 2 5
+out Z 3 5
+in Z 3 4
+expect false
+end
+
+case hand-same-sku-many-lines
+capacity 100
+stock A 2 10
+out A 2 3
+in A 2 5
+out A 2 4
+in A 2 1
+out A 2 6
+in A 2 2
+expect true
+end
+
+case hand-same-sku-many-lines-reject
+capacity 100
+stock A 2 2
+out A 2 2
+in A 2 1
+out A 2 2
+in A 2 1
+out A 2 3
+expect false
+end
+
+case hand-invalid-line-5-of-8
+capacity 200
+stock A 2 10
+stock B 3 6
+in A 2 3
+out B 3 2
+in C 4 5
+out A 2 1
+out D 3 2
+in B 3 1
+out C 4 1
+in A 2 2
+expect false
+end
+
+case hand-outbound-to-exactly-zero
+capacity 100
+stock A 2 5
+stock B 1 3
+out A 2 5
+expect true
+end
+
+case hand-outbound-frees-room-for-inbound
+capacity 100
+stock A 10 8
+stock B 1 10
+in C 5 4
+out A 10 2
+expect true
+end
+
+case hand-outbound-more-than-stock-by-one
+capacity 100
+stock A 2 5
+out A 2 6
+expect false
+end
+
+case hand-full-warehouse-any-inbound-rejected
+capacity 20
+stock A 4 5
+in B 1 1
+expect false
+end
+
+case hand-full-warehouse-swap-same-weight
+capacity 20
+stock A 4 5
+out A 4 1
+in B 2 2
+expect true
+end
+
+case hand-new-sku-inbound
+capacity 40
+in A 3 10
+expect true
+end
+
+case hand-mixed-weights-exact
+capacity 60
+stock A 5 6
+stock B 1 10
+out A 5 2
+in B 1 24
+in C 2 3
+expect true
+end
+
+case hand-mixed-weights-over
+capacity 60
+stock A 5 6
+stock B 1 10
+out A 5 2
+in B 1 25
+in C 2 3
+expect false
+end
+
+case hand-two-skus-one-bad
+capacity 100
+stock A 1 5
+stock B 1 5
+out A 1 5
+out B 1 6
+expect false
+end
+
+case rand-001
+capacity 59
+stock ACID 3 7
+stock CHEM 2 3
+stock FUEL 2 11
+out ACID 3 5
+out ACID 3 2
+out CHEM 2 2
+in FUEL 2 3
+out ACID 3 1
+out CHEM 2 2
+in FUEL 2 3
+in CHEM 2 3
+expect false
+end
+
+case rand-002
+capacity 132
+stock NUT 6 7
+stock OXI 4 4
+stock GAS 3 4
+stock A 4 9
+in GAS 3 2
+in OXI 4 1
+in OXI 4 1
+out NUT 6 2
+out NUT 6 1
+in GAS 3 1
+in OXI 4 1
+out GAS 3 4
+out OXI 4 1
+expect true
+end
+
+case rand-003
+capacity 39
+in NUT 5 2
+expect true
+end
+
+case rand-004
+capacity 86
+stock PIPE 3 12
+stock BOLT 5 4
+out PIPE 3 3
+in WIRE 2 1
+in CHEM 6 1
+in CHEM 6 6
+out PIPE 3 1
+in BOLT 5 1
+in CHEM 6 1
+out PIPE 3 4
+expect false
+end
+
+case rand-005
+capacity 64
+stock H 4 8
+out H 4 1
+out D 3 1
+in D 3 1
+out H 4 2
+in H 4 4
+in D 3 1
+in D 3 2
+out D 3 2
+out H 4 2
+out D 3 1
+in A 3 5
+expect true
+end
+
+case rand-006
+capacity 40
+stock CHEM 3 12
+stock G 2 2
+out G 2 1
+in NUT 1 1
+out G 2 1
+expect true
+end
+
+case rand-007
+capacity 14
+stock CHEM 2 1
+out BOLT 4 3
+out CHEM 2 1
+in CHEM 2 1
+in CHEM 2 1
+out CHEM 2 1
+expect false
+end
+
+case rand-008
+capacity 54
+stock TNT 6 6
+stock MILK 2 9
+in TNT 6 2
+in MILK 2 2
+out TNT 6 5
+out TNT 6 3
+expect true
+end
+
+case rand-009
+capacity 70
+stock NUT 6 8
+out NUT 6 1
+out NUT 6 1
+in NUT 6 1
+in NUT 6 1
+in NUT 6 3
+expect true
+end
+
+case rand-010
+capacity 26
+stock OXI 1 2
+stock BOLT 3 5
+in F 4 3
+expect false
+end
+
+case rand-011
+capacity 117
+stock B 2 4
+stock CRATE 6 12
+stock A 2 12
+stock D 1 3
+in A 2 3
+in CRATE 6 4
+in CRATE 6 1
+out A 2 8
+out A 2 1
+out A 2 3
+in B 2 1
+out D 1 1
+out B 2 1
+expect false
+end
+
+case rand-012
+capacity 98
+stock A 3 7
+stock GAS 6 12
+out C 3 1
+in D 2 5
+out C 3 1
+in GAS 6 2
+in A 3 4
+out C 3 1
+out CRATE 6 1
+in D 2 1
+in C 3 1
+out GAS 6 13
+in C 3 3
+expect false
+end
+
+case rand-013
+capacity 102
+stock C 5 11
+stock E 4 6
+out C 5 2
+in TNT 2 7
+in TNT 2 2
+in PIPE 6 1
+in OXI 4 7
+out C 5 1
+out C 5 3
+out TNT 2 1
+expect true
+end
+
+case rand-014
+capacity 112
+stock CRATE 5 10
+stock PIPE 6 9
+out CRATE 5 1
+in CRATE 5 1
+in CRATE 5 1
+in CRATE 5 1
+in CRATE 5 1
+out CRATE 5 1
+in PIPE 6 1
+out CRATE 5 1
+expect false
+end
+
+case rand-015
+capacity 17
+stock NUT 4 3
+stock G 1 5
+out G 1 2
+in NUT 4 1
+in G 1 1
+out G 1 3
+expect true
+end
+
+case rand-016
+capacity 52
+stock D 4 7
+out F 2 3
+out OXI 1 6
+in D 4 2
+in F 2 6
+in OXI 1 5
+in D 4 2
+expect false
+end
+
+case rand-017
+capacity 37
+stock TNT 2 3
+in FUEL 4 3
+in FUEL 4 2
+expect true
+end
+
+case rand-018
+capacity 59
+stock OXI 4 11
+stock G 1 8
+out OXI 4 1
+out G 1 1
+out OXI 4 2
+out OXI 4 8
+out G 1 2
+in G 1 5
+in G 1 3
+expect true
+end
+
+case rand-019
+capacity 94
+stock BOLT 6 7
+stock C 5 1
+stock MILK 6 5
+in MILK 6 5
+in OXI 5 4
+out C 5 1
+in MILK 6 4
+out MILK 6 1
+out MILK 6 6
+in OXI 5 4
+in OXI 5 2
+out BOLT 6 5
+in OXI 5 2
+out C 5 2
+expect false
+end
+
+case rand-020
+capacity 15
+in PIPE 4 1
+in H 1 2
+in PIPE 4 2
+in H 1 4
+expect false
+end
+
+case rand-021
+capacity 26
+in G 5 1
+out MILK 3 1
+out G 5 2
+in G 5 1
+expect false
+end
+
+case rand-022
+capacity 103
+stock BOLT 3 10
+stock E 5 7
+stock F 3 5
+out E 5 1
+in WIRE 4 1
+in E 5 1
+out E 5 2
+out E 5 1
+in E 5 6
+in E 5 1
+in B 3 1
+expect false
+end
+
+case rand-023
+capacity 83
+stock ACID 5 2
+stock NUT 3 2
+stock A 5 11
+stock C 2 6
+out C 2 4
+out C 2 1
+in NUT 3 2
+in NUT 3 1
+in A 5 1
+out NUT 3 1
+out NUT 3 2
+in NUT 3 3
+out C 2 1
+out NUT 3 1
+expect true
+end
+
+case rand-024
+capacity 28
+stock WIRE 4 7
+in WIRE 4 1
+out WIRE 4 1
+expect true
+end
+
+case rand-025
+capacity 96
+stock H 6 4
+stock FUEL 6 11
+out G 6 1
+in G 6 1
+in G 6 1
+in G 6 1
+out G 6 1
+expect true
+end
+
+case rand-026
+capacity 16
+out E 3 1
+in E 3 1
+expect true
+end
+
+case rand-027
+capacity 33
+stock OXI 1 7
+in OXI 1 4
+out OXI 1 1
+in H 5 2
+in OXI 1 4
+in H 5 3
+expect false
+end
+
+case rand-028
+capacity 63
+stock PIPE 2 3
+stock H 6 8
+in H 6 2
+out H 6 1
+expect true
+end
+
+case rand-029
+capacity 70
+stock FUEL 4 12
+out FUEL 4 14
+out FUEL 4 3
+in FUEL 4 3
+expect false
+end
+
+case rand-030
+capacity 56
+stock NUT 3 3
+stock WIRE 5 8
+stock A 1 2
+out H 2 5
+in WIRE 5 2
+out A 1 3
+out WIRE 5 2
+out H 2 4
+out WIRE 5 6
+in A 1 6
+out H 2 6
+in H 2 1
+out WIRE 5 6
+out A 1 5
+in WIRE 5 3
+expect false
+end
+
+case rand-031
+capacity 39
+stock ACID 2 1
+in ACID 2 5
+out ACID 2 1
+out ACID 2 2
+out ACID 2 1
+expect true
+end
+
+case rand-032
+capacity 50
+stock GAS 2 8
+out E 3 4
+out FUEL 6 1
+in E 3 2
+in FUEL 6 5
+expect false
+end
+
+case rand-033
+capacity 83
+stock GAS 6 8
+stock TNT 2 9
+out TNT 2 6
+out TNT 2 1
+out TNT 2 2
+in ACID 4 7
+out GAS 6 8
+expect true
+end
+
+case rand-034
+capacity 80
+stock A 5 10
+stock GAS 5 6
+out GAS 5 2
+in D 6 2
+in ACID 2 1
+in ACID 2 6
+in ACID 2 1
+out GAS 5 6
+expect false
+end
+
+case rand-035
+capacity 22
+stock FUEL 1 7
+in FUEL 1 3
+out CRATE 2 6
+expect false
+end
+
+case rand-036
+capacity 7
+stock C 1 7
+in C 1 1
+out C 1 1
+expect true
+end
+
+case rand-037
+capacity 108
+stock CHEM 4 6
+stock A 4 12
+out A 4 3
+in A 4 1
+out A 4 6
+in A 4 2
+in CHEM 4 1
+out PIPE 3 2
+in CHEM 4 2
+out A 4 4
+expect false
+end
+
+case rand-038
+capacity 85
+stock ACID 6 4
+stock CRATE 4 3
+stock C 4 10
+out ACID 6 3
+out F 5 2
+in CRATE 4 1
+in CRATE 4 1
+expect false
+end
+
+case rand-039
+capacity 66
+stock CRATE 6 9
+in CRATE 6 2
+in CRATE 6 1
+in CRATE 6 1
+out CRATE 6 1
+in CRATE 6 1
+out CRATE 6 1
+expect false
+end
+
+case rand-040
+capacity 80
+stock F 3 2
+stock E 5 9
+out E 5 9
+out F 3 1
+out F 3 1
+in H 2 1
+out E 5 1
+expect false
+end
+
+case rand-041
+capacity 31
+stock C 5 3
+out C 5 2
+out C 5 1
+out C 5 4
+in TNT 5 2
+expect false
+end
+
+case rand-042
+capacity 61
+stock G 1 5
+stock TNT 4 11
+in A 2 4
+out E 6 3
+in E 6 1
+out CRATE 5 1
+out E 6 1
+in E 6 4
+out A 2 2
+in G 1 2
+out A 2 2
+expect false
+end
+
+case rand-043
+capacity 34
+in TNT 2 1
+expect true
+end
+
+case rand-044
+capacity 127
+stock NUT 3 7
+stock WIRE 4 5
+stock GAS 5 12
+out B 4 1
+out GAS 5 1
+in WIRE 4 9
+in FUEL 3 1
+out WIRE 4 1
+in FUEL 3 1
+out WIRE 4 2
+out GAS 5 1
+out GAS 5 1
+in GAS 5 2
+expect false
+end
+
+case rand-045
+capacity 17
+out H 6 2
+in H 6 1
+in H 6 3
+in D 4 6
+expect false
+end
+
+case rand-046
+capacity 53
+stock A 2 6
+stock ACID 1 5
+stock PIPE 6 6
+out A 2 1
+out ACID 1 1
+in PIPE 6 1
+in A 2 4
+out ACID 1 1
+in A 2 2
+out PIPE 6 2
+expect false
+end
+
+case rand-047
+capacity 5
+in PIPE 6 1
+in PIPE 6 2
+out PIPE 6 1
+out PIPE 6 1
+in NUT 6 1
+out PIPE 6 1
+expect false
+end
+
+case rand-048
+capacity 5
+stock NUT 5 1
+out NUT 5 1
+expect true
+end
+
+case rand-049
+capacity 9
+stock PIPE 2 2
+out PIPE 2 2
+expect true
+end
+
+case rand-050
+capacity 68
+stock A 2 7
+stock WIRE 5 3
+in WIRE 5 1
+out A 2 1
+in WIRE 5 1
+in WIRE 5 4
+out A 2 5
+out WIRE 5 1
+expect true
+end
+
+case rand-051
+capacity 76
+stock FUEL 6 11
+stock G 1 10
+out B 4 1
+out B 4 1
+in B 4 1
+in B 4 2
+out FUEL 6 1
+out B 4 1
+out FUEL 6 2
+out FUEL 6 10
+expect false
+end
+
+case rand-052
+capacity 16
+stock G 1 8
+in G 1 4
+in G 1 3
+in G 1 1
+expect true
+end
+
+case rand-053
+capacity 33
+stock H 1 1
+stock E 6 2
+out E 6 5
+out E 6 5
+out E 6 2
+in H 1 2
+out H 1 6
+out H 1 6
+in H 1 5
+in E 6 3
+in E 6 3
+expect false
+end
+
+case rand-054
+capacity 61
+stock MILK 6 9
+stock A 1 5
+out F 2 1
+in F 2 2
+expect true
+end
+
+case rand-055
+capacity 22
+in TNT 4 1
+in ACID 1 2
+in ACID 1 2
+in ACID 1 2
+out TNT 4 1
+expect true
+end
+
+case rand-056
+capacity 66
+stock MILK 5 6
+stock CHEM 2 5
+stock CRATE 1 8
+stock D 3 6
+in D 3 5
+in CRATE 1 1
+out MILK 5 4
+in CRATE 1 1
+in D 3 2
+in CHEM 2 5
+out MILK 5 1
+out CHEM 2 3
+out CRATE 1 12
+out MILK 5 1
+expect false
+end
+
+case rand-057
+capacity 49
+stock B 3 10
+stock E 1 7
+in E 1 2
+out B 3 3
+expect true
+end
+
+case rand-058
+capacity 68
+stock E 3 10
+out BOLT 4 1
+in BOLT 4 9
+in BOLT 4 1
+in E 3 2
+expect false
+end
+
+case rand-059
+capacity 70
+stock MILK 3 1
+stock GAS 4 10
+stock TNT 4 4
+out TNT 4 1
+in TNT 4 1
+out GAS 4 2
+in F 2 1
+in TNT 4 1
+in F 2 7
+out GAS 4 1
+out MILK 3 1
+out GAS 4 1
+expect true
+end
+
+case rand-060
+capacity 84
+stock PIPE 5 3
+stock MILK 5 2
+stock WIRE 3 10
+out MILK 5 1
+out WIRE 3 5
+in CHEM 2 2
+in MILK 5 3
+out C 4 6
+in WIRE 3 5
+in WIRE 3 4
+in MILK 5 3
+expect false
+end
+
+case rand-061
+capacity 75
+stock B 3 12
+stock GAS 3 10
+in B 3 1
+in GAS 3 1
+in B 3 1
+expect true
+end
+
+case rand-062
+capacity 60
+stock F 3 11
+in F 3 7
+in F 3 1
+expect true
+end
+
+case rand-063
+capacity 112
+stock ACID 4 10
+stock E 3 2
+stock NUT 5 10
+in G 3 6
+out CHEM 3 1
+in E 3 1
+out NUT 5 3
+out E 3 4
+out NUT 5 4
+out NUT 5 3
+in CHEM 3 1
+in E 3 1
+in G 3 1
+out ACID 4 1
+in E 3 1
+expect true
+end
+
+case rand-064
+capacity 63
+stock NUT 2 10
+stock MILK 4 8
+out MILK 4 3
+in NUT 2 2
+expect true
+end
+
+case rand-065
+capacity 45
+stock TNT 1 8
+stock F 5 3
+out F 5 1
+out TNT 1 3
+out TNT 1 5
+out F 5 5
+out TNT 1 1
+in F 5 6
+out F 5 6
+out F 5 5
+in TNT 1 6
+out F 5 5
+in TNT 1 4
+in F 5 2
+expect false
+end
+
+case rand-066
+capacity 48
+stock G 4 3
+stock OXI 3 5
+out PIPE 5 3
+out G 4 2
+out OXI 3 2
+out G 4 1
+out OXI 3 1
+expect false
+end
+
+case rand-067
+capacity 62
+stock G 5 10
+stock H 1 6
+out G 5 5
+in H 1 5
+out H 1 2
+in G 5 4
+in G 5 4
+in H 1 3
+out G 5 6
+out H 1 4
+out G 5 6
+out H 1 3
+in G 5 2
+expect true
+end
+
+case rand-068
+capacity 10
+stock A 5 2
+out A 5 1
+out A 5 4
+in A 5 1
+expect false
+end
+
+case rand-069
+capacity 40
+stock CRATE 5 3
+stock PIPE 1 10
+in C 6 1
+in C 6 1
+out G 5 1
+out C 6 2
+out CRATE 5 1
+out CRATE 5 1
+out G 5 1
+out CRATE 5 1
+in G 5 8
+expect true
+end
+
+case rand-070
+capacity 70
+stock PIPE 3 12
+stock CRATE 2 8
+out A 5 1
+in A 5 4
+out A 5 1
+in A 5 1
+in CRATE 2 1
+out A 5 2
+in PIPE 3 1
+in CRATE 2 4
+expect true
+end
+
+case rand-071
+capacity 26
+stock A 5 2
+stock PIPE 1 12
+stock CHEM 1 4
+out A 5 3
+out PIPE 1 2
+in CHEM 1 2
+out PIPE 1 12
+in CHEM 1 1
+in PIPE 1 3
+in BOLT 3 2
+out PIPE 1 1
+expect false
+end
+
+case rand-072
+capacity 84
+stock F 1 4
+stock H 1 9
+stock OXI 4 11
+in H 1 1
+out H 1 5
+in F 1 6
+expect true
+end
+
+case rand-073
+capacity 62
+stock ACID 5 8
+stock G 2 11
+in G 2 1
+out ACID 5 1
+out ACID 5 3
+out ACID 5 4
+in G 2 1
+out G 2 13
+expect true
+end
+
+case rand-074
+capacity 40
+stock OXI 5 1
+stock CHEM 2 1
+in CHEM 2 1
+in NUT 4 1
+in MILK 3 2
+out F 6 3
+in MILK 3 6
+expect false
+end
+
+case rand-075
+capacity 75
+stock A 2 7
+stock CHEM 1 6
+stock NUT 2 12
+stock TNT 1 10
+stock FUEL 1 8
+out NUT 2 1
+in CHEM 1 1
+out NUT 2 11
+out FUEL 1 1
+in FUEL 1 3
+in FUEL 1 1
+in TNT 1 5
+out NUT 2 1
+in TNT 1 3
+expect false
+end
+
+case rand-076
+capacity 92
+stock TNT 4 11
+stock MILK 6 3
+out TNT 4 2
+in TNT 4 3
+in A 1 2
+in A 1 6
+out A 1 1
+expect true
+end
+
+case rand-077
+capacity 50
+stock H 2 2
+stock MILK 6 6
+out H 2 3
+in H 2 2
+in H 2 1
+out MILK 6 3
+in MILK 6 4
+out MILK 6 1
+in OXI 1 5
+expect true
+end
+
+case rand-078
+capacity 80
+stock BOLT 4 5
+stock ACID 3 11
+stock H 3 2
+in BOLT 4 5
+out H 3 2
+in H 3 1
+in H 3 1
+out ACID 3 2
+in BOLT 4 2
+out ACID 3 1
+out H 3 1
+out H 3 1
+out ACID 3 8
+out BOLT 4 13
+expect false
+end
+
+case rand-079
+capacity 149
+stock ACID 1 7
+stock FUEL 5 11
+stock E 6 10
+stock CHEM 3 9
+out E 6 4
+out ACID 1 4
+in CHEM 3 1
+out E 6 2
+out A 1 3
+out E 6 4
+in ACID 1 3
+in CHEM 3 6
+expect false
+end
+
+case rand-080
+capacity 28
+stock NUT 2 4
+in NUT 2 5
+in NUT 2 1
+out TNT 1 3
+in F 1 2
+expect false
+end
+
+case rand-081
+capacity 54
+stock OXI 1 5
+stock F 6 5
+stock GAS 2 1
+out OXI 1 1
+out F 6 4
+out F 6 1
+in G 6 1
+out G 6 1
+in OXI 1 1
+out GAS 2 1
+expect true
+end
+
+case rand-082
+capacity 21
+out E 3 2
+in E 3 5
+in E 3 5
+expect false
+end
+
+case rand-083
+capacity 67
+stock OXI 5 1
+stock NUT 2 12
+out WIRE 2 3
+in NUT 2 2
+in NUT 2 1
+expect false
+end
+
+case rand-084
+capacity 103
+stock PIPE 4 9
+stock H 4 5
+stock B 1 11
+stock ACID 2 12
+stock NUT 1 8
+out H 4 5
+in ACID 2 2
+in ACID 2 1
+out NUT 1 2
+out H 4 1
+in ACID 2 4
+in B 1 3
+in B 1 4
+out PIPE 4 9
+expect false
+end
+
+case rand-085
+capacity 48
+stock BOLT 2 8
+out BOLT 2 3
+out BOLT 2 1
+out BOLT 2 2
+out BOLT 2 3
+expect false
+end
+
+case rand-086
+capacity 32
+stock FUEL 5 5
+out FUEL 5 1
+out FUEL 5 6
+in FUEL 5 3
+expect true
+end
+
+case rand-087
+capacity 58
+stock PIPE 3 9
+stock MILK 1 9
+stock BOLT 5 2
+out PIPE 3 6
+in BOLT 5 5
+out B 5 5
+out BOLT 5 5
+in MILK 1 6
+in PIPE 3 6
+in C 2 3
+expect false
+end
+
+case rand-088
+capacity 70
+stock A 5 8
+out A 5 8
+expect true
+end
+
+case rand-089
+capacity 80
+stock G 1 7
+stock D 3 3
+stock E 4 6
+stock CHEM 4 10
+out E 4 1
+out E 4 1
+out D 3 1
+in D 3 1
+in G 1 2
+out G 1 8
+expect true
+end
+
+case rand-090
+capacity 34
+stock WIRE 3 2
+stock OXI 2 5
+stock CHEM 6 3
+out G 1 2
+out WIRE 3 1
+out WIRE 3 1
+expect false
+end
+
+case rand-091
+capacity 83
+stock OXI 4 10
+stock H 2 7
+stock MILK 4 1
+in MILK 4 3
+expect true
+end
+
+case rand-092
+capacity 67
+stock FUEL 3 11
+in GAS 6 1
+in FUEL 3 1
+in FUEL 3 1
+out FUEL 3 13
+in GAS 6 5
+in GAS 6 1
+expect true
+end
+
+case rand-093
+capacity 89
+stock E 4 7
+stock C 3 2
+stock PIPE 5 5
+in PIPE 5 1
+in H 2 3
+out E 4 1
+out PIPE 5 1
+in E 4 1
+in PIPE 5 4
+out C 3 1
+in PIPE 5 1
+expect true
+end
+
+case rand-094
+capacity 22
+in MILK 6 1
+in MILK 6 1
+expect true
+end
+
+case rand-095
+capacity 30
+stock TNT 2 4
+stock GAS 2 1
+stock F 2 6
+stock MILK 2 4
+out MILK 2 2
+in F 2 2
+out MILK 2 1
+out GAS 2 1
+out TNT 2 3
+in MILK 2 4
+in F 2 2
+expect false
+end
+
+case rand-096
+capacity 9
+stock B 3 2
+in B 3 1
+out BOLT 1 2
+in BOLT 1 1
+out BOLT 1 1
+out BOLT 1 1
+in BOLT 1 3
+expect true
+end
+
+case rand-097
+capacity 62
+stock H 2 11
+stock C 1 1
+stock CRATE 3 8
+stock NUT 3 5
+out H 2 7
+out C 1 3
+in H 2 3
+in C 1 3
+out CRATE 3 4
+in NUT 3 1
+in D 6 1
+expect true
+end
+
+case rand-098
+capacity 105
+stock BOLT 3 4
+stock PIPE 5 12
+out PIPE 5 7
+out PIPE 5 3
+expect true
+end
+
+case rand-099
+capacity 46
+stock WIRE 2 6
+out WIRE 2 2
+out WIRE 2 2
+expect true
+end
+
+case rand-100
+capacity 20
+stock B 2 8
+stock WIRE 4 1
+in A 4 2
+out B 2 2
+in A 4 1
+in A 4 1
+in B 2 1
+out B 2 7
+expect true
+end
+
+case rand-101
+capacity 51
+stock TNT 5 10
+out TNT 5 1
+expect true
+end
+
+case rand-102
+capacity 35
+stock OXI 2 3
+in OXI 2 1
+expect true
+end
+
+case rand-103
+capacity 38
+stock B 5 4
+out B 5 4
+in FUEL 1 5
+in E 3 3
+in E 3 5
+in FUEL 1 4
+out FUEL 1 3
+out FUEL 1 4
+out E 3 3
+out FUEL 1 6
+in FUEL 1 1
+expect false
+end
+
+case rand-104
+capacity 109
+stock OXI 4 7
+stock F 6 11
+out OXI 4 1
+in OXI 4 1
+in F 6 1
+in F 6 2
+out F 6 10
+expect true
+end
+
+case rand-105
+capacity 11
+stock D 1 11
+out D 1 7
+out TNT 5 2
+in D 1 1
+expect false
+end
+
+case rand-106
+capacity 32
+in D 6 5
+out D 6 2
+expect true
+end
+
+case rand-107
+capacity 135
+stock F 1 7
+stock NUT 5 7
+stock E 3 12
+stock C 2 10
+out G 3 4
+out C 2 3
+in F 1 2
+out F 1 2
+in NUT 5 1
+in C 2 1
+in F 1 1
+in C 2 7
+in F 1 1
+in G 3 4
+in C 2 1
+in NUT 5 2
+expect true
+end
+
+case rand-108
+capacity 150
+stock B 4 7
+stock NUT 1 12
+stock H 3 10
+stock GAS 4 10
+out NUT 1 1
+out NUT 1 6
+out NUT 1 5
+in GAS 4 1
+expect true
+end
+
+case rand-109
+capacity 14
+stock CHEM 1 10
+in CRATE 3 1
+out CHEM 1 11
+expect false
+end
+
+case rand-110
+capacity 1
+out WIRE 5 3
+in WIRE 5 3
+out WIRE 5 2
+expect false
+end
+
+case rand-111
+capacity 64
+stock NUT 4 10
+out NUT 4 4
+in NUT 4 8
+in NUT 4 2
+out NUT 4 17
+expect false
+end
+
+case rand-112
+capacity 34
+stock G 2 9
+in G 2 2
+in G 2 1
+in G 2 2
+out G 2 2
+expect true
+end
+
+case rand-113
+capacity 42
+stock MILK 6 6
+in MILK 6 6
+in BOLT 4 1
+expect false
+end
+
+case rand-114
+capacity 54
+stock GAS 4 6
+stock WIRE 6 5
+in GAS 4 5
+in WIRE 6 5
+in WIRE 6 5
+out WIRE 6 2
+out GAS 4 3
+expect false
+end
+
+case rand-115
+capacity 23
+in E 1 2
+in E 1 1
+expect true
+end
+
+case rand-116
+capacity 34
+stock PIPE 2 11
+stock D 4 3
+in D 4 1
+in D 4 1
+out PIPE 2 8
+in PIPE 2 1
+out D 4 2
+out D 4 1
+out D 4 2
+expect true
+end
+
+case rand-117
+capacity 12
+stock PIPE 6 2
+in ACID 4 5
+in ACID 4 6
+in ACID 4 6
+out PIPE 6 3
+in ACID 4 4
+out PIPE 6 4
+out ACID 4 1
+in PIPE 6 1
+expect false
+end
+
+case rand-118
+capacity 58
+stock MILK 3 9
+stock BOLT 1 7
+stock G 6 4
+out G 6 3
+out BOLT 1 2
+out BOLT 1 5
+in G 6 3
+out G 6 1
+out BOLT 1 2
+in MILK 3 2
+out MILK 3 11
+out G 6 3
+in CRATE 1 6
+out CRATE 1 2
+expect false
+end
+
+case rand-119
+capacity 84
+stock PIPE 5 9
+stock E 5 5
+stock D 2 2
+in ACID 2 4
+out PIPE 5 1
+in ACID 2 2
+in PIPE 5 3
+out PIPE 5 1
+in E 5 3
+out E 5 1
+out E 5 1
+out E 5 1
+out PIPE 5 1
+out ACID 2 1
+expect true
+end
+
+case rand-120
+capacity 111
+stock E 1 11
+stock ACID 6 2
+stock F 6 6
+stock A 3 4
+in ACID 6 2
+in A 3 1
+in ACID 6 1
+out MILK 4 2
+out A 3 2
+out A 3 1
+in ACID 6 1
+out A 3 1
+in A 3 2
+expect false
+end
+
+case rand-121
+capacity 23
+in BOLT 4 4
+out TNT 2 2
+in BOLT 4 1
+in NUT 3 1
+expect false
+end
+
+case rand-122
+capacity 101
+stock OXI 6 12
+stock BOLT 1 7
+stock WIRE 2 6
+in OXI 6 4
+out OXI 6 9
+in BOLT 1 3
+out OXI 6 7
+in WIRE 2 1
+out WIRE 2 1
+in BOLT 1 1
+expect true
+end
+
+case rand-123
+capacity 134
+stock WIRE 6 11
+stock D 5 7
+stock C 4 7
+in WIRE 6 4
+out TNT 2 2
+out D 5 1
+in D 5 1
+out WIRE 6 4
+expect false
+end
+
+case rand-124
+capacity 113
+stock PIPE 3 2
+stock TNT 1 2
+stock BOLT 6 9
+stock OXI 3 8
+in CHEM 4 2
+out CHEM 4 1
+in CHEM 4 1
+out CHEM 4 2
+in CHEM 4 1
+out BOLT 6 4
+in OXI 3 5
+in OXI 3 2
+out BOLT 6 7
+out TNT 1 1
+out CHEM 4 1
+expect false
+end
+
+case rand-125
+capacity 43
+stock OXI 4 5
+in OXI 4 2
+in OXI 4 1
+in B 5 1
+expect true
+end
+
+case rand-126
+capacity 40
+out C 1 1
+in BOLT 1 1
+in PIPE 1 7
+in BOLT 1 3
+in BOLT 1 1
+out BOLT 1 1
+out BOLT 1 1
+expect false
+end
+
+case rand-127
+capacity 23
+stock PIPE 1 4
+in ACID 6 3
+in ACID 6 2
+in PIPE 1 3
+out PIPE 1 2
+in ACID 6 1
+in PIPE 1 3
+in PIPE 1 4
+out ACID 6 4
+expect false
+end
+
+case rand-128
+capacity 28
+stock G 4 7
+out G 4 2
+in G 4 2
+in G 4 1
+out G 4 8
+out G 4 2
+in G 4 1
+expect false
+end
+
+case rand-129
+capacity 59
+stock CHEM 5 1
+stock CRATE 6 6
+out OXI 2 2
+in CHEM 5 3
+in CRATE 6 3
+out CRATE 6 5
+in CRATE 6 5
+out CRATE 6 4
+expect false
+end
+
+case rand-130
+capacity 79
+stock WIRE 4 9
+stock CHEM 3 5
+in CHEM 3 1
+expect true
+end
+
+case rand-131
+capacity 46
+stock GAS 4 3
+out GAS 4 1
+in GAS 4 1
+in GAS 4 2
+in GAS 4 6
+in GAS 4 1
+expect false
+end
+
+case rand-132
+capacity 118
+stock FUEL 6 10
+stock C 6 1
+stock D 3 12
+stock H 4 4
+out FUEL 6 4
+out FUEL 6 4
+out D 3 18
+in C 6 1
+out D 3 1
+in D 3 1
+in D 3 4
+out H 4 3
+in H 4 3
+out C 6 1
+in C 6 9
+out C 6 3
+expect false
+end
+
+case rand-133
+capacity 50
+stock H 4 9
+stock BOLT 2 7
+in F 1 1
+out BOLT 2 5
+in F 1 1
+in H 4 3
+out BOLT 2 2
+expect true
+end
+
+case rand-134
+capacity 61
+stock A 6 4
+stock D 5 2
+in D 5 2
+in D 5 2
+in CRATE 2 1
+in CHEM 3 1
+in CRATE 2 1
+out CHEM 3 3
+expect false
+end
+
+case rand-135
+capacity 39
+stock FUEL 4 6
+out FUEL 4 1
+in FUEL 4 4
+out FUEL 4 4
+in FUEL 4 6
+in FUEL 4 4
+out FUEL 4 3
+in FUEL 4 5
+out FUEL 4 1
+expect false
+end
+
+case rand-136
+capacity 46
+stock F 1 5
+stock CHEM 1 12
+out CHEM 1 1
+in CHEM 1 1
+in F 1 32
+out CHEM 1 2
+expect false
+end
+
+case rand-137
+capacity 59
+stock NUT 4 9
+in PIPE 2 3
+expect true
+end
+
+case rand-138
+capacity 58
+stock CHEM 5 10
+stock C 2 4
+out B 2 4
+in B 2 2
+in B 2 1
+in B 2 1
+expect true
+end
+
+case rand-139
+capacity 53
+stock CHEM 6 3
+stock MILK 1 12
+stock E 1 5
+in MILK 1 4
+in CHEM 6 1
+out PIPE 6 2
+in E 1 8
+expect false
+end
+
+case rand-140
+capacity 32
+in A 2 10
+in A 2 7
+expect false
+end
+
+case rand-141
+capacity 90
+stock WIRE 4 12
+stock G 3 9
+stock ACID 5 3
+out G 3 4
+in ACID 5 1
+out G 3 1
+out WIRE 4 12
+in NUT 3 4
+out ACID 5 1
+out G 3 1
+out ACID 5 2
+expect true
+end
+
+case rand-142
+capacity 13
+stock WIRE 4 1
+in WIRE 4 4
+in WIRE 4 1
+in WIRE 4 3
+in WIRE 4 2
+out CRATE 5 1
+in CRATE 5 5
+out CRATE 5 5
+in CRATE 5 5
+in CRATE 5 4
+out WIRE 4 6
+in WIRE 4 3
+out CRATE 5 5
+expect false
+end
+
+case rand-143
+capacity 59
+stock PIPE 2 9
+stock F 4 3
+out F 4 2
+in F 4 1
+in F 4 1
+expect true
+end
+
+case rand-144
+capacity 47
+stock E 4 8
+out E 4 3
+in F 2 3
+out E 4 1
+in F 2 3
+out F 2 3
+out E 4 5
+out E 4 6
+in E 4 5
+out F 2 3
+out E 4 5
+expect false
+end
+
+case rand-145
+capacity 78
+stock OXI 3 8
+stock G 5 6
+in F 5 5
+out F 5 6
+in F 5 4
+in F 5 5
+in G 5 1
+expect false
+end
+
+case rand-146
+capacity 55
+stock OXI 5 8
+in OXI 5 2
+out OXI 5 6
+in C 1 6
+in A 2 1
+in A 2 3
+in OXI 5 6
+out OXI 5 1
+expect false
+end
+
+case rand-147
+capacity 57
+stock G 2 8
+stock H 5 3
+stock A 1 8
+in A 1 1
+in A 1 1
+in D 3 5
+out PIPE 1 2
+out A 1 1
+out A 1 3
+in A 1 5
+expect false
+end
+
+case rand-148
+capacity 143
+stock BOLT 4 10
+stock CHEM 6 11
+out BOLT 4 1
+out BOLT 4 1
+in CHEM 6 6
+out CHEM 6 1
+expect true
+end
+
+case rand-149
+capacity 15
+stock ACID 6 1
+stock OXI 1 3
+out ACID 6 3
+in ACID 6 1
+in OXI 1 1
+in OXI 1 3
+in A 4 1
+in ACID 6 1
+in OXI 1 1
+in OXI 1 4
+expect false
+end
+
+case rand-150
+capacity 124
+stock G 5 11
+stock OXI 5 11
+in G 5 1
+in OXI 5 1
+in OXI 5 1
+expect false
+end
+
+case rand-151
+capacity 68
+stock F 2 9
+stock ACID 4 4
+in F 2 3
+in F 2 2
+out CHEM 3 1
+in ACID 4 1
+in ACID 4 1
+in ACID 4 1
+expect false
+end
+
+case rand-152
+capacity 178
+stock G 6 10
+stock GAS 4 6
+stock OXI 4 10
+stock F 4 12
+out F 4 1
+in OXI 4 1
+out GAS 4 2
+in F 4 2
+in OXI 4 1
+out GAS 4 1
+out G 6 5
+in F 4 1
+in OXI 4 1
+out F 4 1
+out G 6 1
+out F 4 1
+expect true
+end
+
+case rand-153
+capacity 113
+stock OXI 6 3
+stock GAS 5 9
+stock MILK 2 8
+out MILK 2 2
+out MILK 2 1
+in MILK 2 1
+in MILK 2 1
+expect true
+end
+
+case rand-154
+capacity 65
+stock C 6 7
+stock E 5 1
+stock H 2 9
+out E 5 2
+in H 2 1
+in C 6 6
+out E 5 4
+out C 6 2
+in MILK 6 6
+out C 6 3
+in E 5 5
+in C 6 6
+in H 2 4
+expect false
+end
+
+case rand-155
+capacity 81
+stock B 6 6
+stock BOLT 3 10
+out B 6 1
+out BOLT 3 3
+in GAS 2 6
+out B 6 1
+expect true
+end
+
+case rand-156
+capacity 122
+stock D 2 7
+stock B 6 12
+stock FUEL 2 3
+stock PIPE 4 4
+in D 2 2
+out PIPE 4 1
+in B 6 4
+in FUEL 2 2
+out FUEL 2 1
+out B 6 4
+out PIPE 4 1
+out PIPE 4 1
+in D 2 1
+in D 2 5
+expect true
+end
+
+case rand-157
+capacity 32
+stock E 3 6
+in A 6 1
+in E 3 1
+in E 3 2
+out E 3 2
+out E 3 1
+in A 6 1
+expect true
+end
+
+case rand-158
+capacity 98
+stock FUEL 3 8
+stock E 2 10
+stock ACID 6 9
+out FUEL 3 1
+in E 2 1
+in ACID 6 1
+expect false
+end
+
+case rand-159
+capacity 59
+stock ACID 3 8
+stock B 6 3
+stock G 1 4
+in ACID 3 2
+out B 6 3
+in G 1 3
+out G 1 7
+in B 6 2
+out ACID 3 2
+out WIRE 4 3
+out B 6 4
+in B 6 1
+in B 6 1
+expect false
+end
+
+case rand-160
+capacity 94
+stock MILK 5 12
+stock B 3 8
+in MILK 5 3
+out MILK 5 1
+in B 3 1
+out B 3 2
+out MILK 5 1
+out MILK 5 14
+in B 3 1
+out MILK 5 1
+expect false
+end
+
+case rand-161
+capacity 6
+stock WIRE 1 6
+out WIRE 1 3
+in PIPE 6 1
+out WIRE 1 2
+out WIRE 1 1
+expect true
+end
+
+case rand-162
+capacity 91
+stock A 6 5
+stock D 4 10
+stock C 3 7
+in G 4 1
+out D 4 10
+in G 4 1
+out C 3 2
+in A 6 12
+out A 6 5
+expect false
+end
+
+case rand-163
+capacity 81
+stock C 2 7
+stock WIRE 4 10
+in H 3 1
+in C 2 1
+out H 3 1
+in C 2 3
+in C 2 1
+expect true
+end
+
+case rand-164
+capacity 158
+stock ACID 6 12
+stock E 1 10
+stock CRATE 5 9
+out CRATE 5 2
+in D 4 4
+in ACID 6 3
+in D 4 1
+out CRATE 5 1
+out ACID 6 2
+in CRATE 5 4
+in ACID 6 1
+out ACID 6 2
+in ACID 6 2
+in D 4 1
+out CRATE 5 1
+expect false
+end
+
+case rand-165
+capacity 9
+out C 3 1
+in BOLT 5 3
+out BOLT 5 1
+out G 3 2
+out G 3 6
+out BOLT 5 3
+in G 3 4
+expect false
+end
+
+case rand-166
+capacity 27
+stock C 2 4
+out C 2 1
+in ACID 3 4
+out TNT 6 4
+in TNT 6 1
+out ACID 3 3
+out C 2 1
+in TNT 6 5
+in CHEM 1 1
+expect true
+end
+
+case rand-167
+capacity 47
+stock A 6 5
+in A 6 1
+in A 6 1
+expect true
+end
+
+case rand-168
+capacity 44
+stock FUEL 5 6
+in D 6 4
+in D 6 2
+in D 6 1
+in FUEL 5 3
+out D 6 6
+out D 6 1
+in FUEL 5 2
+in FUEL 5 2
+in FUEL 5 5
+in FUEL 5 1
+out FUEL 5 2
+in FUEL 5 5
+expect false
+end
+
+case rand-169
+capacity 75
+stock TNT 4 9
+stock FUEL 3 12
+in TNT 4 2
+out TNT 4 1
+in FUEL 3 1
+out TNT 4 1
+out TNT 4 2
+in TNT 4 1
+in TNT 4 2
+expect false
+end
+
+case rand-170
+capacity 27
+stock CRATE 3 9
+in G 1 7
+out CRATE 3 11
+in CRATE 3 1
+in CRATE 3 1
+expect true
+end
+
+case rand-171
+capacity 67
+stock ACID 3 3
+stock E 5 3
+stock B 4 6
+out E 5 1
+in D 2 1
+out D 2 1
+in D 2 7
+in CRATE 5 2
+in ACID 3 1
+out E 5 1
+out ACID 3 5
+out D 2 3
+out E 5 1
+in ACID 3 1
+in E 5 1
+expect true
+end
+
+case rand-172
+capacity 66
+stock E 5 6
+stock CRATE 6 6
+out CRATE 6 1
+out CRATE 6 1
+out E 5 6
+out CRATE 6 1
+expect true
+end
+
+case rand-173
+capacity 59
+stock CHEM 2 10
+stock CRATE 1 6
+in E 1 1
+expect true
+end
+
+case rand-174
+capacity 22
+stock H 3 4
+stock TNT 5 2
+out TNT 5 2
+expect true
+end
+
+case rand-175
+capacity 119
+stock BOLT 5 6
+stock PIPE 4 11
+stock B 4 3
+out B 4 1
+out PIPE 4 1
+out PIPE 4 8
+in CHEM 1 3
+out B 4 1
+in BOLT 5 5
+out PIPE 4 2
+out B 4 1
+in CHEM 1 1
+expect true
+end
+
+case rand-176
+capacity 24
+stock ACID 2 12
+out ACID 2 6
+in ACID 2 1
+expect true
+end
+
+case rand-177
+capacity 56
+stock TNT 4 11
+stock F 6 2
+out TNT 4 11
+in F 6 2
+in F 6 5
+out TNT 4 1
+expect false
+end
+
+case rand-178
+capacity 94
+stock FUEL 5 8
+stock D 2 11
+stock MILK 2 1
+stock OXI 5 6
+in OXI 5 1
+out OXI 5 8
+out MILK 2 7
+in OXI 5 1
+out FUEL 5 6
+in MILK 2 5
+expect false
+end
+
+case rand-179
+capacity 91
+stock OXI 4 3
+stock B 2 3
+stock WIRE 4 7
+stock ACID 6 2
+out OXI 4 1
+in ACID 6 4
+in B 2 1
+in B 2 2
+out OXI 4 2
+out ACID 6 6
+in OXI 4 4
+in WIRE 4 5
+in OXI 4 1
+in B 2 5
+out B 2 2
+expect true
+end
+
+case rand-180
+capacity 70
+stock MILK 5 9
+stock FUEL 2 2
+in MILK 5 11
+in MILK 5 1
+out MILK 5 1
+out MILK 5 3
+out MILK 5 3
+expect false
+end
+
+case rand-181
+capacity 43
+stock B 3 2
+in BOLT 4 1
+out B 3 1
+out BOLT 4 1
+out B 3 1
+expect true
+end
+
+case rand-182
+capacity 4
+stock A 1 4
+out A 1 2
+in A 1 1
+out A 1 1
+out PIPE 3 3
+in A 1 1
+in A 1 1
+expect false
+end
+
+case rand-183
+capacity 148
+stock WIRE 3 11
+stock MILK 5 11
+stock FUEL 1 11
+stock CRATE 2 12
+stock OXI 5 5
+out CRATE 2 2
+out WIRE 3 6
+in CRATE 2 7
+in CRATE 2 1
+in CRATE 2 2
+in FUEL 1 2
+out FUEL 1 13
+expect true
+end
+
+case rand-184
+capacity 136
+stock MILK 5 12
+stock CRATE 6 5
+stock BOLT 4 6
+out MILK 5 9
+out E 3 1
+out CRATE 6 5
+in E 3 9
+in BOLT 4 2
+out E 3 1
+out MILK 5 1
+out BOLT 4 1
+out BOLT 4 1
+expect true
+end
+
+case rand-185
+capacity 52
+stock A 1 9
+stock B 3 8
+stock PIPE 3 3
+out E 1 1
+in E 1 6
+in E 1 1
+in B 3 9
+in PIPE 3 2
+out A 1 4
+in E 1 2
+out B 3 8
+expect false
+end
+
+case rand-186
+capacity 114
+stock MILK 5 7
+stock E 6 10
+out E 6 1
+out E 6 3
+in MILK 5 2
+in MILK 5 2
+in MILK 5 4
+out E 6 6
+expect true
+end
+
+case rand-187
+capacity 121
+stock MILK 6 10
+stock CHEM 6 2
+stock PIPE 2 6
+out CHEM 6 2
+in PIPE 2 6
+out MILK 6 1
+in NUT 3 6
+expect true
+end
+
+case rand-188
+capacity 56
+stock PIPE 3 5
+stock TNT 1 12
+stock CRATE 2 4
+stock FUEL 3 7
+out CRATE 2 1
+out CRATE 2 1
+out CRATE 2 1
+out FUEL 3 1
+in CRATE 2 3
+in FUEL 3 1
+expect true
+end
+
+case rand-189
+capacity 73
+stock E 2 8
+stock NUT 2 5
+stock OXI 1 2
+stock G 3 12
+out OXI 1 1
+out G 3 3
+in G 3 1
+out OXI 1 1
+in G 3 2
+expect true
+end
+
+case rand-190
+capacity 71
+stock E 3 10
+stock B 4 2
+stock TNT 3 11
+in TNT 3 4
+out TNT 3 2
+out B 4 2
+expect true
+end
+

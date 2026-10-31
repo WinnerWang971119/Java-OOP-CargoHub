@@ -1,0 +1,2351 @@
+case hand-greedy-trap
+capacity 10
+cand A 6 1 12
+cand B 5 1 10
+cand C 5 1 10
+best 20
+end
+
+case hand-empty-list
+capacity 50
+stock A 2 5
+best 0
+end
+
+case hand-nothing-fits
+capacity 10
+cand X 11 1 5
+cand Y 6 2 7
+cand Z 5 4 9
+best 0
+end
+
+case hand-one-item-heavier-than-capacity
+capacity 10
+cand BIG 15 1 100
+cand A 4 1 3
+cand B 5 1 4
+best 7
+end
+
+case hand-equal-scores
+capacity 10
+cand A 4 1 5
+cand B 4 1 5
+cand C 4 1 5
+cand D 3 1 5
+cand E 3 1 5
+best 15
+end
+
+case hand-equal-scores-equal-weights
+capacity 10
+cand A 3 1 7
+cand B 3 1 7
+cand C 3 1 7
+cand D 3 1 7
+cand E 3 1 7
+best 21
+end
+
+case hand-free-capacity-zero
+capacity 20
+stock A 4 5
+cand X 1 1 9
+cand Y 2 1 3
+best 0
+end
+
+case hand-all-fit
+capacity 100
+cand A 10 1 5
+cand B 20 1 8
+cand C 30 1 13
+best 26
+end
+
+case hand-exact-fit
+capacity 12
+cand A 5 1 6
+cand B 7 1 9
+cand C 4 1 5
+best 15
+end
+
+case hand-stock-eats-budget
+capacity 50
+stock A 5 6
+cand W 8 1 9
+cand X 12 1 10
+cand Y 10 1 7
+cand Z 15 1 12
+best 19
+end
+
+case hand-quantity-times-unit-weight
+capacity 30
+cand A 3 4 10
+cand B 2 5 8
+cand C 5 2 9
+cand D 1 7 5
+best 24
+end
+
+case hand-same-sku-twice
+capacity 10
+cand A 2 3 6
+cand A 2 2 5
+cand B 5 1 4
+best 11
+end
+
+case hand-single-candidate-fits-exactly
+capacity 7
+cand A 7 1 3
+best 3
+end
+
+case hand-single-candidate-too-heavy
+capacity 6
+cand A 7 1 3
+best 0
+end
+
+case hand-ratio-trap
+capacity 50
+cand A 10 1 60
+cand B 20 1 100
+cand C 30 1 120
+best 220
+end
+
+case hand-n30-full-budget
+capacity 1000
+cand S0 1 24 67
+cand S1 1 64 69
+cand S2 1 52 59
+cand S3 1 65 58
+cand S4 1 67 21
+cand S5 1 44 97
+cand S6 1 61 56
+cand S7 1 75 97
+cand S8 1 45 44
+cand S9 1 80 87
+cand S10 1 49 40
+cand S11 1 59 24
+cand S12 1 27 80
+cand S13 1 76 16
+cand S14 1 35 60
+cand S15 1 36 43
+cand S16 1 64 87
+cand S17 1 26 53
+cand S18 1 48 47
+cand S19 1 70 70
+cand S20 1 34 24
+cand S21 1 47 23
+cand S22 1 58 13
+cand S23 1 39 38
+cand S24 1 63 75
+cand S25 1 57 22
+cand S26 1 77 50
+cand S27 1 31 26
+cand S28 1 74 86
+cand S29 1 25 27
+best 1279
+end
+
+case hand-n30-with-stock
+capacity 1000
+stock STK 1 50
+cand S0 1 61 99
+cand S1 1 43 32
+cand S2 1 25 29
+cand S3 1 50 20
+cand S4 1 73 11
+cand S5 1 59 28
+cand S6 1 25 51
+cand S7 1 75 69
+cand S8 1 45 25
+cand S9 1 52 25
+cand S10 1 27 29
+cand S11 1 34 71
+cand S12 1 63 81
+cand S13 1 31 53
+cand S14 1 61 41
+cand S15 1 70 39
+cand S16 1 77 96
+cand S17 1 32 97
+cand S18 1 60 91
+cand S19 1 20 77
+cand S20 1 69 69
+cand S21 1 40 22
+cand S22 1 78 82
+cand S23 1 42 76
+cand S24 1 44 80
+cand S25 1 37 54
+cand S26 1 53 73
+cand S27 1 80 52
+cand S28 1 67 92
+cand S29 1 33 55
+best 1398
+end
+
+case rand-001
+capacity 968
+stock MILK 2 25
+cand FUEL 2 109 10
+cand CRATE 1 34 11
+cand D 2 144 11
+cand E 5 54 10
+cand OXI 1 346 11
+cand B 2 54 12
+cand F 5 18 10
+cand CRATE 1 334 11
+cand F 5 52 12
+cand GAS 2 154 12
+cand F 5 9 10
+cand D 2 160 11
+cand TNT 3 96 11
+cand C 4 17 12
+cand WIRE 4 20 11
+cand H 2 101 10
+cand MILK 2 128 12
+cand FUEL 2 39 12
+cand CRATE 1 317 11
+cand BOLT 5 72 12
+cand BOLT 5 59 11
+cand FUEL 2 34 12
+cand CRATE 1 14 11
+cand GAS 2 29 12
+cand A 1 333 10
+cand A 1 274 10
+cand PIPE 1 64 10
+cand CHEM 5 6 12
+cand D 2 48 12
+cand D 2 43 11
+best 148
+end
+
+case rand-002
+capacity 966
+cand G 2 84 172
+cand G 2 78 160
+cand H 5 27 139
+cand MILK 4 47 189
+cand GAS 3 29 94
+cand WIRE 1 52 57
+cand OXI 5 11 56
+cand CHEM 4 20 81
+cand C 1 148 154
+cand E 5 25 133
+cand BOLT 1 38 39
+cand NUT 1 82 89
+cand CHEM 4 26 108
+cand TNT 4 14 62
+cand C 1 94 96
+cand GAS 3 48 151
+cand CRATE 2 46 98
+cand A 4 16 66
+cand FUEL 2 48 98
+cand WIRE 1 94 98
+cand D 1 19 23
+cand H 5 2 18
+cand NUT 1 178 182
+cand H 5 35 179
+cand NUT 1 193 197
+cand ACID 1 104 112
+cand G 2 88 184
+cand BOLT 1 153 158
+cand D 1 144 152
+cand E 5 21 110
+best 1040
+end
+
+case rand-003
+capacity 939
+stock OXI 5 5
+cand NUT 3 20 121
+cand C 5 17 172
+cand GAS 5 11 112
+cand E 2 25 105
+cand BOLT 2 44 177
+cand CRATE 2 6 27
+cand GAS 5 8 81
+cand D 2 31 129
+cand PIPE 4 15 121
+cand CHEM 3 3 19
+cand A 4 4 35
+cand G 3 10 63
+cand C 5 12 121
+cand G 3 3 20
+cand NUT 3 21 127
+cand D 2 2 9
+cand GAS 5 2 22
+cand WIRE 2 25 102
+cand WIRE 2 42 172
+cand PIPE 4 6 49
+cand TNT 4 11 93
+cand CRATE 2 26 107
+cand BOLT 2 38 155
+cand D 2 24 101
+cand F 1 28 58
+cand FUEL 5 18 183
+cand OXI 5 10 104
+cand OXI 5 2 23
+cand FUEL 5 12 125
+cand D 2 5 25
+best 1900
+end
+
+case rand-004
+capacity 936
+cand F 1 26 30
+cand BOLT 3 28 85
+cand WIRE 1 41 44
+cand D 2 1 8
+cand OXI 4 18 73
+cand CHEM 3 13 40
+cand C 3 27 86
+cand C 3 17 54
+cand MILK 5 5 28
+cand C 3 7 28
+cand E 1 30 34
+cand FUEL 2 46 99
+cand CRATE 5 1 6
+cand E 1 61 65
+cand NUT 2 45 97
+cand FUEL 2 5 16
+cand A 5 14 78
+cand PIPE 4 3 14
+cand C 3 4 14
+cand FUEL 2 18 40
+cand FUEL 2 42 87
+cand CRATE 5 2 11
+cand F 1 74 75
+cand FUEL 2 44 92
+cand TNT 3 5 22
+cand H 2 11 27
+cand GAS 3 23 75
+cand MILK 5 12 61
+cand CRATE 5 17 90
+cand PIPE 4 8 37
+best 1041
+end
+
+case rand-005
+capacity 975
+cand H 5 8 81
+cand PIPE 5 16 162
+cand MILK 2 3 17
+cand TNT 3 30 185
+cand PIPE 5 8 83
+cand FUEL 2 45 185
+cand NUT 4 12 99
+cand E 5 5 53
+cand C 5 2 22
+cand TNT 3 27 166
+cand WIRE 1 80 165
+cand CHEM 2 30 125
+cand NUT 4 18 149
+cand D 2 19 77
+cand D 2 25 104
+cand GAS 5 7 71
+cand FUEL 2 25 101
+cand E 5 3 31
+cand ACID 3 9 56
+cand H 5 7 74
+cand NUT 4 5 44
+cand C 5 16 162
+cand G 2 19 80
+cand E 5 16 162
+cand WIRE 1 3 10
+cand CHEM 2 44 180
+cand MILK 2 35 144
+cand E 5 4 45
+cand A 3 2 13
+cand GAS 5 1 15
+best 2035
+end
+
+case rand-006
+capacity 916
+cand NUT 3 12 1
+cand ACID 2 11 4
+cand WIRE 2 19 2
+cand TNT 4 20 2
+cand ACID 2 17 2
+cand E 2 3 2
+cand GAS 2 8 2
+cand NUT 3 6 5
+cand WIRE 2 9 2
+cand D 1 84 5
+cand GAS 2 29 2
+cand A 4 13 3
+cand CHEM 1 20 2
+cand NUT 3 21 4
+cand CHEM 1 61 4
+cand D 1 89 5
+cand G 5 7 2
+cand OXI 1 1 1
+cand WIRE 2 24 4
+cand CRATE 4 21 3
+cand WIRE 2 15 4
+cand WIRE 2 39 1
+cand H 5 10 4
+cand MILK 2 30 2
+cand FUEL 3 27 5
+cand MILK 2 4 1
+cand ACID 2 34 1
+cand G 5 15 5
+cand WIRE 2 35 1
+cand CHEM 1 43 3
+best 71
+end
+
+case rand-007
+capacity 993
+stock PIPE 1 38
+cand WIRE 4 30 126
+cand GAS 3 8 30
+cand H 5 38 198
+cand G 2 83 169
+cand GAS 3 47 146
+cand C 5 23 117
+cand ACID 3 61 187
+cand OXI 3 8 25
+cand ACID 3 59 182
+cand F 5 31 161
+cand E 3 16 56
+cand PIPE 1 125 127
+cand ACID 3 49 152
+cand B 4 41 170
+cand BOLT 3 12 44
+cand NUT 1 128 133
+cand D 2 58 120
+cand G 2 54 110
+cand GAS 3 10 37
+cand E 3 47 144
+cand BOLT 3 10 33
+cand NUT 1 105 111
+cand A 4 25 101
+cand GAS 3 24 74
+cand WIRE 4 47 196
+cand E 3 41 130
+cand F 5 33 166
+cand F 5 19 99
+cand TNT 3 1 10
+cand A 4 46 186
+best 1030
+end
+
+case rand-008
+capacity 972
+cand FUEL 3 53 4
+cand OXI 5 23 5
+cand C 5 16 2
+cand CRATE 4 46 2
+cand H 1 148 5
+cand A 5 6 5
+cand CRATE 4 25 2
+cand CRATE 4 21 1
+cand B 2 24 5
+cand NUT 5 195 3
+cand F 5 31 2
+cand D 1 189 4
+cand MILK 4 2 2
+cand G 4 23 2
+cand BOLT 4 31 5
+cand BOLT 4 30 4
+cand CRATE 4 47 2
+cand F 5 24 2
+cand MILK 4 30 5
+cand GAS 5 27 3
+cand NUT 5 7 2
+cand C 5 23 4
+cand PIPE 4 42 1
+cand CRATE 4 22 1
+cand C 5 3 1
+cand H 1 55 2
+cand CRATE 4 21 4
+cand PIPE 4 30 4
+cand C 5 31 4
+cand G 4 44 1
+best 47
+end
+
+case rand-009
+capacity 970
+cand FUEL 1 66 134
+cand B 1 35 71
+cand MILK 2 33 136
+cand WIRE 4 84 677
+cand E 1 331 665
+cand CRATE 4 39 313
+cand A 2 50 201
+cand ACID 3 90 545
+cand MILK 2 128 514
+cand NUT 4 69 556
+cand OXI 2 104 420
+cand PIPE 3 126 757
+cand F 2 154 621
+cand PIPE 3 21 128
+cand A 2 114 458
+cand A 2 54 221
+cand E 1 55 115
+cand G 4 59 473
+cand OXI 2 64 260
+cand B 1 54 112
+cand B 1 242 486
+cand H 2 20 84
+cand GAS 2 89 357
+cand ACID 3 11 70
+cand B 1 231 463
+cand CHEM 5 50 502
+cand CRATE 4 61 493
+cand FUEL 1 202 406
+cand G 4 43 347
+cand CRATE 4 74 595
+best 1978
+end
+
+case rand-010
+capacity 979
+cand E 4 55 12
+cand BOLT 4 70 11
+cand WIRE 3 29 11
+cand CRATE 4 78 12
+cand H 3 79 12
+cand D 5 37 12
+cand CHEM 1 350 11
+cand F 4 58 10
+cand TNT 3 117 11
+cand NUT 5 34 11
+cand CHEM 1 114 12
+cand MILK 2 169 11
+cand BOLT 4 43 12
+cand C 4 67 11
+cand B 4 43 12
+cand GAS 5 28 12
+cand D 5 21 12
+cand G 3 88 10
+cand E 4 18 10
+cand ACID 3 21 12
+cand OXI 1 123 10
+cand B 4 97 11
+cand F 4 13 10
+cand OXI 1 276 12
+cand ACID 3 32 10
+cand G 3 44 10
+cand C 4 33 11
+cand TNT 3 71 11
+cand GAS 5 39 10
+cand TNT 3 31 10
+best 110
+end
+
+case rand-011
+capacity 927
+stock TNT 1 13
+cand NUT 3 101 10
+cand PIPE 4 68 11
+cand BOLT 1 83 11
+cand D 1 355 10
+cand C 5 3 11
+cand C 5 24 11
+cand A 2 81 11
+cand CHEM 1 354 10
+cand E 2 32 12
+cand A 2 42 10
+cand MILK 3 114 10
+cand CHEM 1 335 10
+cand WIRE 2 90 10
+cand OXI 3 117 11
+cand C 5 70 10
+cand NUT 3 10 11
+cand PIPE 4 16 12
+cand OXI 3 58 11
+cand FUEL 1 324 10
+cand G 3 56 12
+cand ACID 2 122 11
+cand CRATE 2 168 11
+cand PIPE 4 32 11
+cand MILK 3 66 11
+cand BOLT 1 37 10
+cand E 2 8 10
+cand OXI 3 42 12
+cand GAS 1 208 11
+cand D 1 169 12
+cand E 2 140 11
+best 124
+end
+
+case rand-012
+capacity 971
+cand BOLT 3 120 721
+cand D 5 31 314
+cand B 3 42 255
+cand D 5 55 554
+cand F 3 72 435
+cand FUEL 5 16 164
+cand F 3 65 395
+cand TNT 1 14 30
+cand C 4 74 596
+cand FUEL 5 27 275
+cand PIPE 2 99 400
+cand CHEM 3 52 315
+cand E 2 6 25
+cand CRATE 2 39 157
+cand ACID 4 25 202
+cand D 5 20 201
+cand MILK 1 112 226
+cand WIRE 4 46 373
+cand H 4 54 435
+cand OXI 2 128 515
+cand A 3 103 623
+cand BOLT 3 24 146
+cand MILK 1 206 416
+cand D 5 22 221
+cand C 4 83 668
+cand BOLT 3 44 269
+cand CRATE 2 76 308
+cand NUT 1 171 346
+cand MILK 1 161 326
+cand A 3 13 80
+best 1975
+end
+
+case rand-013
+capacity 684
+cand FUEL 5 21 214
+cand H 4 19 157
+cand ACID 3 39 239
+cand TNT 5 21 215
+cand PIPE 4 31 251
+cand CRATE 5 20 203
+cand F 1 90 181
+cand BOLT 1 121 247
+cand WIRE 1 45 91
+cand C 2 26 109
+cand ACID 3 8 49
+cand A 1 37 79
+cand OXI 3 45 272
+cand B 5 5 52
+cand PIPE 4 19 153
+cand NUT 2 30 122
+best 1403
+end
+
+case rand-014
+capacity 539
+cand A 3 6 5
+cand ACID 1 90 2
+cand TNT 4 14 5
+cand MILK 5 2 3
+cand D 4 12 3
+cand TNT 4 3 2
+cand C 4 10 3
+cand F 5 1 4
+cand GAS 3 1 4
+cand TNT 4 22 3
+cand CRATE 3 13 1
+cand CRATE 3 11 5
+cand F 5 4 5
+cand G 5 1 5
+cand G 5 5 4
+cand H 1 81 1
+cand WIRE 3 17 3
+cand H 1 12 3
+cand MILK 5 9 5
+cand BOLT 5 15 5
+cand ACID 1 55 3
+cand WIRE 3 18 3
+cand F 5 17 3
+cand ACID 1 99 4
+cand G 5 10 4
+cand A 3 29 5
+cand A 3 30 4
+best 68
+end
+
+case rand-015
+capacity 926
+stock CHEM 4 13
+stock E 5 9
+stock ACID 2 24
+cand PIPE 4 5 12
+cand CRATE 3 18 12
+cand ACID 2 15 12
+cand FUEL 4 7 11
+cand WIRE 3 15 10
+cand FUEL 4 2 12
+cand WIRE 3 18 12
+cand F 3 9 11
+cand FUEL 4 6 12
+cand FUEL 4 4 10
+best 114
+end
+
+case rand-016
+capacity 289
+stock C 1 28
+stock FUEL 1 4
+cand D 2 5 23
+cand CHEM 3 2 13
+cand E 2 2 13
+cand A 4 6 51
+cand E 2 9 41
+cand D 2 9 40
+cand TNT 3 6 38
+cand MILK 3 3 23
+cand OXI 2 11 46
+cand C 1 23 47
+cand CRATE 3 7 45
+cand C 1 14 32
+best 412
+end
+
+case rand-017
+capacity 119
+cand BOLT 5 4 12
+cand A 1 39 10
+cand H 2 17 12
+cand G 1 34 11
+cand F 3 15 10
+cand OXI 5 9 12
+best 36
+end
+
+case rand-018
+capacity 920
+cand CHEM 3 7 11
+cand FUEL 5 3 40
+cand E 2 41 25
+cand MILK 2 22 9
+cand D 5 3 6
+cand D 5 8 18
+cand PIPE 3 24 46
+cand MILK 2 3 54
+cand WIRE 3 4 10
+cand E 2 12 47
+cand TNT 2 17 27
+cand TNT 2 23 10
+cand WIRE 3 10 46
+cand WIRE 3 16 32
+cand PIPE 3 20 51
+cand NUT 5 16 42
+cand MILK 2 5 26
+cand ACID 5 8 5
+cand CHEM 3 14 60
+cand CHEM 3 12 32
+best 597
+end
+
+case rand-019
+capacity 35
+stock B 5 1
+cand E 1 3 10
+cand A 3 2 12
+cand A 3 2 14
+cand PIPE 2 1 6
+cand NUT 5 1 10
+cand MILK 5 1 9
+cand G 5 1 8
+cand BOLT 3 1 7
+cand A 3 2 8
+cand D 4 1 9
+cand WIRE 5 1 9
+cand MILK 5 1 7
+cand FUEL 2 2 8
+cand H 5 1 13
+cand B 5 1 11
+cand G 5 1 11
+best 74
+end
+
+case rand-020
+capacity 325
+cand G 3 21 129
+cand TNT 2 26 107
+cand WIRE 5 24 245
+cand G 3 38 229
+cand TNT 2 65 261
+cand GAS 4 19 154
+cand ACID 4 28 225
+cand F 1 87 177
+cand C 2 62 250
+cand G 3 33 201
+best 661
+end
+
+case rand-021
+capacity 17
+stock ACID 3 3
+stock CRATE 2 1
+cand MILK 1 1 2
+cand OXI 3 1 2
+cand BOLT 4 1 4
+cand BOLT 4 1 2
+cand GAS 4 1 4
+cand CRATE 2 1 3
+cand CRATE 2 1 1
+cand BOLT 4 1 2
+cand F 3 1 5
+cand PIPE 4 1 1
+cand OXI 3 1 3
+cand D 2 1 1
+cand GAS 4 1 3
+cand OXI 3 1 4
+best 10
+end
+
+case rand-022
+capacity 45
+stock G 5 3
+stock F 1 1
+cand TNT 3 1 11
+cand TNT 3 1 10
+cand F 1 4 12
+cand PIPE 1 3 11
+cand TNT 3 1 11
+cand E 4 1 11
+cand C 2 1 11
+cand D 3 1 12
+cand WIRE 3 1 10
+cand CRATE 5 1 10
+cand A 2 1 12
+cand B 1 4 10
+cand A 2 2 11
+cand FUEL 1 5 12
+cand ACID 2 2 12
+cand OXI 4 1 11
+cand H 2 1 11
+cand FUEL 1 3 11
+cand ACID 2 1 11
+best 121
+end
+
+case rand-023
+capacity 851
+stock FUEL 1 154
+stock C 4 25
+stock ACID 2 9
+cand ACID 2 13 10
+cand A 2 19 14
+cand WIRE 5 3 35
+cand WIRE 5 5 35
+cand D 3 8 10
+best 104
+end
+
+case rand-024
+capacity 243
+cand CRATE 2 3 14
+cand F 2 22 92
+cand E 2 2 11
+best 117
+end
+
+case rand-025
+capacity 137
+cand F 2 1 8
+cand WIRE 5 2 23
+best 31
+end
+
+case rand-026
+capacity 415
+cand WIRE 5 25 11
+cand E 1 24 10
+cand CRATE 2 55 12
+cand D 1 34 10
+cand C 5 9 12
+cand BOLT 3 6 11
+cand A 4 25 12
+cand F 1 16 10
+cand MILK 1 156 12
+cand F 1 69 10
+cand MILK 1 153 10
+cand C 5 5 10
+cand PIPE 3 16 12
+cand A 4 21 10
+cand E 1 62 11
+cand FUEL 3 39 10
+cand F 1 88 12
+cand H 4 38 10
+cand A 4 35 10
+cand B 5 7 10
+cand ACID 4 2 11
+cand C 5 11 11
+cand BOLT 3 30 10
+best 119
+end
+
+case rand-027
+capacity 360
+stock G 4 2
+cand G 4 8 65
+cand PIPE 1 32 65
+cand E 4 15 121
+cand CRATE 4 5 44
+cand CRATE 4 11 91
+cand CRATE 4 14 117
+cand B 2 17 73
+cand D 4 16 130
+cand ACID 3 16 98
+cand FUEL 5 1 15
+cand C 1 34 69
+cand C 1 29 59
+cand D 4 16 129
+best 730
+end
+
+case rand-028
+capacity 319
+cand E 4 5 41
+cand BOLT 5 17 173
+cand MILK 1 107 215
+cand MILK 1 55 111
+cand ACID 4 23 188
+cand B 5 19 193
+cand E 4 20 165
+cand FUEL 5 2 21
+cand B 5 25 252
+cand ACID 4 29 236
+cand C 1 112 229
+cand TNT 4 17 139
+cand A 2 5 25
+cand D 1 106 216
+cand D 1 51 103
+cand FUEL 5 20 205
+cand OXI 4 18 146
+cand C 1 72 148
+cand FUEL 5 11 112
+cand OXI 4 27 218
+cand OXI 4 11 93
+cand C 1 84 173
+cand D 1 67 135
+cand C 1 112 226
+cand CHEM 3 8 52
+cand CHEM 3 35 213
+cand C 1 8 20
+cand C 1 33 68
+cand NUT 5 16 162
+cand NUT 5 1 14
+best 672
+end
+
+case rand-029
+capacity 156
+cand OXI 2 28 45
+cand E 5 8 42
+cand ACID 5 1 36
+cand F 3 15 24
+cand F 3 14 17
+cand TNT 3 2 30
+cand CRATE 2 14 6
+cand MILK 1 19 6
+cand NUT 1 19 47
+cand G 5 3 19
+cand E 5 4 55
+cand CHEM 2 26 60
+cand WIRE 5 7 12
+cand A 3 5 56
+cand C 1 6 48
+cand H 4 4 58
+cand CHEM 2 15 44
+cand PIPE 4 9 21
+cand CRATE 2 19 55
+cand D 4 3 54
+cand C 1 14 38
+cand A 3 12 31
+cand FUEL 5 2 10
+cand BOLT 3 4 2
+best 477
+end
+
+case rand-030
+capacity 334
+cand MILK 5 12 64
+cand GAS 5 11 62
+cand A 5 13 73
+cand F 2 33 69
+cand GAS 5 7 42
+cand D 3 18 61
+cand C 2 32 71
+cand GAS 5 11 57
+cand MILK 5 4 23
+cand OXI 5 3 19
+cand NUT 3 1 10
+cand TNT 2 11 25
+cand D 3 16 56
+cand GAS 5 1 12
+cand H 4 2 11
+cand BOLT 4 13 56
+cand FUEL 2 32 69
+cand BOLT 4 4 24
+cand PIPE 5 3 20
+cand H 4 14 57
+cand PIPE 5 11 61
+cand G 4 5 28
+cand GAS 5 9 48
+cand OXI 5 9 51
+cand BOLT 4 10 42
+cand CHEM 5 7 40
+cand H 4 4 17
+cand C 2 19 44
+best 415
+end
+
+case rand-031
+capacity 100
+stock NUT 5 4
+stock GAS 3 1
+cand E 3 1 11
+cand G 2 1 9
+cand A 2 1 6
+cand FUEL 4 1 10
+cand D 1 1 3
+cand NUT 5 1 14
+cand FUEL 4 1 13
+cand BOLT 5 1 13
+cand NUT 5 1 11
+cand FUEL 4 1 13
+cand CHEM 5 1 14
+cand TNT 1 6 13
+cand H 1 1 6
+cand A 2 1 5
+cand B 1 5 12
+cand F 1 6 13
+cand CHEM 5 1 12
+cand ACID 2 3 13
+cand PIPE 1 6 14
+cand TNT 1 5 15
+cand D 1 4 11
+cand OXI 2 1 9
+cand E 3 2 15
+cand TNT 1 3 7
+cand H 1 5 12
+cand PIPE 1 7 17
+cand OXI 2 1 7
+cand F 1 1 3
+best 222
+end
+
+case rand-032
+capacity 807
+cand B 5 47 472
+cand CRATE 5 25 255
+cand WIRE 3 48 289
+cand ACID 3 36 218
+cand NUT 2 3 17
+cand NUT 2 88 355
+cand ACID 3 90 541
+cand G 1 247 498
+cand CRATE 5 32 323
+cand MILK 4 63 505
+cand MILK 4 66 533
+cand ACID 3 6 39
+cand CRATE 5 21 211
+cand BOLT 4 65 525
+cand NUT 2 25 104
+best 1639
+end
+
+case rand-033
+capacity 265
+cand NUT 3 11 37
+cand BOLT 1 29 32
+cand A 4 7 36
+cand MILK 1 40 42
+cand TNT 2 17 38
+cand TNT 2 3 12
+cand GAS 3 15 50
+cand CHEM 3 16 55
+cand MILK 1 13 19
+cand E 4 7 31
+cand F 2 2 6
+cand C 1 51 55
+cand OXI 2 5 14
+cand GAS 3 17 57
+cand OXI 2 15 38
+cand H 3 7 24
+cand TNT 2 18 43
+cand H 3 3 13
+cand G 2 2 9
+cand F 2 4 12
+cand D 4 8 37
+cand PIPE 2 13 32
+cand G 2 20 48
+cand E 4 13 59
+cand F 2 26 55
+cand GAS 3 14 46
+cand PIPE 2 13 30
+cand CRATE 5 3 18
+cand A 4 7 32
+cand B 2 17 36
+best 339
+end
+
+case rand-034
+capacity 37
+cand H 3 2 8
+cand A 4 1 12
+cand FUEL 3 2 14
+cand GAS 5 1 7
+cand F 1 2 4
+cand E 2 3 8
+cand B 4 1 5
+cand CHEM 4 1 8
+cand F 1 3 8
+cand TNT 4 1 11
+cand MILK 2 3 7
+cand B 4 1 11
+cand F 1 1 6
+cand GAS 5 1 13
+cand MILK 2 1 10
+cand WIRE 4 1 7
+cand FUEL 3 1 10
+cand BOLT 1 4 12
+cand C 5 1 11
+cand TNT 4 1 8
+cand H 3 1 11
+cand G 2 3 10
+cand D 1 2 10
+cand BOLT 1 5 6
+best 118
+end
+
+case rand-035
+capacity 226
+cand E 4 7 31
+cand H 1 73 79
+cand CHEM 1 74 77
+cand FUEL 3 30 91
+cand TNT 2 22 48
+cand BOLT 3 10 36
+cand G 2 14 35
+cand OXI 2 25 55
+cand H 1 65 68
+cand C 4 9 43
+cand BOLT 3 9 31
+cand F 4 2 9
+cand CHEM 1 37 39
+cand FUEL 3 27 89
+cand TNT 2 4 16
+cand ACID 2 23 50
+cand CHEM 1 56 58
+cand D 4 18 76
+cand TNT 2 33 70
+cand E 4 2 12
+cand H 1 77 82
+cand A 5 6 37
+cand PIPE 2 15 32
+cand NUT 4 12 56
+cand CHEM 1 51 57
+cand GAS 1 33 41
+cand F 4 11 48
+cand C 4 15 61
+cand MILK 2 3 11
+best 284
+end
+
+case rand-036
+capacity 186
+cand FUEL 1 8 21
+best 21
+end
+
+case rand-037
+capacity 580
+cand GAS 3 18 4
+cand GAS 3 22 5
+cand NUT 1 111 1
+cand C 4 11 1
+cand C 4 18 4
+cand NUT 1 48 3
+cand ACID 5 16 4
+cand NUT 1 23 5
+cand NUT 1 25 5
+cand NUT 1 16 1
+cand CRATE 5 13 3
+cand F 2 43 3
+cand NUT 1 76 5
+cand D 4 10 2
+cand CRATE 5 18 3
+cand TNT 2 13 1
+cand F 2 8 2
+cand CHEM 1 581 4
+cand F 2 4 5
+best 47
+end
+
+case rand-038
+capacity 746
+cand NUT 4 20 21
+cand BOLT 2 30 2
+cand F 1 137 46
+cand D 5 7 53
+cand H 1 123 15
+best 137
+end
+
+case rand-039
+capacity 287
+stock E 5 18
+cand TNT 5 2 12
+cand TNT 5 3 12
+cand MILK 1 10 11
+cand TNT 5 2 10
+cand MILK 1 5 11
+cand ACID 2 4 10
+cand ACID 2 8 10
+cand NUT 3 2 11
+cand MILK 1 10 12
+cand MILK 1 19 10
+cand H 4 2 10
+cand OXI 5 1 11
+cand G 2 1 11
+cand WIRE 1 1 11
+cand H 4 4 11
+cand D 5 2 10
+cand GAS 3 4 10
+cand MILK 1 4 12
+cand FUEL 4 3 11
+cand ACID 2 2 10
+cand C 5 2 11
+cand WIRE 1 16 11
+cand WIRE 1 13 12
+cand ACID 2 7 12
+cand H 4 3 11
+cand CRATE 1 13 12
+best 243
+end
+
+case rand-040
+capacity 261
+stock GAS 2 2
+cand H 2 11 3
+cand F 3 1 5
+cand A 1 2 2
+cand PIPE 1 1 4
+cand ACID 1 15 1
+cand OXI 4 4 4
+cand MILK 4 3 1
+cand D 5 5 2
+cand CRATE 4 1 3
+cand C 4 2 3
+cand MILK 4 1 3
+cand H 2 11 3
+cand F 3 4 1
+cand OXI 4 3 3
+cand ACID 1 24 4
+cand GAS 2 1 4
+cand OXI 4 1 2
+cand NUT 3 7 5
+cand G 2 7 3
+cand B 5 5 2
+cand A 1 4 2
+cand E 5 1 4
+cand ACID 1 20 3
+cand OXI 4 4 2
+best 66
+end
+
+case rand-041
+capacity 959
+cand G 1 87 11
+cand D 2 3 12
+cand WIRE 4 24 12
+cand E 4 19 12
+cand A 4 20 11
+cand D 2 54 10
+cand E 4 35 11
+cand BOLT 1 130 11
+cand CHEM 5 6 12
+cand NUT 1 84 11
+cand TNT 5 13 12
+cand D 2 14 12
+cand B 5 28 11
+cand GAS 4 19 10
+cand G 1 186 10
+cand B 5 24 10
+cand NUT 1 170 11
+cand H 4 41 10
+cand A 4 46 12
+cand F 2 40 10
+cand NUT 1 960 12
+cand A 4 21 10
+best 146
+end
+
+case rand-042
+capacity 130
+cand H 3 2 11
+cand MILK 4 1 12
+cand B 4 2 10
+cand D 4 1 12
+cand E 4 3 11
+cand F 3 2 11
+cand E 4 3 10
+cand NUT 5 1 10
+cand NUT 5 1 12
+cand TNT 4 2 10
+cand ACID 1 1 11
+cand B 4 1 12
+cand CHEM 3 4 10
+cand C 4 1 12
+cand NUT 5 2 10
+cand CHEM 3 3 11
+cand TNT 4 3 11
+cand H 3 4 12
+cand ACID 1 3 12
+best 200
+end
+
+case rand-043
+capacity 56
+cand ACID 4 1 12
+cand MILK 2 2 11
+cand G 3 1 8
+cand E 2 1 7
+cand MILK 2 2 13
+best 51
+end
+
+case rand-044
+capacity 424
+cand PIPE 3 46 5
+cand MILK 5 16 3
+cand OXI 1 139 3
+cand MILK 5 19 5
+cand MILK 5 8 2
+cand A 4 15 4
+cand F 5 14 5
+cand PIPE 3 32 1
+cand H 5 3 5
+cand WIRE 4 23 1
+cand MILK 5 10 4
+cand A 4 19 3
+cand B 1 167 1
+cand OXI 1 150 2
+cand G 5 33 3
+cand TNT 4 22 1
+cand CHEM 3 142 3
+cand OXI 1 88 4
+cand NUT 5 27 3
+cand PIPE 3 30 2
+cand NUT 5 29 1
+cand CHEM 3 3 5
+cand MILK 5 32 1
+cand B 1 71 5
+best 35
+end
+
+case rand-045
+capacity 50
+cand G 1 3 7
+cand PIPE 2 6 28
+cand D 4 4 35
+cand A 1 2 5
+cand H 1 2 7
+cand G 1 20 45
+cand FUEL 1 4 12
+cand B 2 7 30
+best 117
+end
+
+case rand-046
+capacity 238
+stock A 1 163
+cand G 1 3 10
+cand FUEL 2 1 11
+cand ACID 1 7 12
+cand MILK 2 2 12
+cand G 1 1 11
+cand F 2 3 12
+cand G 1 1 12
+cand CRATE 1 6 10
+cand G 1 2 10
+cand FUEL 2 3 11
+cand OXI 4 1 10
+cand ACID 1 7 11
+cand F 2 3 10
+cand MILK 2 1 11
+best 153
+end
+
+case rand-047
+capacity 26
+stock OXI 1 15
+cand MILK 5 1 11
+cand OXI 1 3 11
+cand OXI 1 4 11
+cand C 5 1 13
+cand BOLT 1 4 10
+cand C 5 1 13
+cand NUT 4 1 11
+cand E 3 1 10
+cand WIRE 4 1 13
+cand PIPE 2 2 10
+cand NUT 4 1 13
+cand E 3 1 7
+cand FUEL 3 1 7
+cand G 4 1 12
+cand E 3 1 10
+cand CHEM 2 1 9
+cand NUT 4 1 11
+best 40
+end
+
+case rand-048
+capacity 974
+cand G 2 116 10
+cand WIRE 5 76 10
+cand H 2 27 10
+cand E 1 302 11
+cand ACID 4 17 10
+cand A 2 160 11
+cand G 2 140 11
+cand D 2 104 11
+cand ACID 4 43 11
+cand WIRE 5 8 11
+cand PIPE 4 23 12
+cand F 5 20 10
+cand PIPE 4 90 11
+cand BOLT 5 25 12
+cand F 5 9 10
+cand BOLT 5 73 10
+cand D 2 59 10
+cand BOLT 5 13 12
+cand NUT 1 22 10
+cand OXI 2 25 10
+cand ACID 4 7 10
+cand PIPE 4 69 11
+cand D 2 192 10
+best 129
+end
+
+case rand-049
+capacity 598
+cand CHEM 5 13 52
+cand CHEM 5 1 31
+cand D 3 30 60
+cand A 5 10 45
+cand GAS 3 8 49
+cand PIPE 1 50 53
+cand D 3 15 60
+cand GAS 3 3 7
+cand PIPE 1 60 50
+cand D 3 4 16
+cand H 5 13 41
+cand TNT 2 13 3
+cand OXI 1 87 59
+cand A 5 7 22
+cand D 3 15 11
+cand F 3 24 3
+cand A 5 8 8
+cand WIRE 4 15 25
+cand A 5 15 34
+cand OXI 1 43 24
+cand A 5 6 34
+cand CRATE 2 16 11
+cand TNT 2 19 27
+cand F 3 18 9
+cand GAS 3 25 16
+cand F 3 200 14
+cand CRATE 2 9 48
+cand D 3 23 28
+cand TNT 2 26 32
+best 596
+end
+
+case rand-050
+capacity 228
+cand CHEM 2 10 58
+cand GAS 2 5 4
+cand CHEM 2 7 56
+cand G 4 8 34
+cand OXI 2 10 11
+cand OXI 2 3 57
+cand BOLT 5 7 47
+cand B 2 1 7
+best 274
+end
+
+case rand-051
+capacity 200
+cand OXI 4 20 35
+cand C 4 1 24
+cand C 4 1 20
+cand F 4 12 24
+cand CHEM 1 55 29
+cand WIRE 1 40 48
+cand B 3 21 33
+cand E 2 8 51
+cand BOLT 2 101 40
+cand E 2 34 4
+cand CRATE 2 7 14
+cand CHEM 1 15 41
+cand PIPE 4 14 46
+cand GAS 1 48 2
+cand E 2 35 51
+best 268
+end
+
+case rand-052
+capacity 884
+cand NUT 4 2 12
+cand PIPE 4 21 90
+cand G 1 50 56
+cand G 1 56 57
+cand CRATE 5 1 9
+cand MILK 3 26 81
+cand BOLT 3 18 57
+cand NUT 4 16 66
+cand F 1 39 43
+cand MILK 3 12 42
+cand H 3 22 73
+best 586
+end
+
+case rand-053
+capacity 357
+stock F 5 7
+stock OXI 5 35
+cand NUT 2 13 12
+cand OXI 5 1 10
+cand PIPE 3 1 10
+cand A 3 9 11
+cand C 5 1 10
+cand MILK 4 5 11
+cand WIRE 5 3 10
+cand CHEM 1 21 11
+cand B 3 6 10
+cand G 5 5 10
+cand GAS 3 7 11
+cand B 3 2 12
+cand GAS 3 5 11
+cand A 3 8 11
+cand ACID 3 1 10
+best 118
+end
+
+case rand-054
+capacity 127
+stock G 4 8
+stock ACID 1 16
+stock GAS 1 11
+cand D 3 2 25
+cand G 4 1 17
+cand B 4 1 43
+cand WIRE 5 1 11
+cand ACID 1 5 11
+cand G 4 1 60
+cand GAS 1 1 16
+cand PIPE 1 3 36
+cand C 3 1 46
+cand OXI 1 2 43
+cand BOLT 4 1 7
+cand A 3 2 6
+cand ACID 1 4 9
+cand F 1 6 53
+cand H 2 3 29
+cand F 1 3 25
+cand D 3 2 29
+cand BOLT 4 1 12
+cand WIRE 5 1 39
+cand FUEL 1 4 2
+cand CHEM 5 1 58
+cand B 4 1 22
+cand BOLT 4 1 5
+cand PIPE 1 1 4
+cand OXI 1 6 4
+cand ACID 1 2 19
+best 572
+end
+
+case rand-055
+capacity 50
+cand BOLT 1 15 11
+cand B 5 2 11
+cand C 1 10 12
+cand H 3 3 12
+cand NUT 1 10 10
+cand E 1 4 12
+cand PIPE 1 11 10
+cand CHEM 5 1 10
+cand C 1 7 10
+cand WIRE 3 2 10
+cand C 1 9 10
+cand ACID 3 4 11
+cand TNT 4 5 10
+cand B 5 1 11
+cand GAS 1 18 11
+cand D 5 2 10
+cand E 1 18 10
+cand G 2 7 12
+cand F 5 4 10
+cand C 1 19 10
+cand G 2 4 12
+cand NUT 1 19 11
+cand G 2 10 11
+cand NUT 1 16 10
+best 79
+end
+
+case rand-056
+capacity 37
+cand OXI 2 2 10
+cand GAS 3 1 11
+cand E 1 6 10
+cand GAS 3 2 11
+cand CRATE 1 3 10
+cand F 4 1 11
+cand WIRE 4 1 12
+cand WIRE 4 1 11
+cand B 2 3 10
+cand E 1 3 12
+cand ACID 3 1 11
+cand WIRE 4 1 10
+cand ACID 3 1 12
+cand BOLT 4 1 11
+cand G 3 1 10
+cand F 4 1 10
+cand TNT 5 1 10
+cand MILK 4 1 12
+cand GAS 3 2 10
+cand BOLT 4 1 10
+cand NUT 5 1 12
+cand TNT 5 1 11
+cand WIRE 4 1 10
+cand D 5 1 12
+cand H 4 1 11
+cand A 1 5 11
+cand B 2 2 12
+cand BOLT 4 1 12
+cand BOLT 4 1 10
+cand G 3 1 12
+best 126
+end
+
+case rand-057
+capacity 192
+stock MILK 2 37
+stock A 4 15
+cand A 4 2 53
+cand B 2 5 6
+cand MILK 2 4 27
+cand WIRE 4 1 42
+cand FUEL 4 2 22
+cand TNT 2 4 6
+cand D 1 9 44
+cand ACID 5 2 36
+cand NUT 4 2 32
+cand BOLT 5 2 27
+cand B 2 5 15
+cand A 4 2 2
+cand WIRE 4 2 57
+cand G 3 1 52
+cand G 3 3 1
+cand GAS 1 8 12
+best 343
+end
+
+case rand-058
+capacity 55
+stock BOLT 4 2
+cand GAS 4 1 5
+cand C 3 3 4
+cand FUEL 3 2 3
+cand FUEL 3 1 4
+cand BOLT 4 1 4
+cand FUEL 3 2 1
+cand BOLT 4 1 5
+cand B 3 2 2
+cand PIPE 4 1 4
+cand CRATE 5 1 1
+best 32
+end
+
+case rand-059
+capacity 214
+stock PIPE 5 2
+stock GAS 5 2
+cand GAS 5 5 12
+cand OXI 2 2 12
+cand F 3 1 12
+cand PIPE 5 8 11
+cand CHEM 4 7 11
+cand D 4 1 12
+cand C 3 2 11
+cand NUT 4 19 10
+cand B 4 11 11
+cand NUT 4 16 10
+cand ACID 5 8 10
+cand BOLT 1 23 11
+best 103
+end
+
+case rand-060
+capacity 24
+stock MILK 5 1
+stock G 3 1
+cand TNT 4 1 3
+cand CHEM 3 2 5
+cand ACID 5 1 2
+cand FUEL 3 1 4
+cand D 1 3 4
+cand ACID 5 1 1
+cand ACID 5 1 3
+cand C 2 3 1
+cand C 2 3 2
+best 16
+end
+
+case rand-061
+capacity 43
+cand H 5 1 11
+cand G 1 2 5
+cand A 1 4 9
+cand H 5 1 15
+cand H 5 1 14
+cand PIPE 3 1 8
+cand B 4 2 18
+cand BOLT 5 1 11
+cand ACID 2 3 16
+cand BOLT 5 1 14
+cand E 2 1 9
+cand F 3 2 16
+cand PIPE 3 1 7
+cand A 1 7 15
+cand NUT 1 8 20
+cand BOLT 5 1 12
+cand D 4 1 9
+cand FUEL 4 2 17
+cand FUEL 4 1 9
+cand BOLT 5 1 15
+cand GAS 3 2 14
+cand G 1 4 12
+cand F 3 1 7
+cand NUT 1 8 19
+cand GAS 3 2 15
+cand B 4 2 21
+cand FUEL 4 1 11
+cand TNT 1 6 17
+best 125
+end
+
+case rand-062
+capacity 349
+cand GAS 4 2 11
+cand FUEL 1 33 12
+cand BOLT 1 40 12
+cand CHEM 5 1 11
+cand WIRE 3 9 11
+cand MILK 2 22 11
+cand A 2 21 11
+cand F 3 4 11
+cand TNT 3 17 11
+cand TNT 3 6 10
+cand NUT 3 21 11
+cand NUT 3 11 12
+cand WIRE 3 6 11
+cand ACID 3 23 11
+cand G 1 3 12
+cand BOLT 1 49 12
+cand C 1 12 12
+cand FUEL 1 9 11
+cand TNT 3 18 10
+cand G 1 16 12
+cand TNT 3 19 12
+cand OXI 3 23 11
+cand MILK 2 33 12
+cand PIPE 2 19 10
+cand ACID 3 4 10
+best 181
+end
+
+case rand-063
+capacity 30
+stock TNT 1 6
+stock B 1 1
+cand D 5 1 10
+cand PIPE 3 1 11
+cand WIRE 4 1 12
+cand E 5 1 10
+cand CHEM 5 1 11
+cand OXI 2 1 12
+cand E 5 1 11
+cand G 5 1 11
+cand FUEL 4 1 12
+cand GAS 5 1 11
+cand OXI 2 1 10
+cand WIRE 4 1 10
+cand G 5 1 10
+cand ACID 5 1 10
+cand PIPE 3 1 12
+cand MILK 4 1 12
+cand GAS 5 1 10
+best 81
+end
+
+case rand-064
+capacity 47
+stock D 2 13
+stock H 1 1
+cand PIPE 2 2 9
+cand WIRE 5 1 15
+cand C 1 4 13
+cand A 2 4 20
+cand CHEM 3 2 17
+cand C 1 5 13
+cand PIPE 2 1 6
+cand A 2 1 8
+cand TNT 5 1 14
+cand H 1 2 5
+best 61
+end
+
+case rand-065
+capacity 893
+stock BOLT 3 8
+cand B 1 287 2
+cand WIRE 5 64 3
+cand OXI 5 58 1
+cand H 1 85 4
+cand ACID 1 58 2
+cand TNT 3 24 5
+cand H 1 870 2
+cand E 2 96 3
+cand C 2 95 5
+cand F 5 50 5
+cand A 2 101 3
+cand OXI 5 51 1
+cand C 2 134 4
+best 24
+end
+
+case rand-066
+capacity 129
+cand ACID 2 65 4
+cand CHEM 3 5 4
+cand ACID 2 4 4
+cand BOLT 3 5 3
+cand OXI 4 5 5
+cand OXI 4 6 5
+cand F 1 17 4
+cand CRATE 1 19 5
+cand D 1 17 4
+cand WIRE 5 1 4
+best 35
+end
+
+case rand-067
+capacity 946
+stock G 3 91
+cand A 2 3 3
+cand A 2 3 3
+cand E 3 12 3
+cand G 3 6 5
+cand CHEM 4 9 5
+cand A 2 31 5
+cand H 2 9 2
+cand E 3 2 4
+cand D 1 43 4
+cand D 1 39 1
+cand GAS 1 14 1
+cand ACID 4 3 3
+cand CRATE 2 7 4
+cand E 3 6 5
+cand CHEM 4 6 2
+cand TNT 4 6 2
+cand TNT 4 5 1
+cand PIPE 1 61 4
+cand C 1 35 4
+cand CHEM 4 14 2
+cand G 3 19 2
+cand CRATE 2 4 4
+cand F 2 32 2
+best 70
+end
+
+case rand-068
+capacity 99
+cand ACID 4 4 12
+cand F 2 3 11
+cand NUT 5 5 11
+cand TNT 1 14 11
+cand WIRE 2 13 10
+cand NUT 5 7 10
+cand H 5 6 12
+cand ACID 4 7 10
+cand MILK 1 28 12
+cand GAS 1 9 12
+cand B 1 3 11
+cand F 2 13 12
+cand MILK 1 12 11
+cand A 4 6 11
+cand H 5 7 10
+cand F 2 6 11
+cand D 4 6 10
+cand GAS 1 17 11
+cand G 3 7 10
+cand OXI 4 8 11
+cand BOLT 1 38 11
+cand C 3 12 10
+cand F 2 2 11
+cand G 3 13 10
+cand A 4 8 11
+cand CHEM 4 8 11
+best 101
+end
+
+case rand-069
+capacity 417
+cand CRATE 3 5 4
+cand B 5 7 3
+cand WIRE 3 3 5
+cand D 3 10 4
+cand D 3 3 4
+cand GAS 3 8 3
+cand ACID 4 6 4
+cand A 3 11 3
+cand TNT 2 209 5
+cand TNT 2 3 5
+cand MILK 2 19 4
+cand PIPE 2 9 1
+cand MILK 2 15 4
+cand CHEM 1 2 1
+best 45
+end
+
+case rand-070
+capacity 196
+cand D 2 7 10
+cand E 5 1 11
+cand FUEL 4 2 11
+cand TNT 2 7 12
+cand TNT 2 9 12
+cand B 5 3 12
+cand D 2 9 11
+cand FUEL 4 2 11
+cand D 2 9 11
+cand B 5 2 10
+cand CHEM 5 3 11
+best 122
+end
+
+case rand-071
+capacity 39
+cand D 2 4 11
+cand H 2 3 9
+cand PIPE 4 1 6
+cand H 2 4 14
+cand OXI 4 1 5
+cand F 2 2 12
+cand OXI 4 1 6
+cand TNT 3 3 14
+cand OXI 4 3 17
+cand FUEL 2 7 15
+best 66
+end
+
+case rand-072
+capacity 915
+stock WIRE 3 122
+stock TNT 5 5
+cand FUEL 1 5 12
+cand GAS 1 52 105
+cand TNT 5 4 44
+cand CHEM 4 7 60
+cand D 4 6 49
+cand MILK 1 44 89
+cand E 3 10 65
+cand F 1 44 91
+cand B 4 1 9
+cand OXI 1 1 7
+cand F 1 51 103
+cand B 4 3 26
+best 660
+end
+
+case rand-073
+capacity 200
+cand C 5 7 40
+cand B 4 4 21
+cand C 5 7 39
+cand CRATE 4 1 11
+cand B 4 8 37
+cand ACID 1 13 17
+cand GAS 4 2 13
+cand A 1 20 26
+cand ACID 1 24 29
+cand FUEL 4 5 27
+cand CHEM 2 11 23
+cand OXI 1 7 10
+cand H 4 9 40
+cand H 4 3 20
+cand B 4 4 22
+cand A 1 12 13
+cand G 4 6 28
+cand FUEL 4 51 26
+cand CRATE 4 10 43
+best 264
+end
+
+case rand-074
+capacity 796
+cand G 4 37 301
+cand CHEM 2 58 237
+cand D 5 23 234
+cand BOLT 5 22 223
+cand GAS 2 61 247
+cand FUEL 4 37 297
+cand ACID 3 50 305
+cand GAS 2 32 131
+cand A 3 36 219
+cand MILK 5 30 302
+cand A 3 24 146
+cand C 1 104 211
+cand G 4 11 89
+cand WIRE 1 143 287
+cand H 2 25 104
+cand BOLT 5 22 222
+cand H 2 6 28
+best 1625
+end
+
+case rand-075
+capacity 489
+stock ACID 1 9
+cand MILK 1 61 68
+cand PIPE 1 75 79
+cand C 1 153 158
+cand B 5 15 76
+cand H 5 29 149
+cand GAS 3 22 67
+cand GAS 3 37 117
+cand CHEM 1 182 189
+cand GAS 3 3 10
+best 504
+end
+
+case rand-076
+capacity 728
+stock G 2 90
+stock CRATE 5 9
+cand BOLT 2 2 2
+cand G 2 1 2
+cand TNT 4 7 3
+cand WIRE 1 45 5
+cand C 2 4 1
+cand F 3 4 3
+cand C 2 6 1
+cand F 3 2 4
+cand TNT 4 10 5
+cand GAS 4 9 2
+best 28
+end
+
+case rand-077
+capacity 546
+stock PIPE 1 36
+stock C 5 1
+cand E 4 22 181
+cand F 5 7 72
+cand PIPE 1 19 41
+cand NUT 3 12 76
+cand H 2 34 139
+cand CHEM 3 4 26
+cand G 4 7 59
+cand ACID 1 57 118
+cand PIPE 1 12 29
+cand E 4 22 179
+cand G 4 20 161
+cand D 4 13 108
+cand E 4 2 17
+cand E 4 127 205
+cand E 4 17 140
+cand BOLT 1 85 174
+cand CRATE 5 7 74
+cand NUT 3 12 76
+best 1052
+end
+
+case rand-078
+capacity 11
+stock BOLT 1 4
+cand BOLT 1 2 5
+cand FUEL 2 1 7
+cand NUT 4 1 11
+cand OXI 1 2 9
+cand ACID 3 1 9
+cand PIPE 4 1 9
+cand E 4 1 9
+cand D 2 1 5
+cand ACID 3 1 9
+cand OXI 1 1 5
+cand TNT 3 1 10
+cand TNT 3 1 7
+cand E 4 1 11
+cand BOLT 1 2 6
+cand A 2 1 8
+cand CRATE 5 1 13
+cand ACID 3 1 11
+cand H 3 1 9
+cand PIPE 4 1 13
+cand GAS 5 1 15
+cand E 4 1 9
+cand E 4 1 13
+cand MILK 3 1 9
+cand G 2 1 5
+cand TNT 3 1 10
+cand B 4 1 10
+cand WIRE 4 1 9
+cand CHEM 4 1 11
+cand B 4 1 13
+best 29
+end
+
+case rand-079
+capacity 299
+cand WIRE 5 7 73
+cand F 5 18 185
+cand PIPE 1 74 150
+cand E 4 6 52
+cand CRATE 4 13 107
+cand G 3 33 199
+cand CRATE 4 1 10
+cand CHEM 3 7 45
+cand B 2 50 202
+cand H 1 22 49
+cand G 3 36 218
+cand OXI 4 27 219
+cand PIPE 1 28 58
+cand CHEM 3 32 197
+cand C 5 20 201
+cand B 2 54 218
+cand GAS 4 75 74
+cand CHEM 3 34 208
+best 624
+end
+
+case rand-080
+capacity 25
+stock E 4 1
+cand NUT 1 2 16
+cand WIRE 3 1 35
+cand FUEL 5 1 44
+cand PIPE 3 1 4
+cand MILK 5 1 3
+cand PIPE 3 1 48
+cand D 5 1 48
+cand CRATE 3 1 33
+cand F 3 1 26
+cand ACID 3 1 58
+cand GAS 5 1 23
+best 249
+end
+
+case rand-081
+capacity 171
+stock F 2 3
+stock H 5 4
+cand MILK 4 1 8
+cand F 2 2 9
+cand E 3 2 13
+cand CRATE 2 1 4
+cand G 1 9 12
+cand H 5 2 11
+cand B 2 1 5
+cand CRATE 2 1 8
+cand OXI 4 2 10
+cand A 4 3 15
+best 95
+end
+
+case rand-082
+capacity 503
+cand E 1 147 149
+cand FUEL 1 33 38
+cand PIPE 1 11 19
+cand CHEM 4 30 127
+cand ACID 3 48 145
+cand A 5 39 200
+cand TNT 3 46 146
+cand CRATE 2 67 140
+cand ACID 3 41 130
+cand CRATE 2 11 29
+cand CRATE 2 71 145
+cand PIPE 1 151 153
+cand B 4 7 36
+cand F 5 15 82
+cand A 5 15 79
+cand WIRE 3 56 173
+cand H 2 56 120
+cand E 1 142 150
+cand PIPE 1 178 179
+cand CRATE 2 67 140
+cand CHEM 4 44 182
+cand CRATE 2 6 13
+cand A 5 36 184
+cand F 5 12 66
+cand CRATE 2 51 109
+cand CHEM 4 46 189
+cand G 1 59 66
+best 565
+end
+
+case rand-083
+capacity 71
+stock WIRE 1 29
+cand F 5 1 11
+best 11
+end
+
+case rand-084
+capacity 925
+stock C 3 61
+stock CRATE 1 4
+cand C 3 15 50
+cand GAS 2 11 27
+cand G 5 12 63
+cand F 4 6 28
+cand H 2 8 23
+cand E 1 56 57
+cand F 4 6 28
+cand CHEM 1 68 76
+cand CRATE 1 46 52
+cand FUEL 2 370 66
+cand G 5 7 43
+cand PIPE 2 17 35
+cand E 1 44 45
+cand FUEL 2 12 31
+cand B 4 5 23
+cand CRATE 1 29 33
+cand D 1 12 19
+cand FUEL 2 23 49
+cand B 4 9 43
+cand NUT 1 73 75
+cand FUEL 2 20 46
+cand OXI 4 2 9
+cand FUEL 2 5 17
+cand ACID 1 72 78
+best 840
+end
+
+case rand-085
+capacity 562
+cand C 3 5 22
+cand E 4 10 41
+cand B 5 7 39
+cand BOLT 4 11 45
+cand F 1 40 45
+best 192
+end
+
+case rand-086
+capacity 703
+cand H 4 22 94
+cand ACID 1 157 164
+cand MILK 2 99 199
+cand C 1 195 199
+cand WIRE 5 39 196
+cand ACID 1 60 61
+cand A 2 48 97
+cand OXI 2 31 66
+cand OXI 2 16 40
+cand A 2 35 73
+cand CRATE 3 4 18
+cand CHEM 4 27 113
+cand CRATE 3 25 82
+cand BOLT 5 28 141
+cand G 3 59 183
+cand F 3 90 276
+cand H 4 49 202
+cand FUEL 4 44 177
+cand WIRE 5 36 188
+cand FUEL 4 1 9
+cand H 4 70 283
+cand CRATE 3 89 275
+cand H 4 10 45
+cand A 2 46 100
+cand B 1 187 191
+cand CRATE 3 51 156
+cand GAS 3 43 137
+best 765
+end
+
+case rand-087
+capacity 667
+stock A 1 11
+stock ACID 3 2
+stock D 1 94
+cand F 4 11 53
+cand C 3 7 8
+cand GAS 3 14 29
+cand BOLT 3 9 16
+cand WIRE 2 20 52
+cand BOLT 3 18 5
+cand BOLT 3 2 28
+cand FUEL 2 9 36
+cand TNT 4 7 19
+best 246
+end
+
+case rand-088
+capacity 97
+cand A 5 1 9
+cand G 1 9 11
+cand D 4 1 8
+cand NUT 3 2 14
+cand PIPE 1 3 7
+cand ACID 3 2 11
+cand WIRE 5 1 12
+cand B 2 4 9
+cand ACID 3 3 13
+cand CHEM 5 1 13
+cand FUEL 1 6 9
+cand E 5 1 11
+cand PIPE 1 7 15
+cand FUEL 1 5 13
+cand CHEM 5 1 9
+cand GAS 5 1 7
+cand H 1 1 9
+cand A 5 1 6
+cand D 4 2 14
+cand GAS 5 1 11
+cand WIRE 5 1 9
+cand NUT 3 1 8
+cand NUT 3 3 15
+cand C 3 2 9
+cand OXI 3 2 11
+cand A 5 1 9
+best 204
+end
+
+case rand-089
+capacity 37
+stock D 2 7
+cand NUT 5 1 10
+cand FUEL 4 1 12
+best 22
+end
+
+case rand-090
+capacity 974
+stock FUEL 2 7
+cand E 1 15 21
+cand CHEM 5 22 117
+cand TNT 1 61 64
+cand GAS 3 27 84
+cand GAS 3 23 77
+cand B 5 33 169
+cand WIRE 2 47 100
+cand CHEM 5 11 61
+cand E 1 11 13
+cand GAS 3 57 175
+cand TNT 1 153 156
+best 1003
+end
+
