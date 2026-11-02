@@ -122,4 +122,19 @@ Turn off Copilot in VS Code before you start. You will walk Diego through your c
 Stuck? Ask Diego, a mentor or a teammate.
 
 ## My solution
-<!-- Write your approach and the time and space complexity of each part you did. -->
+**Part 1 · processBatch.** Sum inbound and outbound per SKU, then check each SKU's stock + net >= 0 and the weight afterwards against the capacity. The warehouse is only touched after every check passes: inbound is added first, then outbound is removed. Time O(n + k), space O(k) for n lines and k SKUs.
+
+**Part 2 · optimizeInbound.** 0/1 knapsack. `dp[i][w]` = best priority from the first i inbound candidates within weight w, with budget = free capacity. Walking the table backwards finds the chosen objects. Time and space O(n · C), at most 30 × 1000.
+
+**Part 3 · planTrucks.** Exact subset DP. `ok[mask]` says whether a group fits on one truck with no conflict pair. `best[mask]` = fewest trucks, where each step picks a valid truck that contains the lowest remaining shipment, so each split is counted once. Time O(3^n) ≈ 14M steps for n = 15, space O(2^n).
+
+**Part 4 · RecoveryPlanner.** Between days, all that matters is which cargo has shipped, so the state is a bitmask (at most 4096).
+1. For each day, a subset DP over that day's trucks gives the fewest trips needed to ship any subset that evening. Each truck takes one allowed load.
+2. A DP over the days moves from one "shipped" mask to the next. It checks the warehouse every morning and keeps the best (score, then fewest trips).
+3. Back-pointers rebuild the `Plan`.
+
+Time O(D · T · 3^n) ≈ 6.4M steps (about 90 ms at the limits), space O(D · T · 2^n).
+
+**OOP.** Every trip restriction is a small `TripRule` class: `TruckAvailableRule`, `ArrivalRule`, `TruckCapacityRule`, `HazmatCertifiedRule` and `HazmatConflictRule`. A new restriction is a new class passed to `addRule` or the constructor, and the planner stays unchanged. The planner keeps no state between calls and only reads its inputs.
+
+**Testing.** I added edge-case tests to `StarterTests`. I also checked every part against a brute-force solver on thousands of random small cases, with zero mismatches.

@@ -151,6 +151,94 @@ public class StarterTests {
         total++;
         passed += report("Part 4 (final boss): 2 days, 1 truck -> score 8, 2 trips", ok);
 
+
+        // ---- Extra tests ----
+
+        // Part 1: over capacity is rejected and changes nothing.
+        warehouse = new Warehouse(20);
+        manager = new CargoManager(warehouse);
+        batch = new ArrayList<>();
+        batch.add(new Shipment(new Cargo("H", 7), 3, true));
+        ok = !manager.processBatch(batch) && warehouse.getCurrentWeight() == 0 && !warehouse.hasCargo("H");
+        total++;
+        passed += report("Part 1: 21 > capacity 20 -> rejected", ok);
+
+        // Part 1: exactly full is fine, and a new SKU can go in and out in one batch.
+        warehouse = new Warehouse(20);
+        manager = new CargoManager(warehouse);
+        Cargo cargoN = new Cargo("N", 4);
+        batch = new ArrayList<>();
+        batch.add(new Shipment(cargoN, 2, false));
+        batch.add(new Shipment(cargoN, 7, true));
+        ok = manager.processBatch(batch) && warehouse.getStock("N") == 5 && warehouse.getFreeCapacity() == 0;
+        total++;
+        passed += report("Part 1: new SKU in 7 out 2, exactly full -> accepted", ok);
+
+        // Part 2: the warehouse is never changed and nothing too heavy is picked.
+        warehouse = new Warehouse(5);
+        manager = new CargoManager(warehouse);
+        candidates = new ArrayList<>();
+        candidates.add(new Shipment(new Cargo("X", 6), 1, true, 100));
+        candidates.add(new Shipment(new Cargo("Y", 2), 2, true, 3));
+        List<Shipment> picked = manager.optimizeInbound(candidates);
+        ok = picked.size() == 1 && picked.get(0) == candidates.get(1) && warehouse.getCurrentWeight() == 0;
+        total++;
+        passed += report("Part 2: too-heavy candidate skipped, warehouse unchanged", ok);
+
+        // Part 3: conflicting SKUs never share a truck; a too-heavy shipment gives null.
+        manager = new CargoManager(new Warehouse(100));
+        List<Shipment> hazmat = new ArrayList<>();
+        hazmat.add(new Shipment(new Cargo("F", 1), 1, true));
+        hazmat.add(new Shipment(new Cargo("O", 1), 1, true));
+        hazmat.add(new Shipment(new Cargo("F", 1), 1, true));
+        List<String[]> pairs = new ArrayList<>();
+        pairs.add(new String[] {"F", "O"});
+        List<List<Shipment>> loaded = manager.planTrucks(hazmat, 10, pairs);
+        List<Shipment> heavy = new ArrayList<>();
+        heavy.add(new Shipment(new Cargo("Q", 11), 1, true));
+        ok = loaded != null && loaded.size() == 2 && manager.planTrucks(heavy, 10, pairs) == null;
+        total++;
+        passed += report("Part 3: F/O conflict -> 2 trucks; too heavy -> null", ok);
+
+        // Part 4: the warehouse overflows on day 2 unless something ships on day 1.
+        // Warehouse 10. A (8) arrives day 1, B (8) arrives day 2. Truck only on day 1.
+        // A must leave day 1 (even though it scores the same), or day 2 morning is 16 > 10.
+        ArrayList<Integer> dayOne = new ArrayList<>();
+        dayOne.add(1);
+        ArrayList<Truck> oneTruck = new ArrayList<>();
+        oneTruck.add(new Truck("T", 10, false, dayOne));
+        ArrayList<RecoveryCargo> overflow = new ArrayList<>();
+        overflow.add(new RecoveryCargo("A", 8, 1, 1, 2, "NONE"));
+        overflow.add(new RecoveryCargo("B", 8, 1, 2, 2, "NONE"));
+        Warehouse small = new Warehouse(10);
+        plan = planner.plan(new Scenario(small, 2, overflow, oneTruck, null));
+        ok = plan != null && plan.getScore() == 1 && plan.getTripCount() == 1 && small.getCurrentWeight() == 0;
+        total++;
+        passed += report("Part 4: must ship A on day 1 to make room", ok);
+
+        // Part 4: hazmat cargo on an uncertified truck is impossible, so it stays.
+        ArrayList<RecoveryCargo> acid = new ArrayList<>();
+        acid.add(new RecoveryCargo("ACID", 1, 9, 1, 1, "CORROSIVE"));
+        plan = planner.plan(new Scenario(new Warehouse(10), 1, acid, oneTruck, null));
+        ok = plan != null && plan.getScore() == 0 && plan.getTripCount() == 0;
+        total++;
+        passed += report("Part 4: hazmat needs a certified truck", ok);
+
+        // Part 4: no valid plan when the first morning already overflows.
+        ArrayList<RecoveryCargo> huge = new ArrayList<>();
+        huge.add(new RecoveryCargo("BIG", 50, 1, 1, 1, "NONE"));
+        ok = planner.plan(new Scenario(new Warehouse(10), 1, huge, oneTruck, null)) == null;
+        total++;
+        passed += report("Part 4: impossible morning -> null", ok);
+
+        // Part 4: a new rule plugs in without changing the planner.
+        RecoveryPlanner strict = new RecoveryPlanner();
+        strict.addRule((sc, truck, day, load) -> load.size() <= 1);
+        plan = strict.plan(scenario);
+        ok = plan != null && plan.getScore() == 8 && plan.getTripCount() == 2;
+        total++;
+        passed += report("Part 4: extra rule (one cargo per trip) still plans", ok);
+
         System.out.println();
         System.out.println(passed + "/" + total + " passed");
     }
